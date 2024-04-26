@@ -2,6 +2,7 @@
 
 import 'package:e_commerce/src/feature/home/view/widget/catergory_gridview.dart';
 import 'package:e_commerce/src/feature/home/view/widget/container_title.dart';
+import 'package:e_commerce/src/feature/home/view/widget/item_listeview.dart';
 import 'package:e_commerce/src/feature/home/view/widget/slider_image.dart';
 import 'package:e_commerce/src/feature/home/view_model/home_view_model_cubit.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
@@ -36,12 +37,19 @@ class HomeScreen extends StatelessWidget {
                 SliderImage(),
                 Gap(24.h),
                 ContainerTitle(onTap: () {}, title: "Categories"),
+                Gap(10.h),
                 SizedBox(
                   height: 320.h,
                   child: CatergoryGridView(),
                 ),
-                ContainerTitle(onTap: () {}, title: "Categories"),
+                ContainerTitle(onTap: () {}, title: "New Arrival"),
                 Gap(10.h),
+                SizedBox(height: 250.h, child: ItemListView()),
+                Gap(10.h),
+                ContainerTitle(onTap: () {}, title: "Smart Watch"),
+                Gap(10.h),
+                SizedBox(height: 250.h, child: ItemListView()),
+                Gap(20.h),
               ],
             ),
           ),
