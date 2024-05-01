@@ -114,6 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (!emailValid) {
                         return invalidEmail;
                       }
+                      return null;
                     },
                   ),
                   Gap(15.h),

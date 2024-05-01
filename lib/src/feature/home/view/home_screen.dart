@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_commerce/src/data/api/api_manget.dart';
+import 'package:e_commerce/src/domain/usecases/get_all_catergories_usecases.dart';
 import 'package:e_commerce/src/feature/home/view/widget/catergory_gridview.dart';
 import 'package:e_commerce/src/feature/home/view/widget/container_title.dart';
 import 'package:e_commerce/src/feature/home/view/widget/item_listeview.dart';
 import 'package:e_commerce/src/feature/home/view/widget/slider_image.dart';
 import 'package:e_commerce/src/feature/home/view_model/home_view_model_cubit.dart';
-import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:e_commerce/src/widget/custom_text_form_app.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,42 +19,61 @@ import 'package:gap/gap.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "HomeScreen";
-  HomeViewModelCubit viewModel = HomeViewModelCubit();
+
+  HomeViewModelCubit viewModel = HomeViewModelCubit(
+    getAllCategoriesUseCases: injectGetAllCategoriesUseCases(),
+  );
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeViewModelCubit, HomeViewModelState>(
-      bloc: viewModel,
+      bloc: viewModel..getAllCategory(),
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.h),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ContainerSearchWidget(viewModel: viewModel),
-                Gap(10.h),
-                SliderImage(),
-                Gap(24.h),
-                ContainerTitle(onTap: () {}, title: "Categories"),
-                Gap(10.h),
-                SizedBox(
-                  height: 320.h,
-                  child: CatergoryGridView(),
-                ),
-                ContainerTitle(onTap: () {}, title: "New Arrival"),
-                Gap(10.h),
-                SizedBox(height: 250.h, child: ItemListView()),
-                Gap(10.h),
-                ContainerTitle(onTap: () {}, title: "Smart Watch"),
-                Gap(10.h),
-                SizedBox(height: 250.h, child: ItemListView()),
-                Gap(20.h),
-              ],
+        if (state is HomeViewModelLoading) {
+          return Center(child: CircularProgressIndicator());
+        } else if (state is HomeViewModelError) {
+          return Center(
+              child: Text(
+            state.errorMessage ?? 'wrong',
+            style: AppTextStyle.textStyle24.copyWith(
+              color: Colors.black,
             ),
-          ),
-        );
+          ));
+        } else if (state is HomeViewModelSuccess) {
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.h),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ContainerSearchWidget(viewModel: viewModel),
+                  Gap(10.h),
+                  SliderImage(),
+                  Gap(24.h),
+                  ContainerTitle(onTap: () {}, title: "Categories"),
+                  Gap(10.h),
+                  SizedBox(
+                    height: 320.h,
+                    child: CatergoryGridView(
+                      catergoryList: state.categoryResponseEntity.data ?? [],
+                    ),
+                  ),
+                  ContainerTitle(onTap: () {}, title: "New Arrival"),
+                  Gap(10.h),
+                  SizedBox(height: 250.h, child: ItemListView()),
+                  Gap(10.h),
+                  ContainerTitle(onTap: () {}, title: "Smart Watch"),
+                  Gap(10.h),
+                  SizedBox(height: 250.h, child: ItemListView()),
+                  Gap(20.h),
+                ],
+              ),
+            ),
+          );
+        }
+        return SizedBox.shrink();
       },
     );
   }

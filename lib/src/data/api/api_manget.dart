@@ -6,6 +6,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce/src/data/model/request/auth_request/login_request.dart';
 import 'package:e_commerce/src/data/model/response/auth_response_dto/login_response_dto.dart';
+import 'package:e_commerce/src/data/model/response/category_response_dto/categories_response_dto.dart';
 import 'package:e_commerce/src/helper/failuers/failures.dart';
 
 import '../../constant/api_const.dart';
@@ -22,7 +23,7 @@ class ApiManger {
   }
 
   //! function register
-  Future<Either<Failuer, RegisterResponseDto>> register(
+  Future<Either<Failure, RegisterResponseDto>> register(
       RegisterRequest registerRequest) async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -40,20 +41,21 @@ class ApiManger {
       } else if (response.statusCode == 400 &&
           registerResponse.errors != null) {
         //? have error in response such invalid number or email or password or rePassword
-        return Left(Failuer(errorMessage: registerResponse.errors?.msg));
+        return Left(Failure(errorMessage: registerResponse.errors?.msg));
       } else {
         //? account already exists
-        return Left(Failuer(
+        return Left(Failure(
             errorMessage:
                 registerResponse.message ?? "Account Already Exists"));
       }
     } else {
-      return Left(Failuer(errorMessage: 'No Internet Connection'));
+      return Left(Failure(errorMessage: 'No Internet Connection'));
     }
   }
 
   //! function login
-  Future<Either<Failuer, LoginResponseDto>> login(
+
+  Future<Either<Failure, LoginResponseDto>> login(
       {required LoginRequest loginRequest}) async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -69,13 +71,40 @@ class ApiManger {
         return Right(loginResponse);
       } else if (response.statusCode == 400 && loginResponse.errors != null) {
         //? have error in response such invalid   email or password
-        return Left(Failuer(errorMessage: loginResponse.errors?.msg));
+        return Left(Failure(errorMessage: loginResponse.errors?.msg));
       } else {
         //? Incorrect email or password
-        return Left(Failuer(errorMessage: loginResponse.message));
+        return Left(Failure(errorMessage: loginResponse.message));
       }
     } else {
-      return Left(Failuer(errorMessage: 'No Internet Connection'));
+      return Left(Failure(errorMessage: 'No Internet Connection'));
+    }
+  }
+
+  //! function getAllCategories
+
+  Future<Either<Failure, CategoryResponseDto>> getAllCategory() async {
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      //? connected internet
+      Uri url = Uri.https(apiBaseUrl, apiGetAllCategory);
+      var response = await http.get(url);
+
+      var getAllCategoryResponse =
+          CategoryResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //? success get data
+        return Right(getAllCategoryResponse);
+      } else {
+        //? Incorrect
+        return Left(Failure(errorMessage: 'Error in response'));
+      }
+    } else {
+      return Left(Failure(errorMessage: 'No Internet Connection'));
     }
   }
 }

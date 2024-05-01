@@ -4,6 +4,7 @@ import 'package:audiofileplayer/audiofileplayer.dart';
 import 'package:e_commerce/init_screen.dart';
 import 'package:e_commerce/src/constant/string_const_app.dart';
 import 'package:e_commerce/src/domain/usecases/login_usecases.dart';
+import 'package:e_commerce/src/feature/auth/login/view/forget_password_screen.dart';
 import 'package:e_commerce/src/feature/auth/login/view_model/login_view_model_cubit.dart';
 import 'package:e_commerce/src/feature/auth/widget/login_or_signup.dart';
 import 'package:e_commerce/src/feature/auth/widget/title_textfiel.dart';
@@ -129,7 +130,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   highlightColor: Colors.transparent,
                   hoverColor: Colors.transparent,
                   splashColor: Colors.transparent,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed(ForGetPasswordScreen.routeName);
+                  },
                   child: Text(
                     forgotPassword,
                     style: AppTextStyle.textStyle18,

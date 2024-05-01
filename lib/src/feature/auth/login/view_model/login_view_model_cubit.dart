@@ -17,7 +17,7 @@ class LoginViewModelCubit extends Cubit<LoginViewModelState> {
   void login() async {
     if (fromState.currentState!.validate()) {
       emit(LoginViewModelLoading());
-      var either = await loginUseCasese.inVoik(LoginRequest(
+      var either = await loginUseCasese.invoke(LoginRequest(
           email: emailController.text, password: passwordController.text));
       return either.fold((l) {
         emit(LoginViewModelError(errorMessage: l.errorMessage));

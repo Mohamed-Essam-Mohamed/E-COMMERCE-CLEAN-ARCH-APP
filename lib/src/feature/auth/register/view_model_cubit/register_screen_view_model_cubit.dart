@@ -23,7 +23,7 @@ class RegisterViewModelCubit extends Cubit<RegisterViewModelState> {
   void register() async {
     if (formState.currentState!.validate()) {
       emit(RegisterViewModelLoading(loadingMessage: "Loading..."));
-      var either = await registerUseCasese.inVoik(
+      var either = await registerUseCasese.invoke(
         RegisterRequest(
           email: emailController.text,
           password: passwordController.text,

@@ -1,3 +1,8 @@
+import 'package:e_commerce/src/data/api/api_manget.dart';
+import 'package:e_commerce/src/feature/auth/login/view/confirm_email_screen.dart';
+import 'package:e_commerce/src/feature/auth/login/view/forget_password_screen.dart';
+import 'package:e_commerce/src/feature/auth/login/view/reset_password_screen.dart';
+
 import 'src/feature/auth/widget/sign_success_screen.dart';
 import 'src/feature/navigation_bar_screen/view/navigation_bar_screen.dart';
 
@@ -26,7 +31,7 @@ class EcommerceRouteApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: AppTheme.appTheme,
-          initialRoute: NavigationBarScreen.routeName,
+          initialRoute: SplashScreen.routeName,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             SplashScreen.routeName: (context) => SplashScreen(),
@@ -35,6 +40,10 @@ class EcommerceRouteApp extends StatelessWidget {
             RegisterScreen.routeName: (context) => RegisterScreen(),
             SuccessScreen.routeName: (context) => SuccessScreen(),
             NavigationBarScreen.routeName: (context) => NavigationBarScreen(),
+            ForGetPasswordScreen.routeName: (context) => ForGetPasswordScreen(),
+            ConFirmForgetEmailScreen.routeName: (context) =>
+                ConFirmForgetEmailScreen(),
+            ResetPasswordScreen.routeName: (context) => ResetPasswordScreen(),
           },
         );
       },
