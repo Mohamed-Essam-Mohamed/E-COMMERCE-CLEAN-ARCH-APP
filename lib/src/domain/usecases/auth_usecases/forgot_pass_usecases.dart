@@ -10,7 +10,7 @@ class ForgotPasswordUseCases {
   AuthRepositoryContract authRepositoryContract;
   ForgotPasswordUseCases({required this.authRepositoryContract});
   Future<Either<Failure, ForgotPasswordResponseEntity>> invoke(
-      ForgotPasswordRequest forgotPassRequest) {
+      {required ForgotPasswordRequest forgotPassRequest}) {
     return authRepositoryContract.forgotPassword(forgotPassRequest);
   }
 }

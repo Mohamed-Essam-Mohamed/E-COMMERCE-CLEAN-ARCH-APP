@@ -33,9 +33,8 @@ class AuthRepositoruImp extends AuthRepositoryContract {
 
   @override
   Future<Either<Failure, ForgotPasswordResponseEntity>> forgotPassword(
-      ForgotPasswordRequest forgotPasswordRequest) {
-    // TODO: implement forgotPassword
-    throw UnimplementedError();
+      ForgotPasswordRequest forgotPasswordRequest) async {
+    return authDataSourceContract.forgotPassword(forgotPasswordRequest);
   }
 
   @override

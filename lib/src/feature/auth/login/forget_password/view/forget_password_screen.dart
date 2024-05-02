@@ -1,9 +1,12 @@
 import 'package:e_commerce/src/constant/string_const_app.dart';
+import 'package:e_commerce/src/domain/usecases/auth_usecases/forgot_pass_usecases.dart';
 import 'package:e_commerce/src/domain/usecases/auth_usecases/login_usecases.dart';
+import 'package:e_commerce/src/feature/auth/login/forget_password/view_model/forgot_password_cubit.dart';
 import 'package:e_commerce/src/feature/auth/login/view/confirm_email_screen.dart';
 import 'package:e_commerce/src/feature/auth/login/view_model/login_view_model_cubit.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
+import 'package:e_commerce/src/utils/dailog.dart';
 import 'package:e_commerce/src/widget/custom_button_app.dart';
 import 'package:e_commerce/src/widget/custom_text_form_app.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,14 +24,28 @@ class ForGetPasswordScreen extends StatefulWidget {
 }
 
 class _ForGetPasswordScreenState extends State<ForGetPasswordScreen> {
-  LoginViewModelCubit viewModel =
-      LoginViewModelCubit(loginUseCases: injcectLoginUseCasese());
+  ForgotPasswordCubit viewModel = ForgotPasswordCubit(
+      forgotPasswordUseCases: injectForgotPasswordUseCases());
+
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginViewModelCubit, LoginViewModelState>(
+    return BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
       bloc: viewModel,
       listener: (context, state) {
-        // TODO: implement listener
+        if (state is ForgotPasswordLoading) {
+          DialogUtils.showLoading(context: context, message: "loading...");
+        } else if (state is ForgotPasswordError) {
+          DialogUtils.hideLoading(context);
+          DialogUtils.showMessage(
+            context: context,
+            message: state.errorMessage ?? 'wrong',
+          );
+        } else if (state is ForgotPasswordSuccess) {
+          DialogUtils.hideLoading(context);
+          Navigator.of(context).pushNamed(
+            ConFirmForgetEmailScreen.routeName,
+          );
+        }
       },
       child: Scaffold(
         backgroundColor: AppColors.whiteColor,
@@ -62,29 +79,30 @@ class _ForGetPasswordScreenState extends State<ForGetPasswordScreen> {
                       style: AppTextStyle.textStyle18,
                     ),
                     Gap(20.h),
-                    CustomTextFormApp(
-                      hintText: entEmail,
-                      validator: (text) {
-                        if (text == null || text.trim().isEmpty) {
-                          return entEmail;
-                        }
-                        bool emailValid = RegExp(
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(text);
-                        if (!emailValid) {
-                          return invalidEmail;
-                        }
-                        return null;
-                      },
-                      controller: viewModel.emailController,
+                    Form(
+                      key: viewModel.fromState,
+                      child: CustomTextFormApp(
+                        hintText: entEmail,
+                        validator: (text) {
+                          if (text == null || text.trim().isEmpty) {
+                            return entEmail;
+                          }
+                          bool emailValid = RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(text);
+                          if (!emailValid) {
+                            return invalidEmail;
+                          }
+                          return null;
+                        },
+                        controller: viewModel.emailController,
+                      ),
                     ),
                     Gap(MediaQuery.of(context).size.height * 0.2),
                     CustomButtonApp(
                       text: sendCode,
                       onPressed: () {
-                        Navigator.of(context).pushNamed(
-                          ConFirmForgetEmailScreen.routeName,
-                        );
+                        viewModel.forgotPassword();
                       },
                       backgroundColor: AppColors.whiteColor,
                     ),

@@ -1,3 +1,5 @@
+import 'package:e_commerce/src/domain/entities/fotgot_pass_response_entity.dart';
+
 class ForgotPasswordResponseDto {
   String? statusMsg;
   String? message;
@@ -15,4 +17,9 @@ class ForgotPasswordResponseDto {
     data['message'] = this.message;
     return data;
   }
+
+  ForgotPasswordResponseEntity toEntity() => ForgotPasswordResponseEntity(
+        statusMsg: statusMsg,
+        message: message,
+      );
 }

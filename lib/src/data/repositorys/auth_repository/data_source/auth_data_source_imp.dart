@@ -41,9 +41,14 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSourceContract {
 
   @override
   Future<Either<Failure, ForgotPasswordResponseEntity>> forgotPassword(
-      ForgotPasswordRequest forgotPasswordRequest) {
-    // TODO: implement forgotPassword
-    throw UnimplementedError();
+      ForgotPasswordRequest forgotPasswordRequest) async {
+    var either = await apiManger.forgotPassword(
+        forgotPasswordRequest: forgotPasswordRequest);
+    return either.fold((l) {
+      return Left(Failure(errorMessage: l.errorMessage));
+    }, (response) {
+      return Right(response.toEntity());
+    });
   }
 
   @override

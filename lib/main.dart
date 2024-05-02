@@ -1,6 +1,6 @@
 import 'package:e_commerce/src/data/api/api_manget.dart';
 import 'package:e_commerce/src/feature/auth/login/view/confirm_email_screen.dart';
-import 'package:e_commerce/src/feature/auth/login/view/forget_password_screen.dart';
+import 'package:e_commerce/src/feature/auth/login/forget_password/view/forget_password_screen.dart';
 import 'package:e_commerce/src/feature/auth/login/view/reset_password_screen.dart';
 
 import 'src/feature/auth/widget/sign_success_screen.dart';
