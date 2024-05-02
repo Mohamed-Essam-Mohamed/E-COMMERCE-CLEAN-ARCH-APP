@@ -1,6 +1,6 @@
 import 'package:e_commerce/src/feature/auth/widget/title_textfiel.dart';
 
-import '../../../../domain/usecases/rsegister_usecases.dart';
+import '../../../../domain/usecases/auth_usecases/rsegister_usecases.dart';
 import '../../widget/sign_success_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

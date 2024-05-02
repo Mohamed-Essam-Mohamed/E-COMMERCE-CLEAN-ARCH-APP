@@ -1,5 +1,5 @@
 import 'package:e_commerce/src/constant/string_const_app.dart';
-import 'package:e_commerce/src/domain/usecases/login_usecases.dart';
+import 'package:e_commerce/src/domain/usecases/auth_usecases/login_usecases.dart';
 import 'package:e_commerce/src/feature/auth/login/view/confirm_email_screen.dart';
 import 'package:e_commerce/src/feature/auth/login/view_model/login_view_model_cubit.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
@@ -22,7 +22,7 @@ class ForGetPasswordScreen extends StatefulWidget {
 
 class _ForGetPasswordScreenState extends State<ForGetPasswordScreen> {
   LoginViewModelCubit viewModel =
-      LoginViewModelCubit(loginUseCasese: injcectLoginUseCasese());
+      LoginViewModelCubit(loginUseCases: injcectLoginUseCasese());
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginViewModelCubit, LoginViewModelState>(

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import '../../../../domain/entities/auth_response_entities.dart';
-import '../../../../domain/usecases/rsegister_usecases.dart';
+import '../../../../domain/usecases/auth_usecases/rsegister_usecases.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 

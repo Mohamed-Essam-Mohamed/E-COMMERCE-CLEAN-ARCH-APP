@@ -1,11 +1,15 @@
 import 'package:dartz/dartz.dart';
+import 'package:e_commerce/src/data/model/request/auth_request/forgot_pass_request.dart';
+import 'package:e_commerce/src/data/model/request/auth_request/reset_pass_request.dart';
+import 'package:e_commerce/src/data/model/request/auth_request/resset_code_request.dart';
+import 'package:e_commerce/src/domain/entities/fotgot_pass_response_entity.dart';
+import 'package:e_commerce/src/domain/entities/reset_code_response_entity.dart';
+import 'package:e_commerce/src/domain/entities/reset_pass_response_entity.dart';
 import '../../../model/request/auth_request/login_request.dart';
 import '../../../../domain/entities/auth_response_entities.dart';
 import '../../../../helper/failuers/failures.dart';
-
 import '../../../api/api_manget.dart';
 import '../../../model/request/auth_request/register_request.dart';
-
 import '../../../../domain/repository/auth_repository/data_source/auth_remote_datasource_contract.dart';
 
 class AuthRemoteDataSourceImp implements AuthRemoteDataSourceContract {
@@ -33,6 +37,27 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSourceContract {
     }, (response) {
       return Right(response.toEntity());
     });
+  }
+
+  @override
+  Future<Either<Failure, ForgotPasswordResponseEntity>> forgotPassword(
+      ForgotPasswordRequest forgotPasswordRequest) {
+    // TODO: implement forgotPassword
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, ResetCodeResponseEntity>> resetCode(
+      ResetCodeRequest resetCodeRequest) {
+    // TODO: implement resetCode
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, ResetPasswordResponseEntity>> resetPassword(
+      ResetPasswordRequest resetPasswordRequest) {
+    // TODO: implement resetPassword
+    throw UnimplementedError();
   }
 }
 

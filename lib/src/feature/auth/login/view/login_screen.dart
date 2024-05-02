@@ -3,7 +3,7 @@
 import 'package:audiofileplayer/audiofileplayer.dart';
 import 'package:e_commerce/init_screen.dart';
 import 'package:e_commerce/src/constant/string_const_app.dart';
-import 'package:e_commerce/src/domain/usecases/login_usecases.dart';
+import 'package:e_commerce/src/domain/usecases/auth_usecases/login_usecases.dart';
 import 'package:e_commerce/src/feature/auth/login/view/forget_password_screen.dart';
 import 'package:e_commerce/src/feature/auth/login/view_model/login_view_model_cubit.dart';
 import 'package:e_commerce/src/feature/auth/widget/login_or_signup.dart';
@@ -32,7 +32,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   LoginViewModelCubit viewModel =
-      LoginViewModelCubit(loginUseCasese: injcectLoginUseCasese());
+      LoginViewModelCubit(loginUseCases: injcectLoginUseCasese());
 
   @override
   Widget build(BuildContext context) {
