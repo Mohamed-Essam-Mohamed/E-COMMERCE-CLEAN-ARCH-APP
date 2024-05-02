@@ -1,3 +1,5 @@
+import 'package:e_commerce/src/domain/entities/reset_pass_response_entity.dart';
+
 class ResetPasswordResponseDto {
   String? token;
   String? statusMsg;
@@ -18,4 +20,10 @@ class ResetPasswordResponseDto {
     data['message'] = this.message;
     return data;
   }
+
+  ResetPasswordResponseEntity toEntity() => ResetPasswordResponseEntity(
+        token: token,
+        statusMsg: statusMsg,
+        message: message,
+      );
 }

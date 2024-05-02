@@ -5,6 +5,7 @@ import 'package:e_commerce/src/data/model/request/auth_request/resset_code_reque
 import 'package:e_commerce/src/domain/entities/fotgot_pass_response_entity.dart';
 import 'package:e_commerce/src/domain/entities/reset_code_response_entity.dart';
 import 'package:e_commerce/src/domain/entities/reset_pass_response_entity.dart';
+import 'package:http/http.dart';
 import '../../../model/request/auth_request/login_request.dart';
 import '../../../../domain/entities/auth_response_entities.dart';
 import '../../../../helper/failuers/failures.dart';
@@ -53,16 +54,25 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSourceContract {
 
   @override
   Future<Either<Failure, ResetCodeResponseEntity>> resetCode(
-      ResetCodeRequest resetCodeRequest) {
-    // TODO: implement resetCode
-    throw UnimplementedError();
+      ResetCodeRequest resetCodeRequest) async {
+    var either = await apiManger.resetCode(resetCodeRequest: resetCodeRequest);
+    return either.fold((l) {
+      return Left(Failure(errorMessage: l.errorMessage));
+    }, (response) {
+      return Right(response.toEntity());
+    });
   }
 
   @override
   Future<Either<Failure, ResetPasswordResponseEntity>> resetPassword(
-      ResetPasswordRequest resetPasswordRequest) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+      ResetPasswordRequest resetPasswordRequest) async {
+    var either = await apiManger.resetPassword(
+        resetPasswordRequest: resetPasswordRequest);
+    return either.fold((l) {
+      return Left(Failure(errorMessage: l.errorMessage));
+    }, (response) {
+      return Right(response.toEntity());
+    });
   }
 }
 

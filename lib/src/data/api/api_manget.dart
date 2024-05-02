@@ -120,7 +120,7 @@ class ApiManger {
 
   //! function Reset code
   Future<Either<Failure, ResetCodeResponseDto>> resetCode(
-      ResetCodeRequest resetCodeRequest) async {
+      {required ResetCodeRequest resetCodeRequest}) async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
     if (connectivityResult.contains(ConnectivityResult.mobile) ||
@@ -129,12 +129,9 @@ class ApiManger {
       var response = await http.post(url, body: resetCodeRequest.toJson());
       var resetCodeResponse =
           ResetCodeResponseDto.fromJson(jsonDecode(response.body));
-      if (response.statusCode >= 200 &&
-          response.statusCode < 300 &&
-          resetCodeResponse.status == "success") {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(resetCodeResponse);
-      } else if (response.statusCode == 400 &&
-          resetCodeResponse.status == "fail") {
+      } else if (response.statusCode == 400) {
         return Left(Failure(errorMessage: "Invalid Code"));
       } else {
         return Left(Failure(errorMessage: 'Error in response'));
@@ -146,7 +143,7 @@ class ApiManger {
 
   //! function reset password
   Future<Either<Failure, ResetPasswordResponseDto>> resetPassword(
-      ResetPasswordRequest resetPasswordRequest) async {
+      {required ResetPasswordRequest resetPasswordRequest}) async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
     if (connectivityResult.contains(ConnectivityResult.mobile) ||

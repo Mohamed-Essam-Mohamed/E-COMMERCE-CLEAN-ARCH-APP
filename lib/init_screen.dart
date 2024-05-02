@@ -2,7 +2,7 @@
 
 import 'package:e_commerce/src/animation/animation_show_welcom.dart';
 import 'package:e_commerce/src/constant/string_const_app.dart';
-import 'package:e_commerce/src/feature/auth/login/view/login_screen.dart';
+import 'package:e_commerce/src/feature/auth/contant_login/login/view/login_screen.dart';
 import 'package:e_commerce/src/feature/auth/register/view/register_screen.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';

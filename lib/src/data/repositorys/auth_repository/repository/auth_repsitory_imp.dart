@@ -16,9 +16,9 @@ import '../../../../domain/repository/auth_repository/data_source/auth_remote_da
 
 import '../../../../domain/repository/auth_repository/repository/auth_repository_contract.dart';
 
-class AuthRepositoruImp extends AuthRepositoryContract {
+class AuthRepositoryImp extends AuthRepositoryContract {
   AuthRemoteDataSourceContract authDataSourceContract;
-  AuthRepositoruImp(this.authDataSourceContract);
+  AuthRepositoryImp(this.authDataSourceContract);
   @override
   Future<Either<Failure, AuthResponseEntity>> register(
       RegisterRequest registerRequest) async {
@@ -40,18 +40,16 @@ class AuthRepositoruImp extends AuthRepositoryContract {
   @override
   Future<Either<Failure, ResetCodeResponseEntity>> resetCode(
       ResetCodeRequest resetCodeRequest) {
-    // TODO: implement resetCode
-    throw UnimplementedError();
+    return authDataSourceContract.resetCode(resetCodeRequest);
   }
 
   @override
   Future<Either<Failure, ResetPasswordResponseEntity>> resetPassword(
       ResetPasswordRequest resetPasswordRequest) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+    return authDataSourceContract.resetPassword(resetPasswordRequest);
   }
 }
 
 AuthRepositoryContract injectAuthRepositoryContract() {
-  return AuthRepositoruImp(injectAuthRemoteDataSource());
+  return AuthRepositoryImp(injectAuthRemoteDataSource());
 }

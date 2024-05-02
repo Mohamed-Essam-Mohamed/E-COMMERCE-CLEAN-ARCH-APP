@@ -16,6 +16,7 @@ const String entEmail = "please enter your email address";
 const String invalidEmail = "invalid email";
 
 const String password = "Password";
+const String newPassword = "New Password";
 const String confirmPassword = "Confirm Password";
 const String hintPassword = "Enter your password";
 const String entPassword = "please enter your password";
@@ -45,7 +46,7 @@ const String entNumber = "please enter your mobile number ";
 const String invalidNumber = "invalid mobile number ";
 
 const String loading = "Loading...";
-// const String phone = "Phone";
+const String changePassword = "Change Your Password";
 // const String phone = "Phone";
 
 // const String phone = "Phone";

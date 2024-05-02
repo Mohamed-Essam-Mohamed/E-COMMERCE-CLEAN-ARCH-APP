@@ -1,9 +1,9 @@
 import 'package:e_commerce/src/constant/string_const_app.dart';
 import 'package:e_commerce/src/domain/usecases/auth_usecases/forgot_pass_usecases.dart';
 import 'package:e_commerce/src/domain/usecases/auth_usecases/login_usecases.dart';
-import 'package:e_commerce/src/feature/auth/login/forget_password/view_model/forgot_password_cubit.dart';
-import 'package:e_commerce/src/feature/auth/login/view/confirm_email_screen.dart';
-import 'package:e_commerce/src/feature/auth/login/view_model/login_view_model_cubit.dart';
+import 'package:e_commerce/src/feature/auth/contant_login/forget_password/view_model/forgot_password_cubit.dart';
+import 'package:e_commerce/src/feature/auth/contant_login/reset_code/view/reset_code_email_screen.dart';
+import 'package:e_commerce/src/feature/auth/contant_login/login/view_model/login_view_model_cubit.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:e_commerce/src/utils/dailog.dart';
@@ -43,7 +43,8 @@ class _ForGetPasswordScreenState extends State<ForGetPasswordScreen> {
         } else if (state is ForgotPasswordSuccess) {
           DialogUtils.hideLoading(context);
           Navigator.of(context).pushNamed(
-            ConFirmForgetEmailScreen.routeName,
+            ResendCodeEmailScreen.routeName,
+            arguments: DataClassEmail(email: viewModel.emailController.text),
           );
         }
       },
@@ -116,4 +117,9 @@ class _ForGetPasswordScreenState extends State<ForGetPasswordScreen> {
       ),
     );
   }
+}
+
+class DataClassEmail {
+  String email;
+  DataClassEmail({required this.email});
 }

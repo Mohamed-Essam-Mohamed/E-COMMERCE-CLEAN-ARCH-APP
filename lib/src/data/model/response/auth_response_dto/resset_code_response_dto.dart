@@ -1,3 +1,5 @@
+import 'package:e_commerce/src/domain/entities/reset_code_response_entity.dart';
+
 class ResetCodeResponseDto {
   String? status;
 
@@ -12,4 +14,8 @@ class ResetCodeResponseDto {
     data['status'] = this.status;
     return data;
   }
+
+  ResetCodeResponseEntity toEntity() => ResetCodeResponseEntity(
+        status: status,
+      );
 }
