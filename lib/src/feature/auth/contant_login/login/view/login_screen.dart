@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables
 
 import 'package:audiofileplayer/audiofileplayer.dart';
-import 'package:e_commerce/init_screen.dart';
+import 'package:e_commerce/src/animation/animation_show_welcom.dart';
 import 'package:e_commerce/src/constant/string_const_app.dart';
 import 'package:e_commerce/src/domain/usecases/auth_usecases/login_usecase.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/forget_password/view/forget_password_screen.dart';
@@ -10,17 +10,13 @@ import 'package:e_commerce/src/feature/auth/widget/login_or_signup.dart';
 import 'package:e_commerce/src/feature/auth/widget/title_textfiel.dart';
 import 'package:e_commerce/src/feature/navigation_bar_screen/view/navigation_bar_screen.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
-import 'package:e_commerce/src/animation/animation_show_welcom.dart';
-
 import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:e_commerce/src/utils/dailog.dart';
 import 'package:e_commerce/src/widget/custom_button_app.dart';
 import 'package:e_commerce/src/widget/custom_text_form_app.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 class LoginScreen extends StatefulWidget {

@@ -1,13 +1,14 @@
 import 'package:dartz/dartz.dart';
-import 'package:e_commerce/src/data/repositorys/home_repository/repository/home_repository_imp.dart';
-import 'package:e_commerce/src/domain/entities/category_response_entity.dart';
-import 'package:e_commerce/src/domain/repository/home_repository/repository/home_repository.dart';
-import 'package:e_commerce/src/helper/failuers/failures.dart';
+
+import '../../../data/repositorys/home_repository/repository/home_repository_imp.dart';
+import '../../../helper/failuers/failures.dart';
+import '../../entities/home_entites/categoryorbrand_response_entity.dart';
+import '../../repository/home_repository/repository/home_repository.dart';
 
 class GetAllCategoriesUseCases {
   HomeRepository categoryRepository;
   GetAllCategoriesUseCases({required this.categoryRepository});
-  Future<Either<Failure, CategoryResponseEntity>> invoke() async {
+  Future<Either<Failure, CategoryOrBrandResponseEntity>> invoke() async {
     return categoryRepository.getAllCategory();
   }
 }

@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/domain/entities/reset_code_response_entity.dart';
+import '../../../../domain/entities/auth_entities/reset_code_response_entity.dart';
 
 class ResetCodeResponseDto {
   String? status;

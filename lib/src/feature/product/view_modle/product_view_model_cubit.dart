@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/src/constant/string_const_app.dart';
-import 'package:e_commerce/src/domain/entities/product_response_entity.dart';
-import 'package:e_commerce/src/domain/usecases/product_usecase/all_product_usecase.dart';
+import '../../../constant/string_const_app.dart';
+import '../../../domain/entities/product_entites/product_response_entity.dart';
+import '../../../domain/usecases/product_usecase/all_product_usecase.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 

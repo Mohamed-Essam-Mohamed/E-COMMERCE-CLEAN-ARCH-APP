@@ -1,6 +1,7 @@
-import 'app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'app_colors.dart';
 
 class AppTextStyle {
   static TextStyle textStyle30 = TextStyle(
@@ -20,7 +21,7 @@ class AppTextStyle {
   );
   static TextStyle textStyle14 = TextStyle(
     color: AppColors.primaryColor,
-    fontSize: 18.sp,
+    fontSize: 14.sp,
     fontWeight: FontWeight.w400,
   );
   static TextStyle textStyle20 = TextStyle(

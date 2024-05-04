@@ -1,5 +1,3 @@
-import 'package:e_commerce/src/domain/entities/category_response_entity.dart';
-
 class ProductResponseEntity {
   ProductResponseEntity({
     this.results,
@@ -39,7 +37,7 @@ class ProductDataEntity {
   String? imageCover;
   CategoryEntity? category;
   BrandEntity? brand;
-  double? ratingsAverage;
+  num? ratingsAverage;
 }
 
 class SubcategoryEntity {

@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/domain/entities/product_response_entity.dart';
+import '../../../../domain/entities/product_entites/product_response_entity.dart';
 
 class ProductResponseDto {
   ProductResponseDto({
@@ -85,7 +85,7 @@ class Data {
   String? imageCover;
   Category? category;
   Brand? brand;
-  double? ratingsAverage;
+  num? ratingsAverage;
   String? createdAt;
   String? updatedAt;
   ProductDataEntity toEntity() => ProductDataEntity(

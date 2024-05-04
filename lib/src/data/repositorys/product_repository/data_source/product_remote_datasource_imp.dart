@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:e_commerce/src/data/api/api_manget.dart';
-import 'package:e_commerce/src/domain/entities/product_response_entity.dart';
-import 'package:e_commerce/src/domain/repository/product_repository/data_source/prosuct_remote_datasource.dart';
-import 'package:e_commerce/src/helper/failuers/failures.dart';
+import '../../../api/api_manget.dart';
+import '../../../../domain/entities/product_entites/product_response_entity.dart';
+import '../../../../domain/repository/product_repository/data_source/prosuct_remote_datasource.dart';
+import '../../../../helper/failuers/failures.dart';
 
 class ProductRemoteDataSourceImp implements ProductRemoteDataSource {
   ApiManger apiManger;

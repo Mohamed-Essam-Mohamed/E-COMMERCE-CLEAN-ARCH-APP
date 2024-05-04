@@ -1,16 +1,21 @@
 import 'package:dartz/dartz.dart';
-import 'package:e_commerce/src/data/repositorys/home_repository/data_source/home_remote_datasource_imp.dart';
-import 'package:e_commerce/src/domain/entities/category_response_entity.dart';
-import 'package:e_commerce/src/domain/repository/home_repository/data_source/home_remote_datasource.dart';
-import 'package:e_commerce/src/domain/repository/home_repository/repository/home_repository.dart';
-import 'package:e_commerce/src/helper/failuers/failures.dart';
+import '../data_source/home_remote_datasource_imp.dart';
+import '../../../../domain/entities/home_entites/categoryorbrand_response_entity.dart';
+import '../../../../domain/repository/home_repository/data_source/home_remote_datasource.dart';
+import '../../../../domain/repository/home_repository/repository/home_repository.dart';
+import '../../../../helper/failuers/failures.dart';
 
 class HomeRepositoryImp implements HomeRepository {
   HomeRemoteDataSource homeRemoteDataSource;
   HomeRepositoryImp({required this.homeRemoteDataSource});
   @override
-  Future<Either<Failure, CategoryResponseEntity>> getAllCategory() {
+  Future<Either<Failure, CategoryOrBrandResponseEntity>> getAllCategory() {
     return homeRemoteDataSource.getAllCategory();
+  }
+
+  @override
+  Future<Either<Failure, CategoryOrBrandResponseEntity>> getAllBrand() {
+    return homeRemoteDataSource.getAllBrand();
   }
 }
 

@@ -12,14 +12,15 @@ import 'package:e_commerce/src/data/model/response/auth_response_dto/forgot_pass
 import 'package:e_commerce/src/data/model/response/auth_response_dto/login_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/auth_response_dto/reset_pass_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/auth_response_dto/resset_code_response_dto.dart';
-import 'package:e_commerce/src/data/model/response/category_response_dto/categories_response_dto.dart';
+import 'package:e_commerce/src/data/model/response/categoryorbrand_response_dto/categoriesorbrand_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/product_response_dto/product_response_dto.dart';
 import 'package:e_commerce/src/helper/failuers/failures.dart';
+import 'package:e_commerce/src/utils/shared_preference_utils.dart';
+import 'package:http/http.dart' as http;
 
 import '../../constant/api_const.dart';
 import '../model/request/auth_request/register_request.dart';
 import '../model/response/auth_response_dto/regsiter_response_dto.dart';
-import 'package:http/http.dart' as http;
 
 class ApiManger {
   ApiManger._();
@@ -44,6 +45,8 @@ class ApiManger {
           RegisterResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         //? success get data
+        SharedPreferencesUtils.saveData(
+            key: 'Token', value: registerResponse.token);
         return Right(registerResponse);
       } else if (response.statusCode == 400 &&
           registerResponse.errors != null) {
@@ -75,6 +78,9 @@ class ApiManger {
       var loginResponse = LoginResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         //? success get data
+        SharedPreferencesUtils.saveData(
+            key: 'Token', value: loginResponse.token);
+
         return Right(loginResponse);
       } else if (response.statusCode == 400 && loginResponse.errors != null) {
         //? have error in response such invalid   email or password
@@ -156,6 +162,8 @@ class ApiManger {
       if (response.statusCode >= 200 &&
           response.statusCode < 300 &&
           resetPasswordResponse.token != null) {
+        SharedPreferencesUtils.saveData(
+            key: 'Token', value: resetPasswordResponse.token);
         return Right(resetPasswordResponse);
       } else if (response.statusCode == 400 &&
           resetPasswordResponse.statusMsg == "fail") {
@@ -169,7 +177,7 @@ class ApiManger {
   }
   //! function getAllCategories
 
-  Future<Either<Failure, CategoryResponseDto>> getAllCategory() async {
+  Future<Either<Failure, CategoryOrBrandResponseDto>> getAllCategory() async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
 
@@ -180,7 +188,7 @@ class ApiManger {
       var response = await http.get(url);
 
       var getAllCategoryResponse =
-          CategoryResponseDto.fromJson(jsonDecode(response.body));
+          CategoryOrBrandResponseDto.fromJson(jsonDecode(response.body));
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
         //? success get data
@@ -195,7 +203,6 @@ class ApiManger {
   }
 
   //! function getAllProducts
-
   Future<Either<Failure, ProductResponseDto>> getAllProduct() async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -203,7 +210,7 @@ class ApiManger {
     if (connectivityResult.contains(ConnectivityResult.mobile) ||
         connectivityResult.contains(ConnectivityResult.wifi)) {
       //? connected internet
-      Uri url = Uri.https(apiBaseUrl, apigetAllProduct);
+      Uri url = Uri.https(apiBaseUrl, apiGetAllProducts);
       var response = await http.get(url);
 
       var getAllProductResponse =
@@ -212,6 +219,32 @@ class ApiManger {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         //? success get data
         return Right(getAllProductResponse);
+      } else {
+        //? Incorrect
+        return Left(Failure(errorMessage: 'Error in response'));
+      }
+    } else {
+      return Left(Failure(errorMessage: 'No Internet Connection'));
+    }
+  }
+
+  //! function getBrand
+  Future<Either<Failure, CategoryOrBrandResponseDto>> getAllBrands() async {
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      //? connected internet
+      Uri url = Uri.https(apiBaseUrl, apiGetAllBrands);
+      var response = await http.get(url);
+
+      var getAllBrandResponse =
+          CategoryOrBrandResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //? success get data
+        return Right(getAllBrandResponse);
       } else {
         //? Incorrect
         return Left(Failure(errorMessage: 'Error in response'));

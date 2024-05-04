@@ -1,11 +1,9 @@
 import 'package:bloc/bloc.dart';
-import '../../../../domain/entities/auth_response_entities.dart';
-import '../../../../domain/usecases/auth_usecases/rsegister_usecase.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 
 import '../../../../data/model/request/auth_request/register_request.dart';
-import '../../../../data/model/response/auth_response_dto/regsiter_response_dto.dart';
+import '../../../../domain/entities/auth_entities/auth_response_entities.dart';
+import '../../../../domain/usecases/auth_usecases/rsegister_usecase.dart';
 
 part 'register_screen_view_model_state.dart';
 

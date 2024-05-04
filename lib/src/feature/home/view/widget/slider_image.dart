@@ -1,5 +1,5 @@
-import 'package:e_commerce/src/constant/image_path_const.dart';
-import 'package:e_commerce/src/utils/app_colors.dart';
+import '../../../../constant/image_path_const.dart';
+import '../../../../utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/src/feature/product/view/product_screen.dart';
-import 'package:e_commerce/src/feature/favorite/view/favorite_screen.dart';
-import 'package:e_commerce/src/feature/home/view/home_screen.dart';
-import 'package:e_commerce/src/feature/profile/view/profile_screen.dart';
+import '../../product/view/product_screen.dart';
+import '../../favorite/view/favorite_screen.dart';
+import '../../home/view/home_screen.dart';
+import '../../profile/view/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 

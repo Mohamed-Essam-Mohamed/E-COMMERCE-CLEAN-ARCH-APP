@@ -1,6 +1,6 @@
-import 'package:e_commerce/src/feature/navigation_bar_screen/view_model/navigation_bar_cubit.dart';
+import '../view_model/navigation_bar_cubit.dart';
 
-import 'package:e_commerce/src/utils/app_colors.dart';
+import '../../../utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

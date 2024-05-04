@@ -1,15 +1,15 @@
-import 'package:e_commerce/src/constant/string_const_app.dart';
-import 'package:e_commerce/src/domain/usecases/auth_usecases/login_usecase.dart';
-import 'package:e_commerce/src/domain/usecases/auth_usecases/reset_pass_usecase.dart';
+import '../../../../../constant/string_const_app.dart';
+import '../../../../../domain/usecases/auth_usecases/login_usecase.dart';
+import '../../../../../domain/usecases/auth_usecases/reset_pass_usecase.dart';
 
-import 'package:e_commerce/src/feature/auth/contant_login/forget_password/view/forget_password_screen.dart';
-import 'package:e_commerce/src/feature/auth/contant_login/reset_password/view_model/reset_password_view_model_cubit.dart';
-import 'package:e_commerce/src/feature/navigation_bar_screen/view/navigation_bar_screen.dart';
-import 'package:e_commerce/src/utils/app_colors.dart';
-import 'package:e_commerce/src/utils/app_text_style.dart';
-import 'package:e_commerce/src/utils/dailog.dart';
-import 'package:e_commerce/src/widget/custom_button_app.dart';
-import 'package:e_commerce/src/widget/custom_text_form_app.dart';
+import '../../forget_password/view/forget_password_screen.dart';
+import '../view_model/reset_password_view_model_cubit.dart';
+import '../../../../navigation_bar_screen/view/navigation_bar_screen.dart';
+import '../../../../../utils/app_colors.dart';
+import '../../../../../utils/app_text_style.dart';
+import '../../../../../utils/dailog.dart';
+import '../../../../../widget/custom_button_app.dart';
+import '../../../../../widget/custom_text_form_app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

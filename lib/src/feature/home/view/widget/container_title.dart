@@ -1,5 +1,5 @@
-import 'package:e_commerce/src/utils/app_colors.dart';
-import 'package:e_commerce/src/utils/app_text_style.dart';
+import '../../../../utils/app_colors.dart';
+import '../../../../utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 
 class ContainerTitle extends StatelessWidget {

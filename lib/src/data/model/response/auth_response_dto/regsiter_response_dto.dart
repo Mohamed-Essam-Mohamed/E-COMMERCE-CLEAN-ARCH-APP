@@ -1,4 +1,4 @@
-import '../../../../domain/entities/auth_response_entities.dart';
+import '../../../../domain/entities/auth_entities/auth_response_entities.dart';
 
 class RegisterResponseDto {
   String? message;

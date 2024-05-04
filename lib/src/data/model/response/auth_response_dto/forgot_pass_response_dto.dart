@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/domain/entities/fotgot_pass_response_entity.dart';
+import '../../../../domain/entities/auth_entities/fotgot_pass_response_entity.dart';
 
 class ForgotPasswordResponseDto {
   String? statusMsg;

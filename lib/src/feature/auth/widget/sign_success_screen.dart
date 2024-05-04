@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:audiofileplayer/audiofileplayer.dart';
-
-import '../contant_login/login/view/login_screen.dart';
-import '../../../utils/app_colors.dart';
-import '../../../utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
+import '../../../utils/app_colors.dart';
+import '../../../utils/app_text_style.dart';
+import '../contant_login/login/view/login_screen.dart';
 
 class SuccessScreen extends StatefulWidget {
   static String routeName = "SignSuccessScreen";

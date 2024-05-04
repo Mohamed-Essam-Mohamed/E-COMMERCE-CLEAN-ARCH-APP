@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/domain/entities/reset_pass_response_entity.dart';
+import '../../../../domain/entities/auth_entities/reset_pass_response_entity.dart';
 
 class ResetPasswordResponseDto {
   String? token;

@@ -1,13 +1,13 @@
-import 'package:e_commerce/src/domain/entities/category_response_entity.dart';
+import '../../../../domain/entities/home_entites/categoryorbrand_response_entity.dart';
 
-class CategoryResponseDto {
+class CategoryOrBrandResponseDto {
   int? results;
   Metadata? metadata;
   List<CategoryDataDto>? dataDto;
 
-  CategoryResponseDto({this.results, this.metadata, this.dataDto});
+  CategoryOrBrandResponseDto({this.results, this.metadata, this.dataDto});
 
-  CategoryResponseDto.fromJson(Map<String, dynamic> json) {
+  CategoryOrBrandResponseDto.fromJson(Map<String, dynamic> json) {
     results = json['results'];
     metadata = json['metadata'] != null
         ? new Metadata.fromJson(json['metadata'])
@@ -19,9 +19,9 @@ class CategoryResponseDto {
       });
     }
   }
-  CategoryResponseEntity toEntity() => CategoryResponseEntity(
+  CategoryOrBrandResponseEntity toEntity() => CategoryOrBrandResponseEntity(
         data: dataDto
-            ?.map((data) => CategoryDataEntity(
+            ?.map((data) => CategoryOrBrandDataEntity(
                   id: data.sId,
                   name: data.name,
                   image: data.image,
@@ -70,7 +70,7 @@ class CategoryDataDto {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
   }
-  CategoryDataEntity toEntity() => CategoryDataEntity(
+  CategoryOrBrandDataEntity toEntity() => CategoryOrBrandDataEntity(
         image: image,
         name: name,
         slug: slug,

@@ -1,8 +1,9 @@
-import 'package:e_commerce/src/domain/entities/product_response_entity.dart';
-import 'package:e_commerce/src/domain/usecases/product_usecase/all_product_usecase.dart';
-import 'package:e_commerce/src/feature/home/view/home_screen.dart';
-import 'package:e_commerce/src/feature/home/view/widget/product_item.dart';
-import 'package:e_commerce/src/feature/product/view_modle/product_view_model_cubit.dart';
+import '../../../domain/entities/product_entites/product_response_entity.dart';
+import '../../../domain/usecases/product_usecase/all_product_usecase.dart';
+import '../../home/view/home_screen.dart';
+import '../../../widget/product_details_view.dart';
+import '../../../widget/product_item.dart';
+import '../view_modle/product_view_model_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,16 +59,28 @@ class GridViewAllProduct extends StatelessWidget {
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          childAspectRatio: 0.85,
+          mainAxisSpacing: 13,
+          crossAxisSpacing: 13,
+          childAspectRatio: 0.82,
         ),
-        itemBuilder: (context, index) => ProductItem(
-          onTapAddCard: () {},
-          onTapLove: () {},
-          descriptionImage: listProduct[index].description ?? '',
-          pathImage: listProduct[index].imageCover ?? '',
-          price: listProduct[index].price.toString(),
+        itemBuilder: (context, index) => InkWell(
+          focusColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              ProductDetailsView.routeName,
+              arguments: listProduct[index],
+            );
+          },
+          child: ProductItem(
+            onTapAddCard: () {},
+            onTapLove: () {},
+            descriptionImage: listProduct[index].description ?? '',
+            pathImage: listProduct[index].imageCover ?? '',
+            price: listProduct[index].price.toString(),
+          ),
         ),
         itemCount: listProduct.length,
       ),
