@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:e_commerce/src/data/api/api_manget.dart';
-import 'package:e_commerce/src/domain/usecases/get_all_catergories_usecases.dart';
+import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_catergories_usecase.dart';
 import 'package:e_commerce/src/feature/home/view/widget/catergory_gridview.dart';
 import 'package:e_commerce/src/feature/home/view/widget/container_title.dart';
 import 'package:e_commerce/src/feature/home/view/widget/item_listeview.dart';
@@ -32,48 +31,45 @@ class HomeScreen extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
-        if (state is HomeViewModelLoading) {
-          return Center(child: CircularProgressIndicator());
-        } else if (state is HomeViewModelError) {
-          return Center(
-              child: Text(
-            state.errorMessage ?? 'wrong',
-            style: AppTextStyle.textStyle24.copyWith(
-              color: Colors.black,
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.h),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ContainerSearchWidget(controller: viewModel.searchController),
+                Gap(10.h),
+                SliderImages(),
+                Gap(24.h),
+                ContainerTitle(onTap: () {}, title: "Categories"),
+                Gap(10.h),
+                state is CategoryViewModelLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : state is CatergoryViewModelError
+                        ? Center(
+                            child: Text(
+                            state.errorMessage ?? 'wrong',
+                            style: AppTextStyle.textStyle24.copyWith(
+                              color: Colors.black,
+                            ),
+                          ))
+                        : SizedBox(
+                            height: 320.h,
+                            child: CatergoryGridView(
+                              catergoryList: viewModel.listCategoryData,
+                            ),
+                          ),
+                // ContainerTitle(onTap: () {}, title: "New Arrival"),
+                // Gap(10.h),
+                // SizedBox(height: 250.h, child: ItemListView()),
+                // Gap(10.h),
+                // ContainerTitle(onTap: () {}, title: "Smart Watch"),
+                // Gap(10.h),
+                // SizedBox(height: 250.h, child: ItemListView()),
+                // Gap(20.h),
+              ],
             ),
-          ));
-        } else if (state is HomeViewModelSuccess) {
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.h),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  ContainerSearchWidget(viewModel: viewModel),
-                  Gap(10.h),
-                  SliderImage(),
-                  Gap(24.h),
-                  ContainerTitle(onTap: () {}, title: "Categories"),
-                  Gap(10.h),
-                  SizedBox(
-                    height: 320.h,
-                    child: CatergoryGridView(
-                      catergoryList: state.categoryResponseEntity.data ?? [],
-                    ),
-                  ),
-                  ContainerTitle(onTap: () {}, title: "New Arrival"),
-                  Gap(10.h),
-                  SizedBox(height: 250.h, child: ItemListView()),
-                  Gap(10.h),
-                  ContainerTitle(onTap: () {}, title: "Smart Watch"),
-                  Gap(10.h),
-                  SizedBox(height: 250.h, child: ItemListView()),
-                  Gap(20.h),
-                ],
-              ),
-            ),
-          );
-        }
-        return SizedBox.shrink();
+          ),
+        );
       },
     );
   }
@@ -82,10 +78,10 @@ class HomeScreen extends StatelessWidget {
 class ContainerSearchWidget extends StatelessWidget {
   const ContainerSearchWidget({
     super.key,
-    required this.viewModel,
+    required this.controller,
   });
 
-  final HomeViewModelCubit viewModel;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +92,7 @@ class ContainerSearchWidget extends StatelessWidget {
             hintText: 'what do you search for?',
             isSearch: true,
             validator: (text) {},
-            controller: viewModel.searchController,
+            controller: controller,
             contentPadding: EdgeInsets.symmetric(
               horizontal: 10.h,
               vertical: 8.h,
@@ -114,3 +110,17 @@ class ContainerSearchWidget extends StatelessWidget {
     );
   }
 }
+
+//return 
+/*
+Center(
+              child: Text(
+            state.errorMessage ?? 'wrong',
+            style: AppTextStyle.textStyle24.copyWith(
+              color: Colors.black,
+            ),
+          ));
+ */
+/*
+
+ */

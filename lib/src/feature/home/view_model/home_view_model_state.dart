@@ -5,18 +5,18 @@ sealed class HomeViewModelState {}
 
 final class HomeViewModelInitial extends HomeViewModelState {}
 
-final class HomeViewModelLoading extends HomeViewModelState {
+final class CategoryViewModelLoading extends HomeViewModelState {
   String message;
-  HomeViewModelLoading({required this.message});
+  CategoryViewModelLoading({required this.message});
 }
 
-final class HomeViewModelError extends HomeViewModelState {
+final class CatergoryViewModelError extends HomeViewModelState {
   String? errorMessage;
-  HomeViewModelError({required this.errorMessage});
+  CatergoryViewModelError({required this.errorMessage});
 }
 
-final class HomeViewModelSuccess extends HomeViewModelState {
+final class CategoryViewModelSuccess extends HomeViewModelState {
   CategoryResponseEntity categoryResponseEntity;
 
-  HomeViewModelSuccess({required this.categoryResponseEntity});
+  CategoryViewModelSuccess({required this.categoryResponseEntity});
 }

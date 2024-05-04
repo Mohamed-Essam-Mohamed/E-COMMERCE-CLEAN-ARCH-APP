@@ -6,16 +6,16 @@ import 'package:e_commerce/src/domain/repository/auth_repository/repository/auth
 
 import '../../../helper/failuers/failures.dart';
 
-class ForgotPasswordUseCases {
+class ForgotPasswordUseCase {
   AuthRepositoryContract authRepositoryContract;
-  ForgotPasswordUseCases({required this.authRepositoryContract});
+  ForgotPasswordUseCase({required this.authRepositoryContract});
   Future<Either<Failure, ForgotPasswordResponseEntity>> invoke(
       {required ForgotPasswordRequest forgotPassRequest}) {
     return authRepositoryContract.forgotPassword(forgotPassRequest);
   }
 }
 
-ForgotPasswordUseCases injectForgotPasswordUseCases() {
-  return ForgotPasswordUseCases(
+ForgotPasswordUseCase injectForgotPasswordUseCases() {
+  return ForgotPasswordUseCase(
       authRepositoryContract: injectAuthRepositoryContract());
 }

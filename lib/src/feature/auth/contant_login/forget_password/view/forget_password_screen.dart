@@ -1,6 +1,6 @@
 import 'package:e_commerce/src/constant/string_const_app.dart';
-import 'package:e_commerce/src/domain/usecases/auth_usecases/forgot_pass_usecases.dart';
-import 'package:e_commerce/src/domain/usecases/auth_usecases/login_usecases.dart';
+import 'package:e_commerce/src/domain/usecases/auth_usecases/forgot_pass_usecase.dart';
+import 'package:e_commerce/src/domain/usecases/auth_usecases/login_usecase.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/forget_password/view_model/forgot_password_cubit.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/reset_code/view/reset_code_email_screen.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/login/view_model/login_view_model_cubit.dart';

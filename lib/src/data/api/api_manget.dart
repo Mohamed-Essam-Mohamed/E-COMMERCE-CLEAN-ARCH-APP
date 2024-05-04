@@ -13,6 +13,7 @@ import 'package:e_commerce/src/data/model/response/auth_response_dto/login_respo
 import 'package:e_commerce/src/data/model/response/auth_response_dto/reset_pass_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/auth_response_dto/resset_code_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/category_response_dto/categories_response_dto.dart';
+import 'package:e_commerce/src/data/model/response/product_response_dto/product_response_dto.dart';
 import 'package:e_commerce/src/helper/failuers/failures.dart';
 
 import '../../constant/api_const.dart';
@@ -184,6 +185,33 @@ class ApiManger {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         //? success get data
         return Right(getAllCategoryResponse);
+      } else {
+        //? Incorrect
+        return Left(Failure(errorMessage: 'Error in response'));
+      }
+    } else {
+      return Left(Failure(errorMessage: 'No Internet Connection'));
+    }
+  }
+
+  //! function getAllProducts
+
+  Future<Either<Failure, ProductResponseDto>> getAllProduct() async {
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      //? connected internet
+      Uri url = Uri.https(apiBaseUrl, apigetAllProduct);
+      var response = await http.get(url);
+
+      var getAllProductResponse =
+          ProductResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //? success get data
+        return Right(getAllProductResponse);
       } else {
         //? Incorrect
         return Left(Failure(errorMessage: 'Error in response'));

@@ -5,16 +5,16 @@ import 'package:e_commerce/src/domain/entities/reset_code_response_entity.dart';
 import 'package:e_commerce/src/domain/repository/auth_repository/repository/auth_repository_contract.dart';
 import 'package:e_commerce/src/helper/failuers/failures.dart';
 
-class ResetCodeUseCases {
+class ResetCodeUseCase {
   AuthRepositoryContract authRepositoryContract;
-  ResetCodeUseCases({required this.authRepositoryContract});
+  ResetCodeUseCase({required this.authRepositoryContract});
   Future<Either<Failure, ResetCodeResponseEntity>> invoke(
       ResetCodeRequest resetCodeRequest) async {
     return await authRepositoryContract.resetCode(resetCodeRequest);
   }
 }
 
-ResetCodeUseCases injectResetCodeUseCases() {
-  return ResetCodeUseCases(
+ResetCodeUseCase injectResetCodeUseCases() {
+  return ResetCodeUseCase(
       authRepositoryContract: injectAuthRepositoryContract());
 }

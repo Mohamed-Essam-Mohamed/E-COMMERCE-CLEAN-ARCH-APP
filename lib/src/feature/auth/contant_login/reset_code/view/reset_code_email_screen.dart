@@ -2,7 +2,7 @@
 
 import 'dart:async';
 
-import 'package:e_commerce/src/domain/usecases/auth_usecases/reset_code_usecases.dart';
+import 'package:e_commerce/src/domain/usecases/auth_usecases/reset_code_usecase.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/forget_password/view/forget_password_screen.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/reset_code/view_model/reset_code_view_model_cubit.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/reset_password/view/reset_password_screen.dart';

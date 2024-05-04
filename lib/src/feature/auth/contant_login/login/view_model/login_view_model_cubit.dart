@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import '../../../../../data/model/request/auth_request/login_request.dart';
 import '../../../../../domain/entities/auth_response_entities.dart';
-import '../../../../../domain/usecases/auth_usecases/login_usecases.dart';
+import '../../../../../domain/usecases/auth_usecases/login_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -13,7 +13,7 @@ class LoginViewModelCubit extends Cubit<LoginViewModelState> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   GlobalKey<FormState> fromState = GlobalKey();
-  LoginUseCases loginUseCases;
+  LoginUseCase loginUseCases;
   void login() async {
     if (fromState.currentState!.validate()) {
       emit(LoginViewModelLoading());

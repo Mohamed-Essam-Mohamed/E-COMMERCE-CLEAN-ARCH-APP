@@ -1,17 +1,17 @@
 class CategoryResponseEntity {
   int? results;
-  List<DataEntity>? data;
+  List<CategoryDataEntity>? data;
 
   CategoryResponseEntity({this.results, this.data});
 }
 
-class DataEntity {
+class CategoryDataEntity {
   String? name;
   String? slug;
   String? image;
   String? id;
 
-  DataEntity({
+  CategoryDataEntity({
     this.name,
     this.slug,
     this.image,

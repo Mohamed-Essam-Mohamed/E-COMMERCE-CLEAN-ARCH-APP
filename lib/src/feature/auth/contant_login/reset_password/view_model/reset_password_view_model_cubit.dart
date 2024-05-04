@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/src/data/model/request/auth_request/register_request.dart';
+
 import 'package:e_commerce/src/data/model/request/auth_request/reset_pass_request.dart';
 import 'package:e_commerce/src/domain/entities/reset_pass_response_entity.dart';
-import 'package:e_commerce/src/domain/usecases/auth_usecases/reset_pass_usecases.dart';
+import 'package:e_commerce/src/domain/usecases/auth_usecases/reset_pass_usecase.dart';
+
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -14,7 +15,7 @@ class ResetPasswordViewModelCubit extends Cubit<ResetPasswordViewModelState> {
   TextEditingController? passwordController = TextEditingController();
   TextEditingController? confirmPasswordController = TextEditingController();
   GlobalKey<FormState> fromState = GlobalKey();
-  ResetPasswordUseCases resetPasswordUseCases;
+  ResetPasswordUseCase resetPasswordUseCases;
   void resetPassword({required String email}) async {
     if (fromState.currentState!.validate()) {
       emit(ResetPasswordViewModelLoading());

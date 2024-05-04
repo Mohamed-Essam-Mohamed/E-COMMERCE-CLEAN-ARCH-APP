@@ -10,7 +10,7 @@ import 'package:gap/gap.dart';
 class CatergoryGridView extends StatelessWidget {
   CatergoryGridView({required this.catergoryList, super.key});
 
-  List<DataEntity> catergoryList;
+  List<CategoryDataEntity> catergoryList;
   @override
   Widget build(BuildContext context) {
     return GridView.builder(

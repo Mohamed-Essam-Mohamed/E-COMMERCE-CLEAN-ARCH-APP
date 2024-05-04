@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import '../../../../domain/entities/auth_response_entities.dart';
-import '../../../../domain/usecases/auth_usecases/rsegister_usecases.dart';
+import '../../../../domain/usecases/auth_usecases/rsegister_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -19,7 +19,7 @@ class RegisterViewModelCubit extends Cubit<RegisterViewModelState> {
   TextEditingController passwordController = TextEditingController();
   var formState = GlobalKey<FormState>();
 
-  RegisterUseCasese registerUseCasese;
+  RegisterUseCase registerUseCasese;
   void register() async {
     if (formState.currentState!.validate()) {
       emit(RegisterViewModelLoading(loadingMessage: "Loading..."));

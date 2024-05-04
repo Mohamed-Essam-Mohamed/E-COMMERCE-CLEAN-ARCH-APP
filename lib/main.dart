@@ -1,4 +1,3 @@
-import 'package:e_commerce/src/data/api/api_manget.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/reset_code/view/reset_code_email_screen.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/forget_password/view/forget_password_screen.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/reset_password/view/reset_password_screen.dart';
@@ -31,7 +30,7 @@ class EcommerceRouteApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: AppTheme.appTheme,
-          initialRoute: SplashScreen.routeName,
+          initialRoute: NavigationBarScreen.routeName,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             SplashScreen.routeName: (context) => SplashScreen(),

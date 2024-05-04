@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:e_commerce/src/data/model/request/auth_request/resset_code_request.dart';
 import 'package:e_commerce/src/domain/entities/reset_code_response_entity.dart';
 import 'package:e_commerce/src/domain/entities/reset_pass_response_entity.dart';
-import 'package:e_commerce/src/domain/usecases/auth_usecases/reset_code_usecases.dart';
+import 'package:e_commerce/src/domain/usecases/auth_usecases/reset_code_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -13,7 +13,7 @@ class ResetCodeViewModelCubit extends Cubit<ResetCodeViewModelState> {
       : super(ResetCodeViewModelInitial());
   String code = '';
   GlobalKey<FormState> fromState = GlobalKey();
-  ResetCodeUseCases resetCodeUseCases;
+  ResetCodeUseCase resetCodeUseCases;
 
   void resetCode() async {
     if (fromState.currentState!.validate()) {

@@ -3,7 +3,7 @@ import 'package:e_commerce/src/domain/entities/category_response_entity.dart';
 class CategoryResponseDto {
   int? results;
   Metadata? metadata;
-  List<DataDto>? dataDto;
+  List<CategoryDataDto>? dataDto;
 
   CategoryResponseDto({this.results, this.metadata, this.dataDto});
 
@@ -13,15 +13,15 @@ class CategoryResponseDto {
         ? new Metadata.fromJson(json['metadata'])
         : null;
     if (json['data'] != null) {
-      dataDto = <DataDto>[];
+      dataDto = <CategoryDataDto>[];
       json['data'].forEach((v) {
-        dataDto!.add(new DataDto.fromJson(v));
+        dataDto!.add(new CategoryDataDto.fromJson(v));
       });
     }
   }
   CategoryResponseEntity toEntity() => CategoryResponseEntity(
         data: dataDto
-            ?.map((data) => DataEntity(
+            ?.map((data) => CategoryDataEntity(
                   id: data.sId,
                   name: data.name,
                   image: data.image,
@@ -46,7 +46,7 @@ class Metadata {
   }
 }
 
-class DataDto {
+class CategoryDataDto {
   String? sId;
   String? name;
   String? slug;
@@ -54,7 +54,7 @@ class DataDto {
   String? createdAt;
   String? updatedAt;
 
-  DataDto(
+  CategoryDataDto(
       {this.sId,
       this.name,
       this.slug,
@@ -62,7 +62,7 @@ class DataDto {
       this.createdAt,
       this.updatedAt});
 
-  DataDto.fromJson(Map<String, dynamic> json) {
+  CategoryDataDto.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
     slug = json['slug'];
@@ -70,7 +70,7 @@ class DataDto {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
   }
-  DataEntity toEntity() => DataEntity(
+  CategoryDataEntity toEntity() => CategoryDataEntity(
         image: image,
         name: name,
         slug: slug,

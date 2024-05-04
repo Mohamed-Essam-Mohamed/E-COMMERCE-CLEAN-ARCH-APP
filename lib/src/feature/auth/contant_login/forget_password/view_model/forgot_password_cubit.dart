@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce/src/data/model/request/auth_request/forgot_pass_request.dart';
 import 'package:e_commerce/src/domain/entities/fotgot_pass_response_entity.dart';
-import 'package:e_commerce/src/domain/usecases/auth_usecases/forgot_pass_usecases.dart';
+import 'package:e_commerce/src/domain/usecases/auth_usecases/forgot_pass_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -12,7 +12,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       : super(ForgotPasswordInitial());
   var emailController = TextEditingController();
   GlobalKey<FormState> fromState = GlobalKey();
-  ForgotPasswordUseCases forgotPasswordUseCases;
+  ForgotPasswordUseCase forgotPasswordUseCases;
   void forgotPassword() async {
     if (fromState.currentState!.validate()) {
       emit(ForgotPasswordLoading(message: "Loading..."));

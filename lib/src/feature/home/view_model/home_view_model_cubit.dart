@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/src/data/api/api_manget.dart';
-import 'package:e_commerce/src/data/model/response/category_response_dto/categories_response_dto.dart';
 import 'package:e_commerce/src/domain/entities/category_response_entity.dart';
-import 'package:e_commerce/src/domain/usecases/get_all_catergories_usecases.dart';
+import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_catergories_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -15,16 +13,16 @@ class HomeViewModelCubit extends Cubit<HomeViewModelState> {
   HomeViewModelCubit({required this.getAllCategoriesUseCases})
       : super(HomeViewModelInitial());
 
-  List<DataEntity> listData = [];
+  List<CategoryDataEntity> listCategoryData = [];
   void getAllCategory() async {
     var either = await getAllCategoriesUseCases.invoke();
     return either.fold((l) {
-      emit(HomeViewModelLoading(message: 'Loading...'));
-      emit(HomeViewModelError(errorMessage: l.errorMessage));
+      emit(CategoryViewModelLoading(message: 'Loading...'));
+      emit(CatergoryViewModelError(errorMessage: l.errorMessage));
     }, (r) {
-      emit(HomeViewModelLoading(message: 'Loading...'));
-      listData = r.data ?? [];
-      emit(HomeViewModelSuccess(categoryResponseEntity: r));
+      emit(CategoryViewModelLoading(message: 'Loading...'));
+      listCategoryData = r.data ?? [];
+      emit(CategoryViewModelSuccess(categoryResponseEntity: r));
     });
   }
 }

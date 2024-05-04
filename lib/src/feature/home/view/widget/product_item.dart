@@ -8,14 +8,14 @@ import 'package:gap/gap.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
 
-class ContainerItem extends StatelessWidget {
-  String pathImage;
-  String descriptionImage;
-  String price;
-  void Function()? onTapLove;
-  void Function()? onTapAddCard;
+class ProductItem extends StatelessWidget {
+  final String pathImage;
+  final String descriptionImage;
+  final String price;
+  final void Function()? onTapLove;
+  final void Function()? onTapAddCard;
 
-  ContainerItem({
+  const ProductItem({
     Key? key,
     required this.pathImage,
     required this.descriptionImage,
@@ -45,8 +45,9 @@ class ContainerItem extends StatelessWidget {
                   topLeft: Radius.circular(15.r),
                   topRight: Radius.circular(15.r),
                 ),
-                child: Image.asset(
-                  pathImage,
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/image/item_2.png',
+                  image: pathImage,
                   width: double.infinity,
                   height: 140.h,
                   fit: BoxFit.fill,
@@ -91,7 +92,7 @@ class ContainerItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  price,
+                  'EGP $price',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyle.textStyle18.copyWith(

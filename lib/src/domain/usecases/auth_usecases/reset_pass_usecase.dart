@@ -5,9 +5,9 @@ import 'package:e_commerce/src/domain/entities/reset_pass_response_entity.dart';
 import 'package:e_commerce/src/domain/repository/auth_repository/repository/auth_repository_contract.dart';
 import '../../../helper/failuers/failures.dart';
 
-class ResetPasswordUseCases {
+class ResetPasswordUseCase {
   AuthRepositoryContract authRepositoryContract;
-  ResetPasswordUseCases({required this.authRepositoryContract});
+  ResetPasswordUseCase({required this.authRepositoryContract});
 
   Future<Either<Failure, ResetPasswordResponseEntity>> invoke(
       ResetPasswordRequest resetPasswordRequest) {
@@ -15,7 +15,7 @@ class ResetPasswordUseCases {
   }
 }
 
-ResetPasswordUseCases injectResetPasswordUseCases() {
-  return ResetPasswordUseCases(
+ResetPasswordUseCase injectResetPasswordUseCases() {
+  return ResetPasswordUseCase(
       authRepositoryContract: injectAuthRepositoryContract());
 }
