@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/domain/usecases/home_usecase/add_to_cart_usecase.dart';
+import 'package:e_commerce/src/domain/usecases/product_usecase/add_to_cart_usecase.dart';
 import 'package:e_commerce/src/feature/cart/view/cart_screen.dart';
 
 import '../../../domain/entities/product_entites/product_response_entity.dart';

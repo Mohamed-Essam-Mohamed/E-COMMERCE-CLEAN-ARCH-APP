@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce/src/domain/entities/add_to_cart/addtocart_response_enitiy.dart';
-import 'package:e_commerce/src/domain/usecases/home_usecase/add_to_cart_usecase.dart';
+import 'package:e_commerce/src/domain/usecases/product_usecase/add_to_cart_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constant/string_const_app.dart';
 import '../../../domain/entities/product_entites/product_response_entity.dart';
@@ -11,14 +11,14 @@ import 'package:meta/meta.dart';
 part 'product_view_model_state.dart';
 
 class ProductViewModelCubit extends Cubit<ProductViewModelState> {
+  AllProductUseCase allProductUseCases;
+  AddToCartUseCase addToCartUseCase;
   ProductViewModelCubit(
       {required this.allProductUseCases, required this.addToCartUseCase})
       : super(
           ProductViewModelInitial(),
         );
   TextEditingController searchController = TextEditingController();
-  AllProductUseCase allProductUseCases;
-  AddToCartUseCase addToCartUseCase;
   List<ProductDataEntity> listProduct = [];
   static ProductViewModelCubit get(context) => BlocProvider.of(context);
   void getAllProduct() async {

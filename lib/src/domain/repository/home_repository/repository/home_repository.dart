@@ -6,6 +6,4 @@ import '../../../../helper/failuers/failures.dart';
 abstract class HomeRepository {
   Future<Either<Failure, CategoryOrBrandResponseEntity>> getAllCategory();
   Future<Either<Failure, CategoryOrBrandResponseEntity>> getAllBrand();
-  Future<Either<Failure, AddToCartResponseEntity>> addToCart(
-      {required String productId});
 }
