@@ -13,7 +13,9 @@ part 'product_view_model_state.dart';
 class ProductViewModelCubit extends Cubit<ProductViewModelState> {
   ProductViewModelCubit(
       {required this.allProductUseCases, required this.addToCartUseCase})
-      : super(ProductViewModelInitial());
+      : super(
+          ProductViewModelInitial(),
+        );
   TextEditingController searchController = TextEditingController();
   AllProductUseCase allProductUseCases;
   AddToCartUseCase addToCartUseCase;

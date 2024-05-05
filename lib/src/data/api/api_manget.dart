@@ -65,7 +65,6 @@ class ApiManger {
   }
 
   //! function login
-
   Future<Either<Failure, LoginResponseDto>> login(
       {required LoginRequest loginRequest}) async {
     final List<ConnectivityResult> connectivityResult =
@@ -176,8 +175,8 @@ class ApiManger {
       return Left(Failure(errorMessage: 'No Internet Connection'));
     }
   }
-  //! function getAllCategories
 
+  //! function getAllCategories
   Future<Either<Failure, CategoryOrBrandResponseDto>> getAllCategory() async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -230,7 +229,6 @@ class ApiManger {
   }
 
   //! function getBrand
-
   Future<Either<Failure, CategoryOrBrandResponseDto>> getAllBrands() async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -259,7 +257,6 @@ class ApiManger {
   //! get Token
   var token = SharedPreferencesUtils.getData(key: 'Token');
   //! function add to cart
-
   Future<Either<Failure, AddToCartResponseDto>> addToCart(
       {required String productId}) async {
     final List<ConnectivityResult> connectivityResult =

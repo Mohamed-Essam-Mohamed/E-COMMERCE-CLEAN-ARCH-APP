@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CartScreen extends StatelessWidget {
-  static const String routeName = 'cart-screen';
+  static const String routeName = "CartScreen";
   CartViewModelCubit viewModel = CartViewModelCubit();
 
   @override

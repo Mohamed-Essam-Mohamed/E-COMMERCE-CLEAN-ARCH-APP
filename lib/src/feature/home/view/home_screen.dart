@@ -7,6 +7,7 @@ import 'package:e_commerce/src/feature/home/view/widget/catergory_gridview.dart'
 import 'package:e_commerce/src/feature/home/view/widget/container_title.dart';
 import 'package:e_commerce/src/feature/home/view/widget/slider_image.dart';
 import 'package:e_commerce/src/feature/home/view_model/home_view_model_cubit.dart';
+import 'package:e_commerce/src/feature/product/view_modle/product_view_model_cubit.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:e_commerce/src/widget/custom_text_form_app.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,10 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 ContainerSearchWidget(
-                    controller: viewModel.searchController, numberOfBages: 1),
+                  controller: viewModel.searchController,
+                  numberOfBages: 1,
+                  onTap: () {},
+                ),
                 Gap(10.h),
                 SliderImages(),
                 Gap(24.h),
@@ -93,13 +97,16 @@ class ContainerSearchWidget extends StatelessWidget {
     super.key,
     required this.controller,
     required this.numberOfBages,
+    required this.onTap,
   });
 
   final TextEditingController controller;
   final int numberOfBages;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
+    // var bloc = BlocProvider.of<ProductViewModelCubit>(context);
     return Row(
       children: [
         Expanded(
@@ -115,14 +122,17 @@ class ContainerSearchWidget extends StatelessWidget {
           ),
         ),
         Gap(7.w),
-        Badge(
-          label: Text('$numberOfBages'),
-          alignment: Alignment.topLeft,
-          child: SvgPicture.asset(
-            'assets/icons/icon-shopping-cart.svg',
-            width: 35.w,
-            height: 35.h,
-            fit: BoxFit.cover,
+        InkWell(
+          onTap: onTap,
+          child: Badge(
+            label: Text('$numberOfBages'),
+            alignment: Alignment.topLeft,
+            child: SvgPicture.asset(
+              'assets/icons/icon-shopping-cart.svg',
+              width: 35.w,
+              height: 35.h,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ],

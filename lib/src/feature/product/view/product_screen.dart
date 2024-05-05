@@ -1,7 +1,5 @@
 import 'package:e_commerce/src/domain/usecases/home_usecase/add_to_cart_usecase.dart';
 import 'package:e_commerce/src/feature/cart/view/cart_screen.dart';
-import 'package:e_commerce/src/widget/custom_text_form_app.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../domain/entities/product_entites/product_response_entity.dart';
 import '../../../domain/usecases/product_usecase/all_product_usecase.dart';
@@ -34,37 +32,12 @@ class ProductScreen extends StatelessWidget {
                   //   controller: viewModel.searchController,
                   //   numberOfBages: viewModel.numberOfCartItem,
                   // ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomTextFormApp(
-                          hintText: 'what do you search for?',
-                          isSearch: true,
-                          validator: (text) {},
-                          controller: viewModel.searchController,
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 10.h,
-                            vertical: 8.h,
-                          ),
-                        ),
-                      ),
-                      Gap(7.w),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(CartScreen.routeName);
-                        },
-                        child: Badge(
-                          label: Text(viewModel.numberOfCartItem.toString()),
-                          alignment: Alignment.topLeft,
-                          child: SvgPicture.asset(
-                            'assets/icons/icon-shopping-cart.svg',
-                            width: 35.w,
-                            height: 35.h,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ],
+                  ContainerSearchWidget(
+                    controller: viewModel.searchController,
+                    numberOfBages: viewModel.numberOfCartItem,
+                    onTap: () {
+                      Navigator.of(context).pushNamed(CartScreen.routeName);
+                    },
                   ),
                   Gap(15.h),
                   state is ProductViewModelLoading
