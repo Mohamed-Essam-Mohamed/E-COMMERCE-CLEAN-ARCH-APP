@@ -38,7 +38,8 @@ class HomeScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                ContainerSearchWidget(controller: viewModel.searchController),
+                ContainerSearchWidget(
+                    controller: viewModel.searchController, numberOfBages: 1),
                 Gap(10.h),
                 SliderImages(),
                 Gap(24.h),
@@ -91,9 +92,11 @@ class ContainerSearchWidget extends StatelessWidget {
   const ContainerSearchWidget({
     super.key,
     required this.controller,
+    required this.numberOfBages,
   });
 
   final TextEditingController controller;
+  final int numberOfBages;
 
   @override
   Widget build(BuildContext context) {
@@ -112,11 +115,15 @@ class ContainerSearchWidget extends StatelessWidget {
           ),
         ),
         Gap(7.w),
-        SvgPicture.asset(
-          'assets/icons/icon-shopping-cart.svg',
-          width: 35.w,
-          height: 35.h,
-          fit: BoxFit.cover,
+        Badge(
+          label: Text('$numberOfBages'),
+          alignment: Alignment.topLeft,
+          child: SvgPicture.asset(
+            'assets/icons/icon-shopping-cart.svg',
+            width: 35.w,
+            height: 35.h,
+            fit: BoxFit.cover,
+          ),
         ),
       ],
     );

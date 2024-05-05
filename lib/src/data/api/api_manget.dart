@@ -8,6 +8,7 @@ import 'package:e_commerce/src/data/model/request/auth_request/forgot_pass_reque
 import 'package:e_commerce/src/data/model/request/auth_request/login_request.dart';
 import 'package:e_commerce/src/data/model/request/auth_request/reset_pass_request.dart';
 import 'package:e_commerce/src/data/model/request/auth_request/resset_code_request.dart';
+import 'package:e_commerce/src/data/model/response/add_cart_response_dto/addcart_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/auth_response_dto/forgot_pass_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/auth_response_dto/login_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/auth_response_dto/reset_pass_response_dto.dart';
@@ -229,6 +230,7 @@ class ApiManger {
   }
 
   //! function getBrand
+
   Future<Either<Failure, CategoryOrBrandResponseDto>> getAllBrands() async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -248,6 +250,42 @@ class ApiManger {
       } else {
         //? Incorrect
         return Left(Failure(errorMessage: 'Error in response'));
+      }
+    } else {
+      return Left(Failure(errorMessage: 'No Internet Connection'));
+    }
+  }
+
+  //! get Token
+  var token = SharedPreferencesUtils.getData(key: 'Token');
+  //! function add to cart
+
+  Future<Either<Failure, AddToCartResponseDto>> addToCart(
+      {required String productId}) async {
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      //? connected internet
+      Uri url = Uri.https(apiBaseUrl, apiAddToCart);
+      var response = await http.post(url, headers: {
+        "token": token.toString(),
+      }, body: {
+        "productId": productId,
+      });
+
+      var addToCartResponse =
+          AddToCartResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //? success get data
+        return Right(addToCartResponse);
+      } else if (response.statusCode == 401) {
+        return Left(Failure(errorMessage: addToCartResponse.message));
+      } else {
+        //? Incorrect
+        return Left(Failure(errorMessage: addToCartResponse.message));
       }
     } else {
       return Left(Failure(errorMessage: 'No Internet Connection'));

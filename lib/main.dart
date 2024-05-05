@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/feature/cart/view/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -60,6 +61,7 @@ class EcommerceRouteApp extends StatelessWidget {
                 ResendCodeEmailScreen(),
             ResetPasswordScreen.routeName: (context) => ResetPasswordScreen(),
             ProductDetailsView.routeName: (context) => ProductDetailsView(),
+            CartScreen.routeName: (context) => CartScreen(),
           },
         );
       },

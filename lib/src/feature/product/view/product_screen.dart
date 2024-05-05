@@ -1,3 +1,8 @@
+import 'package:e_commerce/src/domain/usecases/home_usecase/add_to_cart_usecase.dart';
+import 'package:e_commerce/src/feature/cart/view/cart_screen.dart';
+import 'package:e_commerce/src/widget/custom_text_form_app.dart';
+import 'package:flutter_svg/svg.dart';
+
 import '../../../domain/entities/product_entites/product_response_entity.dart';
 import '../../../domain/usecases/product_usecase/all_product_usecase.dart';
 import '../../home/view/home_screen.dart';
@@ -11,33 +16,68 @@ import 'package:gap/gap.dart';
 
 class ProductScreen extends StatelessWidget {
   ProductScreen({super.key});
-  final ProductViewModelCubit viewModel =
-      ProductViewModelCubit(allProductUseCases: injectAllProductUseCase());
+  final ProductViewModelCubit viewModel = ProductViewModelCubit(
+      allProductUseCases: injectAllProductUseCase(),
+      addToCartUseCase: injectAddToCartUseCase());
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.h),
       child: SingleChildScrollView(
-        child: BlocConsumer<ProductViewModelCubit, ProductViewModelState>(
-          bloc: viewModel..getAllProduct(),
-          listener: (context, state) {
-            // TODO: implement listener
-          },
-          builder: (context, state) {
-            return Column(
-              children: [
-                ContainerSearchWidget(controller: viewModel.searchController),
-                Gap(15.h),
-                state is ProductViewModelLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : state is ProductViewModelError
-                        ? Center(child: Text(state.errorMessage ?? 'wrong'))
-                        : GridViewAllProduct(
-                            listProduct: viewModel.listProduct ?? [],
+        child: BlocProvider<ProductViewModelCubit>(
+          create: (context) => viewModel..getAllProduct(),
+          child: BlocBuilder<ProductViewModelCubit, ProductViewModelState>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  // ContainerSearchWidget(
+                  //   controller: viewModel.searchController,
+                  //   numberOfBages: viewModel.numberOfCartItem,
+                  // ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextFormApp(
+                          hintText: 'what do you search for?',
+                          isSearch: true,
+                          validator: (text) {},
+                          controller: viewModel.searchController,
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 10.h,
+                            vertical: 8.h,
                           ),
-              ],
-            );
-          },
+                        ),
+                      ),
+                      Gap(7.w),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(CartScreen.routeName);
+                        },
+                        child: Badge(
+                          label: Text(viewModel.numberOfCartItem.toString()),
+                          alignment: Alignment.topLeft,
+                          child: SvgPicture.asset(
+                            'assets/icons/icon-shopping-cart.svg',
+                            width: 35.w,
+                            height: 35.h,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Gap(15.h),
+                  state is ProductViewModelLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : state is ProductViewModelError
+                          ? Center(child: Text(state.errorMessage ?? 'wrong'))
+                          : GridViewAllProduct(
+                              listProduct: viewModel.listProduct ?? [],
+                            ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
@@ -75,7 +115,10 @@ class GridViewAllProduct extends StatelessWidget {
             );
           },
           child: ProductItem(
-            onTapAddCard: () {},
+            onTapAddCard: () {
+              ProductViewModelCubit.get(context)
+                  .addToCart(productId: listProduct[index].id ?? '');
+            },
             onTapLove: () {},
             descriptionImage: listProduct[index].description ?? '',
             pathImage: listProduct[index].imageCover ?? '',

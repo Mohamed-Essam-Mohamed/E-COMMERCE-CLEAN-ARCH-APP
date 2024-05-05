@@ -14,4 +14,4 @@ class GetAllCategoriesUseCases {
 }
 
 GetAllCategoriesUseCases injectGetAllCategoriesUseCases() =>
-    GetAllCategoriesUseCases(categoryRepository: injectCategoryRepository());
+    GetAllCategoriesUseCases(categoryRepository: injectHomeRepository());

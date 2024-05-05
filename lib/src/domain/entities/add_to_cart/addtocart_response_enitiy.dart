@@ -1,23 +1,23 @@
-class AddCartResponseEntity {
+class AddToCartResponseEntity {
   String? status;
   String? message;
   int? numOfCartItems;
-  AddDataCartEntity? data;
+  AddToDataCartEntity? data;
 
-  AddCartResponseEntity(
+  AddToCartResponseEntity(
       {this.status, this.message, this.numOfCartItems, this.data});
 }
 
-class AddDataCartEntity {
+class AddToDataCartEntity {
   String? sId;
   String? cartOwner;
-  List<AddProductsCartEntity>? products;
+  List<AddToProductsCartEntity>? products;
   String? createdAt;
   String? updatedAt;
   int? iV;
   int? totalCartPrice;
 
-  AddDataCartEntity(
+  AddToDataCartEntity(
       {this.sId,
       this.cartOwner,
       this.products,
@@ -27,11 +27,11 @@ class AddDataCartEntity {
       this.totalCartPrice});
 }
 
-class AddProductsCartEntity {
+class AddToProductsCartEntity {
   int? count;
   String? sId;
   String? product;
   int? price;
 
-  AddProductsCartEntity({this.count, this.sId, this.product, this.price});
+  AddToProductsCartEntity({this.count, this.sId, this.product, this.price});
 }

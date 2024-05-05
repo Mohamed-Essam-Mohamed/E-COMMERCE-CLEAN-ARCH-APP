@@ -20,3 +20,8 @@ final class ProductViewModelSuccess extends ProductViewModelState {
 
   ProductViewModelSuccess({required this.productResponseEntity});
 }
+
+final class AddToCartViewModelSuccess extends ProductViewModelState {
+  final AddToCartResponseEntity addToCartResponseEntity;
+  AddToCartViewModelSuccess({required this.addToCartResponseEntity});
+}

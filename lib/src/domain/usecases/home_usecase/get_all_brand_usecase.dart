@@ -14,4 +14,4 @@ class GetAllBrandUsecase {
 }
 
 GetAllBrandUsecase injectGetAllBrandsUseCases() =>
-    GetAllBrandUsecase(BrandRepository: injectCategoryRepository());
+    GetAllBrandUsecase(BrandRepository: injectHomeRepository());

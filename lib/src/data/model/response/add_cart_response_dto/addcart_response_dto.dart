@@ -1,24 +1,25 @@
 import 'package:e_commerce/src/domain/entities/add_to_cart/addtocart_response_enitiy.dart';
 
-class AddCartResponseDto extends AddCartResponseEntity {
-  AddCartResponseDto({
+class AddToCartResponseDto extends AddToCartResponseEntity {
+  AddToCartResponseDto({
     super.status,
     super.message,
     super.numOfCartItems,
     super.data,
   });
 
-  AddCartResponseDto.fromJson(Map<String, dynamic> json) {
+  AddToCartResponseDto.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     numOfCartItems = json['numOfCartItems'];
-    data =
-        json['data'] != null ? new AddDataCartDto.fromJson(json['data']) : null;
+    data = json['data'] != null
+        ? new AddToDataCartDto.fromJson(json['data'])
+        : null;
   }
 }
 
-class AddDataCartDto extends AddDataCartEntity {
-  AddDataCartDto({
+class AddToDataCartDto extends AddToDataCartEntity {
+  AddToDataCartDto({
     super.sId,
     super.cartOwner,
     super.products,
@@ -28,13 +29,13 @@ class AddDataCartDto extends AddDataCartEntity {
     super.totalCartPrice,
   });
 
-  AddDataCartDto.fromJson(Map<String, dynamic> json) {
+  AddToDataCartDto.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     cartOwner = json['cartOwner'];
     if (json['products'] != null) {
-      products = <AddProductsCartDto>[];
+      products = <AddToProductsCartDto>[];
       json['products'].forEach((v) {
-        products!.add(new AddProductsCartDto.fromJson(v));
+        products!.add(new AddToProductsCartDto.fromJson(v));
       });
     }
     createdAt = json['createdAt'];
@@ -44,15 +45,15 @@ class AddDataCartDto extends AddDataCartEntity {
   }
 }
 
-class AddProductsCartDto extends AddProductsCartEntity {
-  AddProductsCartDto({
+class AddToProductsCartDto extends AddToProductsCartEntity {
+  AddToProductsCartDto({
     super.count,
     super.sId,
     super.product,
     super.price,
   });
 
-  AddProductsCartDto.fromJson(Map<String, dynamic> json) {
+  AddToProductsCartDto.fromJson(Map<String, dynamic> json) {
     count = json['count'];
     sId = json['_id'];
     product = json['product'];
