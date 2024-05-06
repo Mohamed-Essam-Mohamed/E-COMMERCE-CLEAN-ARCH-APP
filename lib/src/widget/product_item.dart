@@ -1,12 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/cupertino.dart';
+import 'package:e_commerce/src/utils/app_colors.dart';
+import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-
-import 'package:e_commerce/src/utils/app_colors.dart';
-import 'package:e_commerce/src/utils/app_text_style.dart';
 
 class ProductItem extends StatelessWidget {
   final String pathImage;

@@ -6,16 +6,16 @@ sealed class ForgotPasswordState {}
 final class ForgotPasswordInitial extends ForgotPasswordState {}
 
 final class ForgotPasswordLoading extends ForgotPasswordState {
-  String message;
+  final String? message;
   ForgotPasswordLoading({required this.message});
 }
 
 final class ForgotPasswordSuccess extends ForgotPasswordState {
-  ForgotPasswordResponseEntity? forgotPasswordResponseEntity;
+  final ForgotPasswordResponseEntity? forgotPasswordResponseEntity;
   ForgotPasswordSuccess({required this.forgotPasswordResponseEntity});
 }
 
 final class ForgotPasswordError extends ForgotPasswordState {
-  String? errorMessage;
+  final String? errorMessage;
   ForgotPasswordError({required this.errorMessage});
 }

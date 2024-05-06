@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:e_commerce/src/domain/repository/product_repository/repository/product_repository.dart';
+
 import '../../../data/repositorys/product_repository/repsitory/product_repository_imp.dart';
 import '../../../helper/failuers/failures.dart';
 import '../../entities/product_entites/add_to_cart/addtocart_response_enitiy.dart';
+import '../../repository/product_repository/repository/product_repository.dart';
 
 class AddToCartUseCase {
   final ProductRepository productRepository;

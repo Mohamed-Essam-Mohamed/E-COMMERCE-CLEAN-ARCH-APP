@@ -9,17 +9,15 @@ import 'package:e_commerce/src/feature/home/view/widget/slider_image.dart';
 import 'package:e_commerce/src/feature/home/view_model/home_view_model_cubit.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:e_commerce/src/widget/containerSearchWidget.dart';
-import 'package:e_commerce/src/widget/custom_text_form_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "HomeScreen";
 
-  HomeViewModelCubit viewModel = HomeViewModelCubit(
+  final HomeViewModelCubit viewModel = HomeViewModelCubit(
     getAllCategoriesUseCases: injectGetAllCategoriesUseCases(),
     getAllBrandsUseCases: injectGetAllBrandsUseCases(),
   );

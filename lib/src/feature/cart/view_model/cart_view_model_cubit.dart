@@ -1,9 +1,9 @@
-import 'package:e_commerce/src/constant/string_const_app.dart';
-import 'package:e_commerce/src/domain/entities/product_entites/add_to_cart/get_logged_cart_response_entity.dart';
-import 'package:e_commerce/src/domain/usecases/product_usecase/delete_item_cart_usecase.dart';
-import 'package:e_commerce/src/domain/usecases/product_usecase/get_all_logged_cart_usecase.dart';
-import 'package:e_commerce/src/domain/usecases/product_usecase/update_count_cart_usecase.dart';
-import 'package:e_commerce/src/feature/cart/view_model/cart_view_model_state.dart';
+import '../../../constant/string_const_app.dart';
+import '../../../domain/entities/product_entites/add_to_cart/get_logged_cart_response_entity.dart';
+import '../../../domain/usecases/product_usecase/delete_item_cart_usecase.dart';
+import '../../../domain/usecases/product_usecase/get_all_logged_cart_usecase.dart';
+import '../../../domain/usecases/product_usecase/update_count_cart_usecase.dart';
+import 'cart_view_model_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartViewModelCubit extends Cubit<CartStates> {

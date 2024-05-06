@@ -8,11 +8,11 @@ final class LoginViewModelInitial extends LoginViewModelState {}
 final class LoginViewModelLoading extends LoginViewModelState {}
 
 final class LoginViewModelError extends LoginViewModelState {
-  String? errorMessage;
+  final String? errorMessage;
   LoginViewModelError({required this.errorMessage});
 }
 
 final class LoginViewModelSuccess extends LoginViewModelState {
-  AuthResponseEntity? authResponseEntity;
+  final AuthResponseEntity? authResponseEntity;
   LoginViewModelSuccess({required this.authResponseEntity});
 }

@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/domain/entities/product_entites/add_to_cart/get_logged_cart_response_entity.dart';
+import '../../../domain/entities/product_entites/add_to_cart/get_logged_cart_response_entity.dart';
 
 abstract class CartStates {}
 

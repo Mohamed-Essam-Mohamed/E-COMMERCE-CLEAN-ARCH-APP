@@ -1,11 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../../data/model/request/auth_request/reset_pass_request.dart';
 import '../../../../../domain/entities/auth_entities/reset_pass_response_entity.dart';
 import '../../../../../domain/usecases/auth_usecases/reset_pass_usecase.dart';
-
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 part 'reset_password_view_model_state.dart';
 

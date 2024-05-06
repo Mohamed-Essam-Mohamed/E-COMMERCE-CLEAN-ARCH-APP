@@ -1,10 +1,10 @@
-import '../view_model/navigation_bar_cubit.dart';
-
-import '../../../utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../utils/app_colors.dart';
+import '../view_model/navigation_bar_cubit.dart';
 
 class NavigationBarScreen extends StatelessWidget {
   static const String routeName = "NavigationBarScreen";

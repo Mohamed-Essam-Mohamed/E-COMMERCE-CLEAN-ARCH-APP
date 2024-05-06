@@ -100,6 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value == null || value.trim().isEmpty) {
                             return entEmail;
                           }
+                          return null;
                         },
                         controller: viewModel.emailController,
                       ),
@@ -115,6 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value == null || value.trim().isEmpty) {
                             return entPassword;
                           }
+                          return null;
                         },
                       ),
                     ],

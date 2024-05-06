@@ -1,6 +1,6 @@
-import 'package:e_commerce/src/domain/entities/product_entites/add_to_cart/get_logged_cart_response_entity.dart';
-import 'package:e_commerce/src/utils/app_colors.dart';
-import 'package:e_commerce/src/utils/app_text_style.dart';
+import '../../../../domain/entities/product_entites/add_to_cart/get_logged_cart_response_entity.dart';
+import '../../../../utils/app_colors.dart';
+import '../../../../utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

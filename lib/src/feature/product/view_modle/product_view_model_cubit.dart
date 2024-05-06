@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/src/domain/entities/product_entites/add_to_cart/addtocart_response_enitiy.dart';
-import 'package:e_commerce/src/domain/usecases/product_usecase/add_to_cart_usecase.dart';
+import '../../../domain/entities/product_entites/add_to_cart/addtocart_response_enitiy.dart';
+import '../../../domain/usecases/product_usecase/add_to_cart_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constant/string_const_app.dart';
 import '../../../domain/entities/product_entites/product_response_entity.dart';

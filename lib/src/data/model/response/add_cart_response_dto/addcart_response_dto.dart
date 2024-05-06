@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/domain/entities/product_entites/add_to_cart/addtocart_response_enitiy.dart';
+import '../../../../domain/entities/product_entites/add_to_cart/addtocart_response_enitiy.dart';
 
 class AddToCartResponseDto extends AddToCartResponseEntity {
   AddToCartResponseDto({

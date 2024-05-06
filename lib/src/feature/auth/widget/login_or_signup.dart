@@ -6,10 +6,10 @@ import '../../../utils/app_text_style.dart';
 import '../register/view/register_screen.dart';
 
 class LoginOrSignUp extends StatelessWidget {
-  String startTitle;
-  String endTitle;
+  final String startTitle;
+  final String endTitle;
 
-  LoginOrSignUp({
+  const LoginOrSignUp({
     super.key,
     required this.endTitle,
     required this.startTitle,

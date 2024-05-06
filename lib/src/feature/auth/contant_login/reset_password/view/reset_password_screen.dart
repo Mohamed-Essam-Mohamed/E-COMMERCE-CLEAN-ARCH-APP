@@ -1,22 +1,18 @@
-import '../../../../../constant/string_const_app.dart';
-import '../../../../../domain/usecases/auth_usecases/login_usecase.dart';
-import '../../../../../domain/usecases/auth_usecases/reset_pass_usecase.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
-import '../../forget_password/view/forget_password_screen.dart';
-import '../view_model/reset_password_view_model_cubit.dart';
-import '../../../../navigation_bar_screen/view/navigation_bar_screen.dart';
+import '../../../../../constant/string_const_app.dart';
+import '../../../../../domain/usecases/auth_usecases/reset_pass_usecase.dart';
 import '../../../../../utils/app_colors.dart';
 import '../../../../../utils/app_text_style.dart';
 import '../../../../../utils/dailog.dart';
 import '../../../../../widget/custom_button_app.dart';
 import '../../../../../widget/custom_text_form_app.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
+import '../../../../navigation_bar_screen/view/navigation_bar_screen.dart';
+import '../../forget_password/view/forget_password_screen.dart';
+import '../view_model/reset_password_view_model_cubit.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   static const String routeName = 'ResetPasswordScreen';

@@ -1,5 +1,5 @@
-import 'package:e_commerce/src/feature/product/view_modle/product_view_model_cubit.dart';
-import 'package:e_commerce/src/widget/custom_text_form_app.dart';
+import '../feature/product/view_modle/product_view_model_cubit.dart';
+import 'custom_text_form_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

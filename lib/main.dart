@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/feature/cart/view/cart_screen.dart';
+import 'src/feature/cart/view/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

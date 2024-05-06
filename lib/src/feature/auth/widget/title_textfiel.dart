@@ -5,8 +5,8 @@ import 'package:gap/gap.dart';
 import '../../../utils/app_colors.dart';
 
 class TitleTextField extends StatelessWidget {
-  TitleTextField({required this.title, super.key});
-  String title;
+  const TitleTextField({required this.title, super.key});
+  final String title;
 
   @override
   Widget build(BuildContext context) {

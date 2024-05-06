@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_text_style.dart';
-import 'package:flutter/material.dart';
 
 class ContainerTitle extends StatelessWidget {
   String title;

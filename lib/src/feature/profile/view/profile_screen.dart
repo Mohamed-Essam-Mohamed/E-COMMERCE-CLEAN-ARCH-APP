@@ -1,8 +1,8 @@
-import 'package:e_commerce/src/feature/auth/contant_login/forget_password/view/forget_password_screen.dart';
-import 'package:e_commerce/src/feature/auth/contant_login/login/view/login_screen.dart';
-import 'package:e_commerce/src/feature/auth/register/view/register_screen.dart';
-import 'package:e_commerce/src/utils/app_text_style.dart';
-import 'package:e_commerce/src/utils/shared_preference_utils.dart';
+import '../../auth/contant_login/forget_password/view/forget_password_screen.dart';
+import '../../auth/contant_login/login/view/login_screen.dart';
+import '../../auth/register/view/register_screen.dart';
+import '../../../utils/app_text_style.dart';
+import '../../../utils/shared_preference_utils.dart';
 import 'package:gap/gap.dart';
 
 import '../../../utils/app_colors.dart';
