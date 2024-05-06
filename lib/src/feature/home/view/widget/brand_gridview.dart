@@ -7,10 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class BrandGridView extends StatelessWidget {
+class BrandGridView extends StatefulWidget {
   const BrandGridView({required this.brandList, super.key});
 
   final List<CategoryOrBrandDataEntity> brandList;
+
+  @override
+  State<BrandGridView> createState() => _BrandGridViewState();
+}
+
+class _BrandGridViewState extends State<BrandGridView> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -34,7 +40,7 @@ class BrandGridView extends StatelessWidget {
             ClipRRect(
               child: FadeInImage.assetNetwork(
                 placeholder: 'assets/image/catergory_image1.png',
-                image: brandList[index].image ?? '',
+                image: widget.brandList[index].image ?? '',
                 fit: BoxFit.contain,
                 height: 90.h,
                 width: 90.w,
@@ -43,7 +49,7 @@ class BrandGridView extends StatelessWidget {
             ),
             Gap(5.h),
             Text(
-              brandList[index].name ?? '',
+              widget.brandList[index].name ?? '',
               style: AppTextStyle.textStyle18.copyWith(
                 color: AppColors.primaryColor,
               ),
@@ -54,7 +60,7 @@ class BrandGridView extends StatelessWidget {
           ],
         ),
       ),
-      itemCount: brandList.length,
+      itemCount: widget.brandList.length,
     );
   }
 }

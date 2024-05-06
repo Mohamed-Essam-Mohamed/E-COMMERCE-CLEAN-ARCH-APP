@@ -14,9 +14,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const String routeName = "HomeScreen";
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final HomeViewModelCubit viewModel = HomeViewModelCubit(
     getAllCategoriesUseCases: injectGetAllCategoriesUseCases(),
     getAllBrandsUseCases: injectGetAllBrandsUseCases(),

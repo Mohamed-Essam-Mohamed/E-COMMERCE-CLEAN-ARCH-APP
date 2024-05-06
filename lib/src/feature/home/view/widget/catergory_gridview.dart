@@ -7,10 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class CatergoryGridView extends StatelessWidget {
+class CatergoryGridView extends StatefulWidget {
   const CatergoryGridView({required this.catergoryList, super.key});
 
   final List<CategoryOrBrandDataEntity> catergoryList;
+
+  @override
+  State<CatergoryGridView> createState() => _CatergoryGridViewState();
+}
+
+class _CatergoryGridViewState extends State<CatergoryGridView> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -34,7 +40,7 @@ class CatergoryGridView extends StatelessWidget {
             ClipRRect(
               child: FadeInImage.assetNetwork(
                 placeholder: 'assets/image/catergory_image1.png',
-                image: catergoryList[index].image ?? '',
+                image: widget.catergoryList[index].image ?? '',
                 fit: BoxFit.cover,
                 height: 90.h,
                 width: 90.w,
@@ -43,7 +49,7 @@ class CatergoryGridView extends StatelessWidget {
             ),
             Gap(5.h),
             Text(
-              catergoryList[index].name ?? '',
+              widget.catergoryList[index].name ?? '',
               style: AppTextStyle.textStyle18.copyWith(
                 color: AppColors.primaryColor,
               ),
@@ -54,7 +60,7 @@ class CatergoryGridView extends StatelessWidget {
           ],
         ),
       ),
-      itemCount: catergoryList.length,
+      itemCount: widget.catergoryList.length,
     );
   }
 }
