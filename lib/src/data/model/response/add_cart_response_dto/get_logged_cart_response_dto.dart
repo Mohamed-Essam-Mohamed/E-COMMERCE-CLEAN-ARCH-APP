@@ -1,34 +1,26 @@
-class GetLoggedCartResponseDto {
-  String? status;
-  int? numOfCartItems;
-  DataCartDto? data;
+import '../../../../domain/entities/product_entites/add_to_cart/get_logged_cart_response_entity.dart';
 
-  GetLoggedCartResponseDto({this.status, this.numOfCartItems, this.data});
-
+class GetLoggedCartResponseDto extends GetLoggedCartResponseEntity {
+  String? message;
+  GetLoggedCartResponseDto(
+      {super.status, super.numOfCartItems, super.data, this.message});
   GetLoggedCartResponseDto.fromJson(Map<String, dynamic> json) {
     status = json['status'];
+    message = json['message'];
     numOfCartItems = json['numOfCartItems'];
     data = json['data'] != null ? new DataCartDto.fromJson(json['data']) : null;
   }
 }
 
-class DataCartDto {
-  String? sId;
-  String? cartOwner;
-  List<ProductsCartsDto>? products;
-  String? createdAt;
-  String? updatedAt;
-  int? iV;
-  int? totalCartPrice;
-
+class DataCartDto extends DataCartEntity {
   DataCartDto(
-      {this.sId,
-      this.cartOwner,
-      this.products,
-      this.createdAt,
-      this.updatedAt,
-      this.iV,
-      this.totalCartPrice});
+      {super.sId,
+      super.cartOwner,
+      super.products,
+      super.createdAt,
+      super.updatedAt,
+      super.iV,
+      super.totalCartPrice});
 
   DataCartDto.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -46,13 +38,8 @@ class DataCartDto {
   }
 }
 
-class ProductsCartsDto {
-  int? count;
-  String? sId;
-  ProductCartDto? product;
-  int? price;
-
-  ProductsCartsDto({this.count, this.sId, this.product, this.price});
+class ProductsCartsDto extends ProductsCartsEntity {
+  ProductsCartsDto({super.count, super.sId, super.product, super.price});
 
   ProductsCartsDto.fromJson(Map<String, dynamic> json) {
     count = json['count'];
@@ -64,27 +51,17 @@ class ProductsCartsDto {
   }
 }
 
-class ProductCartDto {
-  List<SubcategoryCartDto>? subcategory;
-  String? sId;
-  String? title;
-  int? quantity;
-  String? imageCover;
-  CategoryCartDto? category;
-  CategoryCartDto? brand;
-  double? ratingsAverage;
-  String? id;
-
+class ProductCartDto extends ProductCartEntity {
   ProductCartDto(
-      {this.subcategory,
-      this.sId,
-      this.title,
-      this.quantity,
-      this.imageCover,
-      this.category,
-      this.brand,
-      this.ratingsAverage,
-      this.id});
+      {super.subcategory,
+      super.sId,
+      super.title,
+      super.quantity,
+      super.imageCover,
+      super.category,
+      super.brand,
+      super.ratingsAverage,
+      super.id});
 
   ProductCartDto.fromJson(Map<String, dynamic> json) {
     if (json['subcategory'] != null) {
@@ -108,13 +85,8 @@ class ProductCartDto {
   }
 }
 
-class SubcategoryCartDto {
-  String? sId;
-  String? name;
-  String? slug;
-  String? category;
-
-  SubcategoryCartDto({this.sId, this.name, this.slug, this.category});
+class SubcategoryCartDto extends SubcategoryCartEntity {
+  SubcategoryCartDto({super.sId, super.name, super.slug, super.category});
 
   SubcategoryCartDto.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -124,13 +96,8 @@ class SubcategoryCartDto {
   }
 }
 
-class CategoryCartDto {
-  String? sId;
-  String? name;
-  String? slug;
-  String? image;
-
-  CategoryCartDto({this.sId, this.name, this.slug, this.image});
+class CategoryCartDto extends CategoryCartEntity {
+  CategoryCartDto({super.sId, super.name, super.slug, super.image});
 
   CategoryCartDto.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];

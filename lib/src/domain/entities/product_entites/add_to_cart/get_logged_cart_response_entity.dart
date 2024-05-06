@@ -42,7 +42,7 @@ class ProductCartEntity {
   String? imageCover;
   CategoryCartEntity? category;
   CategoryCartEntity? brand;
-  double? ratingsAverage;
+  num? ratingsAverage;
   String? id;
 
   ProductCartEntity(

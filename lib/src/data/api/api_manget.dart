@@ -9,6 +9,7 @@ import 'package:e_commerce/src/data/model/request/auth_request/login_request.dar
 import 'package:e_commerce/src/data/model/request/auth_request/reset_pass_request.dart';
 import 'package:e_commerce/src/data/model/request/auth_request/resset_code_request.dart';
 import 'package:e_commerce/src/data/model/response/add_cart_response_dto/addcart_response_dto.dart';
+import 'package:e_commerce/src/data/model/response/add_cart_response_dto/get_logged_cart_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/auth_response_dto/forgot_pass_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/auth_response_dto/login_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/auth_response_dto/reset_pass_response_dto.dart';
@@ -283,6 +284,92 @@ class ApiManger {
       } else {
         //? Incorrect
         return Left(Failure(errorMessage: addToCartResponse.message));
+      }
+    } else {
+      return Left(Failure(errorMessage: 'No Internet Connection'));
+    }
+  }
+
+  //! function get  all cart
+  Future<Either<Failure, GetLoggedCartResponseDto>> getAllCart() async {
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      //? connected internet
+      Uri url = Uri.https(apiBaseUrl, apiGetAllCart);
+      var response = await http.get(url, headers: {
+        "token": token.toString(),
+      });
+
+      var getAllCartResponse =
+          GetLoggedCartResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //? success get data
+        return Right(getAllCartResponse);
+      } else {
+        //? Incorrect
+        return Left(Failure(errorMessage: getAllCartResponse.message));
+      }
+    } else {
+      return Left(Failure(errorMessage: 'No Internet Connection'));
+    }
+  }
+
+  //! function delete cart
+  Future<Either<Failure, GetLoggedCartResponseDto>> deleteItemCart(
+      {required String cartId}) async {
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      //? connected internet
+      Uri url = Uri.https(apiBaseUrl, "$apiGetAllCart/$cartId");
+      var response = await http.delete(url, headers: {
+        "token": token.toString(),
+      });
+      var deleteItemCartResponse =
+          GetLoggedCartResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //? success get data
+        return Right(deleteItemCartResponse);
+      } else {
+        //? Incorrect
+        return Left(Failure(errorMessage: deleteItemCartResponse.message));
+      }
+    } else {
+      return Left(Failure(errorMessage: 'No Internet Connection'));
+    }
+  }
+
+  //! function update counte cart
+  Future<Either<Failure, GetLoggedCartResponseDto>> updateCountInCart(
+      {required String cartId, required String count}) async {
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      //? connected internet
+      Uri url = Uri.https(apiBaseUrl, "$apiGetAllCart/$cartId");
+      var response = await http.put(url, headers: {
+        "token": token.toString(),
+      }, body: {
+        "count": count,
+      });
+      var updateCountCartResponse =
+          GetLoggedCartResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //? success get data
+        return Right(updateCountCartResponse);
+      } else {
+        //? Incorrect
+        return Left(Failure(errorMessage: updateCountCartResponse.message));
       }
     } else {
       return Left(Failure(errorMessage: 'No Internet Connection'));

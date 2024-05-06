@@ -21,7 +21,36 @@ final class ProductViewModelSuccess extends ProductViewModelState {
   ProductViewModelSuccess({required this.productResponseEntity});
 }
 
+//? add to cart states
+final class AddToCartInitial extends ProductViewModelState {}
+
+final class AddToCartViewModelLoading extends ProductViewModelState {
+  final String? message;
+  AddToCartViewModelLoading({required this.message});
+}
+
+final class AddToCartViewModelError extends ProductViewModelState {
+  final String? errorMessage;
+  AddToCartViewModelError({required this.errorMessage});
+}
+
 final class AddToCartViewModelSuccess extends ProductViewModelState {
   final AddToCartResponseEntity addToCartResponseEntity;
   AddToCartViewModelSuccess({required this.addToCartResponseEntity});
+}
+
+//?  number of badge states
+final class ChangeNumBadgeViewModelLoading extends ProductViewModelState {
+  final String? message;
+  ChangeNumBadgeViewModelLoading({required this.message});
+}
+
+final class ChangeNumBadgeViewModelError extends ProductViewModelState {
+  final String? errorMessage;
+  ChangeNumBadgeViewModelError({required this.errorMessage});
+}
+
+final class ChangeNumBadgeViewModelSuccess extends ProductViewModelState {
+  final int? numberOfBages;
+  ChangeNumBadgeViewModelSuccess({required this.numberOfBages});
 }

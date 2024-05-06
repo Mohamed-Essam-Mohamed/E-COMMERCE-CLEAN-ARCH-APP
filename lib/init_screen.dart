@@ -65,6 +65,5 @@ class InitScreen extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

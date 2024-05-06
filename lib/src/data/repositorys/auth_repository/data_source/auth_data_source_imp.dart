@@ -5,7 +5,7 @@ import '../../../model/request/auth_request/resset_code_request.dart';
 import '../../../../domain/entities/auth_entities/fotgot_pass_response_entity.dart';
 import '../../../../domain/entities/auth_entities/reset_code_response_entity.dart';
 import '../../../../domain/entities/auth_entities/reset_pass_response_entity.dart';
-import 'package:http/http.dart';
+
 import '../../../model/request/auth_request/login_request.dart';
 import '../../../../domain/entities/auth_entities/auth_response_entities.dart';
 import '../../../../helper/failuers/failures.dart';

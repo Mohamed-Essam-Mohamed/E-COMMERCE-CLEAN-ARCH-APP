@@ -1,9 +1,9 @@
 import 'package:e_commerce/src/domain/usecases/product_usecase/add_to_cart_usecase.dart';
 import 'package:e_commerce/src/feature/cart/view/cart_screen.dart';
+import 'package:e_commerce/src/widget/containerSearchWidget.dart';
 
 import '../../../domain/entities/product_entites/product_response_entity.dart';
 import '../../../domain/usecases/product_usecase/all_product_usecase.dart';
-import '../../home/view/home_screen.dart';
 import '../../../widget/product_details_view.dart';
 import '../../../widget/product_item.dart';
 import '../view_modle/product_view_model_cubit.dart';
@@ -12,11 +12,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class ProductScreen extends StatelessWidget {
+class ProductScreen extends StatefulWidget {
   ProductScreen({super.key});
-  final ProductViewModelCubit viewModel = ProductViewModelCubit(
+
+  @override
+  State<ProductScreen> createState() => _ProductScreenState();
+}
+
+class _ProductScreenState extends State<ProductScreen> {
+  ProductViewModelCubit viewModel = ProductViewModelCubit(
       allProductUseCases: injectAllProductUseCase(),
       addToCartUseCase: injectAddToCartUseCase());
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,13 +35,9 @@ class ProductScreen extends StatelessWidget {
             builder: (context, state) {
               return Column(
                 children: [
-                  // ContainerSearchWidget(
-                  //   controller: viewModel.searchController,
-                  //   numberOfBages: viewModel.numberOfCartItem,
-                  // ),
                   ContainerSearchWidget(
                     controller: viewModel.searchController,
-                    numberOfBages: viewModel.numberOfCartItem,
+                    numberOfBages: viewModel.numberOfBagesItem,
                     onTap: () {
                       Navigator.of(context).pushNamed(CartScreen.routeName);
                     },
@@ -43,9 +46,9 @@ class ProductScreen extends StatelessWidget {
                   state is ProductViewModelLoading
                       ? Center(child: CircularProgressIndicator())
                       : state is ProductViewModelError
-                          ? Center(child: Text(state.errorMessage ?? 'wrong'))
+                          ? Center(child: Text('wrong'))
                           : GridViewAllProduct(
-                              listProduct: viewModel.listProduct ?? [],
+                              listProduct: viewModel.listProduct,
                             ),
                 ],
               );
@@ -66,6 +69,7 @@ class GridViewAllProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var bloc = BlocProvider.of<ProductViewModelCubit>(context);
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.8,
@@ -89,8 +93,7 @@ class GridViewAllProduct extends StatelessWidget {
           },
           child: ProductItem(
             onTapAddCard: () {
-              ProductViewModelCubit.get(context)
-                  .addToCart(productId: listProduct[index].id ?? '');
+              bloc.addToCart(productId: listProduct[index].id ?? '');
             },
             onTapLove: () {},
             descriptionImage: listProduct[index].description ?? '',
