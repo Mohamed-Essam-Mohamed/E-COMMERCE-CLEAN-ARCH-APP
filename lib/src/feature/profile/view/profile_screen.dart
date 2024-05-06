@@ -1,11 +1,16 @@
+import 'package:e_commerce/src/feature/auth/contant_login/forget_password/view/forget_password_screen.dart';
+import 'package:e_commerce/src/feature/auth/contant_login/login/view/login_screen.dart';
+import 'package:e_commerce/src/feature/auth/register/view/register_screen.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
+import 'package:e_commerce/src/utils/shared_preference_utils.dart';
 import 'package:gap/gap.dart';
 
-import '../../auth/contant_login/login/view/login_screen.dart';
 import '../../../utils/app_colors.dart';
-import '../../../utils/shared_preference_utils.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../utils/dailog.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -24,6 +29,10 @@ class ProfileScreen extends StatelessWidget {
                 Gap(16.h),
                 Text(
                   "Account",
+                  style: AppTextStyle.textStyle20.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.primaryColor,
+                  ),
                 ),
                 Gap(16.h),
                 Container(
@@ -51,10 +60,32 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       Gap(16.h),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(LoginScreen.routeName);
+                        },
+                        child: Text(
+                          "Login",
+                          style: AppTextStyle.textStyle18
+                              .copyWith(color: Colors.blue),
+                        ),
+                      ),
                       Text(
-                        "Login / Register",
+                        " / ",
                         style: AppTextStyle.textStyle18
                             .copyWith(color: Colors.blue),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(RegisterScreen.routeName);
+                        },
+                        child: Text(
+                          "Register",
+                          style: AppTextStyle.textStyle18
+                              .copyWith(color: Colors.blue),
+                        ),
                       ),
                     ],
                   ),
@@ -62,15 +93,21 @@ class ProfileScreen extends StatelessWidget {
                 Gap(32),
                 Text(
                   "Settings",
+                  style: AppTextStyle.textStyle24.copyWith(
+                    color: AppColors.primaryColor,
+                  ),
                 ),
                 Gap(32),
                 // _buildListTile('Appearance', Icons.dark_mode, _.theme.toCapitalized(), Colors.purple, theme, onTab: () => _showAppearanceModal(theme, _.theme));
                 _buildListTile(
-                  'Language',
-                  Icons.language,
-                  'English',
+                  'Change Password',
+                  Icons.security,
+                  '',
                   Colors.orange,
-                  onTab: () {},
+                  onTab: () {
+                    Navigator.of(context)
+                        .pushNamed(ForGetPasswordScreen.routeName);
+                  },
                 ),
                 Gap(25),
                 _buildListTile(
@@ -94,15 +131,31 @@ class ProfileScreen extends StatelessWidget {
                   Icons.exit_to_app,
                   '',
                   Colors.red,
-                  onTab: () {},
+                  onTab: () {
+                    var user = SharedPreferencesUtils.getData(key: 'Token');
+                    if (user == null) {
+                      DialogUtils.showMessage(
+                        context: context,
+                        message: 'Dont have account',
+                      );
+                    } else {
+                      SharedPreferencesUtils.removeData(key: 'Token');
+                      Navigator.of(context).pushReplacementNamed(
+                        LoginScreen.routeName,
+                      );
+                    }
+                  },
                 ),
               ],
             ),
           ),
           Text(
             "Version 1.0.0",
+            style: AppTextStyle.textStyle18.copyWith(
+              color: Colors.grey,
+            ),
           ),
-          Gap(7),
+          Gap(7.h),
         ],
       ),
     );
