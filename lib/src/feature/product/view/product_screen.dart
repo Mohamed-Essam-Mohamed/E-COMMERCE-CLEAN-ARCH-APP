@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/domain/usecases/favorite_usecase/addtofavorite_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,8 +22,10 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   ProductViewModelCubit viewModel = ProductViewModelCubit(
-      allProductUseCases: injectAllProductUseCase(),
-      addToCartUseCase: injectAddToCartUseCase());
+    allProductUseCases: injectAllProductUseCase(),
+    addToCartUseCase: injectAddToCartUseCase(),
+    addFavorteUsecase: injectAddFavorteUsecase(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +72,8 @@ class GridViewAllProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLove = false;
+
     var bloc = BlocProvider.of<ProductViewModelCubit>(context);
     return SizedBox(
       width: double.infinity,
@@ -95,7 +100,9 @@ class GridViewAllProduct extends StatelessWidget {
             onTapAddCard: () {
               bloc.addToCart(productId: listProduct[index].id ?? '');
             },
-            onTapLove: () {},
+            onTapLove: () {
+              bloc.addToFavorite(productId: listProduct[index].id ?? '');
+            },
             descriptionImage: listProduct[index].description ?? '',
             pathImage: listProduct[index].imageCover ?? '',
             price: listProduct[index].price.toString(),

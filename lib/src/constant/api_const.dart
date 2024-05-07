@@ -9,3 +9,5 @@ const String apiGetAllProducts = "/api/v1/products";
 const String apiGetAllBrands = "/api/v1/brands";
 const String apiAddToCart = "/api/v1/cart";
 const String apiGetAllCart = "/api/v1/cart";
+const String apiAddFavorite = "/api/v1/wishlist";
+const String apiGetAllFavorite = "/api/v1/wishlist";

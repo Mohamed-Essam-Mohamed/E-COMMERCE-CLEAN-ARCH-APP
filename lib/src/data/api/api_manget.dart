@@ -15,7 +15,10 @@ import 'package:e_commerce/src/data/model/response/auth_response_dto/login_respo
 import 'package:e_commerce/src/data/model/response/auth_response_dto/reset_pass_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/auth_response_dto/resset_code_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/categoryorbrand_response_dto/categoriesorbrand_response_dto.dart';
+import 'package:e_commerce/src/data/model/response/favorite_response_dto/add_to_favoirte_response_dto.dart';
+import 'package:e_commerce/src/data/model/response/favorite_response_dto/get_all_favorite_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/product_response_dto/product_response_dto.dart';
+import 'package:e_commerce/src/domain/entities/favorite_entities/get_all_favorite_response_enitiy.dart';
 import 'package:e_commerce/src/helper/failuers/failures.dart';
 import 'package:e_commerce/src/utils/shared_preference_utils.dart';
 import 'package:http/http.dart' as http;
@@ -291,6 +294,7 @@ class ApiManger {
   }
 
   //! function get  all cart
+
   Future<Either<Failure, GetLoggedCartResponseDto>> getAllCart() async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -370,6 +374,66 @@ class ApiManger {
       } else {
         //? Incorrect
         return Left(Failure(errorMessage: updateCountCartResponse.message));
+      }
+    } else {
+      return Left(Failure(errorMessage: 'No Internet Connection'));
+    }
+  }
+
+  //! Function add Favorite
+  Future<Either<Failure, AddToFavoriteResponseDto>> addToFavorite(
+      {required String productId}) async {
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      //? connected internet
+      Uri url = Uri.https(apiBaseUrl, apiAddFavorite);
+      var response = await http.post(url, headers: {
+        "token": token.toString(),
+      }, body: {
+        "productId": productId,
+      });
+
+      var addToFavoriteResponse =
+          AddToFavoriteResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //? success get data
+        return Right(addToFavoriteResponse);
+      } else if (response.statusCode == 401) {
+        return Left(Failure(errorMessage: addToFavoriteResponse.message));
+      } else {
+        //? Incorrect
+        return Left(Failure(errorMessage: addToFavoriteResponse.message));
+      }
+    } else {
+      return Left(Failure(errorMessage: 'No Internet Connection'));
+    }
+  }
+  //! Function get  all favorite
+
+  Future<Either<Failure, GetAllFavoriteResponseDto>> getAllFavorite() async {
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      //? connected internet
+      Uri url = Uri.https(apiBaseUrl, apiGetAllFavorite);
+      var response = await http.get(url, headers: {
+        "token": token.toString(),
+      });
+
+      var getAllFavoriteResponse =
+          GetAllFavoriteResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //? success get data
+        return Right(getAllFavoriteResponse);
+      } else {
+        //? Incorrect
+        return Left(Failure(errorMessage: "Error in response"));
       }
     } else {
       return Left(Failure(errorMessage: 'No Internet Connection'));

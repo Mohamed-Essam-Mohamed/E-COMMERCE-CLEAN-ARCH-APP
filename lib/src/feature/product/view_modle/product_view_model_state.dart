@@ -40,6 +40,7 @@ final class AddToCartViewModelSuccess extends ProductViewModelState {
 }
 
 //?  number of badge states
+
 final class ChangeNumBadgeViewModelLoading extends ProductViewModelState {
   final String? message;
   ChangeNumBadgeViewModelLoading({required this.message});
@@ -53,4 +54,20 @@ final class ChangeNumBadgeViewModelError extends ProductViewModelState {
 final class ChangeNumBadgeViewModelSuccess extends ProductViewModelState {
   final int? numberOfBages;
   ChangeNumBadgeViewModelSuccess({required this.numberOfBages});
+}
+
+// ? add cart to Favorite
+final class AddToFavoriteViewModelLoading extends ProductViewModelState {
+  final String? message;
+  AddToFavoriteViewModelLoading({required this.message});
+}
+
+final class AddToFavoriteViewModelError extends ProductViewModelState {
+  final String? errorMessage;
+  AddToFavoriteViewModelError({required this.errorMessage});
+}
+
+final class AddToFavoriteViewModelSuccess extends ProductViewModelState {
+  AddToFavoriteResponseEntity addToFavoriteResponseEntity;
+  AddToFavoriteViewModelSuccess({required this.addToFavoriteResponseEntity});
 }

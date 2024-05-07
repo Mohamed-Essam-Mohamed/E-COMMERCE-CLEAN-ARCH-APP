@@ -10,6 +10,7 @@ class ProductItem extends StatelessWidget {
   final String pathImage;
   final String descriptionImage;
   final String price;
+
   final void Function()? onTapLove;
   final void Function()? onTapAddCard;
 
