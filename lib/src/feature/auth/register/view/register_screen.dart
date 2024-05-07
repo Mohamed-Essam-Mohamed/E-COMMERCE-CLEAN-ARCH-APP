@@ -1,18 +1,16 @@
-import 'package:e_commerce/src/feature/auth/widget/title_textfiel.dart';
-
-import '../../../../domain/usecases/rsegister_usecases.dart';
-import '../../widget/sign_success_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../constant/string_const_app.dart';
-
+import '../../../../domain/usecases/auth_usecases/rsegister_usecase.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/dailog.dart';
 import '../../../../widget/custom_button_app.dart';
 import '../../../../widget/custom_text_form_app.dart';
+import '../../widget/sign_success_screen.dart';
+import '../../widget/title_textfiel.dart';
 import '../view_model_cubit/register_screen_view_model_cubit.dart';
 
 //01020578625
@@ -114,6 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (!emailValid) {
                         return invalidEmail;
                       }
+                      return null;
                     },
                   ),
                   Gap(15.h),

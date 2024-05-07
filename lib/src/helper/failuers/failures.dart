@@ -1,12 +1,12 @@
-class Failuer {
+class Failure {
   String? errorMessage;
-  Failuer({required this.errorMessage});
+  Failure({required this.errorMessage});
 }
 
-class ServerFailuer extends Failuer {
-  ServerFailuer({required super.errorMessage});
+class ServerFailure extends Failure {
+  ServerFailure({required super.errorMessage});
 }
 
-class NetworkFailuer extends Failuer {
-  NetworkFailuer({required super.errorMessage});
+class NetworkFailure extends Failure {
+  NetworkFailure({required super.errorMessage});
 }

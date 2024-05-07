@@ -16,12 +16,21 @@ const String entEmail = "please enter your email address";
 const String invalidEmail = "invalid email";
 
 const String password = "Password";
+const String newPassword = "New Password";
+const String confirmPassword = "Confirm Password";
 const String hintPassword = "Enter your password";
 const String entPassword = "please enter your password";
+const String samePassword = "please enter the same password as above";
+const String notMatchPassword = "passwords don't match";
 const String invalidStrongPassword =
     "please enter password greater than 8 or equal";
+const String weekPassword =
+    "week password, please enter password greater than 8 or equal";
 
 const String forgotPassword = "Forgot Password?";
+const String forgotPasswordTitle = "Forgot Password";
+const String sendCode = "Send Code";
+const String resetPassword = "Reset Password";
 
 const String dontHaveAccount = "Don't have an acconunt?";
 
@@ -37,7 +46,7 @@ const String entNumber = "please enter your mobile number ";
 const String invalidNumber = "invalid mobile number ";
 
 const String loading = "Loading...";
-// const String phone = "Phone";
+const String changePassword = "Change Your Password";
 // const String phone = "Phone";
 
 // const String phone = "Phone";

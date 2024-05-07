@@ -5,7 +5,6 @@ import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
 
 // GlobalKey<FormState> fromState = GlobalKey();
 //   var nameController = TextEditingController();
@@ -13,7 +12,7 @@ import 'package:gap/gap.dart';
 //   var confirmationPasswordController = TextEditingController();
 //   var phoneController = TextEditingController();
 class CustomTextFormApp extends StatefulWidget {
-  String hintText;
+  final String hintText;
   bool? isObscureText;
   bool? showObscureText = false;
   String? Function(String?)? validator;

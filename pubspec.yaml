@@ -46,6 +46,9 @@ dependencies:
   dartz: ^0.10.1
   connectivity_plus: ^6.0.3
   flutter_image_slideshow: ^0.1.6
+  flutter_verification_code: ^1.1.7
+  readmore: ^3.0.0
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

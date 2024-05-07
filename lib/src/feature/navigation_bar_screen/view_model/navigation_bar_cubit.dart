@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/src/feature/category/view/category_screen.dart';
-import 'package:e_commerce/src/feature/favorite/view/favorite_screen.dart';
-import 'package:e_commerce/src/feature/home/view/home_screen.dart';
-import 'package:e_commerce/src/feature/profile/view/profile_screen.dart';
+import '../../product/view/product_screen.dart';
+import '../../favorite/view/favorite_screen.dart';
+import '../../home/view/home_screen.dart';
+import '../../profile/view/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -12,7 +12,7 @@ class NavigationBarCubit extends Cubit<NavigationBarState> {
   NavigationBarCubit() : super(NavigationBarInitial());
   List<Widget> screens = [
     HomeScreen(),
-    CategoryScreen(),
+    ProductScreen(),
     FavoriteScreen(),
     ProfileScreen(),
   ];

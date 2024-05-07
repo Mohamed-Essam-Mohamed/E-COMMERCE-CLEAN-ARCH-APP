@@ -2,8 +2,9 @@
 
 import 'package:e_commerce/src/animation/animation_show_welcom.dart';
 import 'package:e_commerce/src/constant/string_const_app.dart';
-import 'package:e_commerce/src/feature/auth/login/view/login_screen.dart';
+import 'package:e_commerce/src/feature/auth/contant_login/login/view/login_screen.dart';
 import 'package:e_commerce/src/feature/auth/register/view/register_screen.dart';
+import 'package:e_commerce/src/feature/navigation_bar_screen/view/navigation_bar_screen.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:e_commerce/src/widget/custom_button_app.dart';
@@ -55,7 +56,7 @@ class InitScreen extends StatelessWidget {
             Gap(20.h),
             CustomButtonApp(
               onPressed: () {
-                Navigator.of(context).pushNamed(InitScreen.routeName);
+                Navigator.of(context).pushNamed(NavigationBarScreen.routeName);
               },
               text: skip,
             ),
@@ -64,6 +65,5 @@ class InitScreen extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

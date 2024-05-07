@@ -6,16 +6,16 @@ abstract class RegisterViewModelState {}
 class RegisterViewModelInitial extends RegisterViewModelState {}
 
 class RegisterViewModelLoading extends RegisterViewModelState {
-  String? loadingMessage;
+  final String? loadingMessage;
   RegisterViewModelLoading({required this.loadingMessage});
 }
 
 class RegisterViewModelError extends RegisterViewModelState {
-  String? errorMessage;
+  final String? errorMessage;
   RegisterViewModelError({required this.errorMessage});
 }
 
 class RegisterViewModelSuccess extends RegisterViewModelState {
-  AuthResponseEntity? authResponseEntity;
+  final AuthResponseEntity? authResponseEntity;
   RegisterViewModelSuccess({required this.authResponseEntity});
 }

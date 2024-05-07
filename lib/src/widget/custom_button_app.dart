@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButtonApp extends StatelessWidget {
-  Color? backgroundColor;
-  String text;
-  Color? colorText;
+  final Color? backgroundColor;
+  final String text;
+  final Color? colorText;
   void Function()? onPressed;
   CustomButtonApp({
     this.backgroundColor,

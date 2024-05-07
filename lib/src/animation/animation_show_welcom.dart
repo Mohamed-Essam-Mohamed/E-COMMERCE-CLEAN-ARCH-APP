@@ -5,9 +5,9 @@ import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedText extends StatelessWidget {
-  String text;
-  double fontSize;
-  AnimatedText({required this.text, required this.fontSize});
+  final String text;
+  final double fontSize;
+  const AnimatedText({required this.text, required this.fontSize});
   @override
   Widget build(BuildContext context) {
     return SizedBox(

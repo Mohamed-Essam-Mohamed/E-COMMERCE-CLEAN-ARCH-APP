@@ -1,29 +1,27 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
-import 'package:e_commerce/src/constant/image_path_const.dart';
+import 'package:e_commerce/src/domain/entities/home_entites/categoryorbrand_response_entity.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class CatergoryGridView extends StatelessWidget {
-  CatergoryGridView({super.key});
-  // List<dynamic> catergoryList = [
-  //   imageCatergory1,
-  //   imageCatergory2,
-  //   imageCatergory3,
-  //   imageCatergory4,
-  //   imageCatergory5,
-  //   imageCatergory6,
-  // ];
+class CatergoryGridView extends StatefulWidget {
+  const CatergoryGridView({required this.catergoryList, super.key});
 
+  final List<CategoryOrBrandDataEntity> catergoryList;
+
+  @override
+  State<CatergoryGridView> createState() => _CatergoryGridViewState();
+}
+
+class _CatergoryGridViewState extends State<CatergoryGridView> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      // shrinkWrap: true,
+      shrinkWrap: true,
       scrollDirection: Axis.horizontal,
-
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: 10,
@@ -40,8 +38,9 @@ class CatergoryGridView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ClipRRect(
-              child: Image.asset(
-                imageCatergory2,
+              child: FadeInImage.assetNetwork(
+                placeholder: 'assets/image/catergory_image1.png',
+                image: widget.catergoryList[index].image ?? '',
                 fit: BoxFit.cover,
                 height: 90.h,
                 width: 90.w,
@@ -50,7 +49,7 @@ class CatergoryGridView extends StatelessWidget {
             ),
             Gap(5.h),
             Text(
-              "Women's fashion",
+              widget.catergoryList[index].name ?? '',
               style: AppTextStyle.textStyle18.copyWith(
                 color: AppColors.primaryColor,
               ),
@@ -61,7 +60,7 @@ class CatergoryGridView extends StatelessWidget {
           ],
         ),
       ),
-      itemCount: 20,
+      itemCount: widget.catergoryList.length,
     );
   }
 }
