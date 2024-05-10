@@ -1,3 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce/src/animation/shimmer_producte_details.dart';
+
 import '../domain/entities/product_entites/product_response_entity.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_text_style.dart';
@@ -28,16 +31,6 @@ class ProductDetailsView extends StatelessWidget {
           color: AppColors.blackColor,
           fontWeight: FontWeight.w500,
         ),
-        actions: [
-          IconButton(
-            icon: SvgPicture.asset('assets/icons/icon-search.svg'),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: SvgPicture.asset('assets/icons/icon-shopping-cart.svg'),
-            onPressed: () {},
-          )
-        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
@@ -63,13 +56,23 @@ class ProductDetailsView extends StatelessWidget {
                     autoPlayInterval: 3000,
                     isLoop: true,
                     children: args.images!
-                        .map((url) => FadeInImage.assetNetwork(
-                              placeholder: "assets/image/image_slider_1.png",
-                              image: url,
-                              fit: BoxFit.cover,
-                              height: 300.h,
-                              width: double.infinity,
-                            ))
+                        .map(
+                          (url) => CachedNetworkImage(
+                            imageUrl: url,
+                            placeholder: (context, url) =>
+                                ShimmerProcucteDetails(),
+                            errorWidget: (context, url, error) =>
+                                Image.asset("assets/image/item_2.png"),
+                          ),
+
+                          //  FadeInImage.assetNetwork(
+                          //   placeholder: "assets/image/image_slider_1.png",
+                          //   image: url,
+                          //   fit: BoxFit.cover,
+                          //   height: 300.h,
+                          //   width: double.infinity,
+                          // ),
+                        )
                         .toList(),
                   ),
                 ),
