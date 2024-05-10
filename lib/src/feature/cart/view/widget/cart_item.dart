@@ -1,3 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce/src/animation/shimmer_cart_item_image.dart';
+
 import '../../../../domain/entities/product_entites/add_to_cart/get_logged_cart_response_entity.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_text_style.dart';
@@ -37,10 +40,12 @@ class CartItem extends StatelessWidget {
                     topLeft: Radius.circular(15.r),
                     bottomLeft: Radius.circular(15.r)),
               ),
-              child: FadeInImage.assetNetwork(
-                placeholder: "assets/image/image_slider_1.png",
-                image: getProduct.product?.imageCover ?? "",
+              child: CachedNetworkImage(
                 fit: BoxFit.fill,
+                imageUrl: getProduct.product?.imageCover ?? "",
+                placeholder: (context, url) => ShimmerCartItemImage(),
+                errorWidget: (context, url, error) =>
+                    Image.asset("assets/image/item_2.png"),
               ),
             ),
             Expanded(
@@ -160,7 +165,7 @@ class CartItem extends StatelessWidget {
                           ],
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

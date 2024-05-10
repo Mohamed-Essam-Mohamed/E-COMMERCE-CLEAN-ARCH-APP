@@ -1,3 +1,4 @@
+import 'src/animation/shimmer_cart_screen.dart';
 import 'src/feature/cart/view/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,6 +62,7 @@ class EcommerceRouteApp extends StatelessWidget {
             ResetPasswordScreen.routeName: (context) => ResetPasswordScreen(),
             ProductDetailsView.routeName: (context) => ProductDetailsView(),
             CartScreen.routeName: (context) => CartScreen(),
+            ShimmmerCartScreen.routeName: (context) => ShimmmerCartScreen(),
           },
         );
       },
