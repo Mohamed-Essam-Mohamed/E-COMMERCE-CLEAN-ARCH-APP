@@ -4,7 +4,6 @@ import 'package:e_commerce/src/domain/usecases/favorite_usecase/addtofavorite_us
 import '../../../domain/entities/product_entites/add_to_cart/addtocart_response_enitiy.dart';
 import '../../../domain/usecases/product_usecase/add_to_cart_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../constant/string_const_app.dart';
 import '../../../domain/entities/product_entites/product_response_entity.dart';
 import '../../../domain/usecases/product_usecase/all_product_usecase.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,18 +15,21 @@ class ProductViewModelCubit extends Cubit<ProductViewModelState> {
   AllProductUseCase allProductUseCases;
   AddToCartUseCase addToCartUseCase;
   AddFavorteUsecase addFavorteUsecase;
-  int numberOfBagsItem = 0;
 
-  ProductViewModelCubit(
-      {required this.allProductUseCases,
-      required this.addToCartUseCase,
-      required this.addFavorteUsecase})
-      : super(
+  int numberOfBagsItem = 0;
+  bool checkAddProductOrNot = true;
+
+  ProductViewModelCubit({
+    required this.allProductUseCases,
+    required this.addToCartUseCase,
+    required this.addFavorteUsecase,
+  }) : super(
           ProductViewModelLoading(),
         );
 
   TextEditingController searchController = TextEditingController();
   List<ProductDataEntity> listProduct = [];
+  List<ProductDataEntity> searchListProduct = [];
   static ProductViewModelCubit getBloc(context) =>
       BlocProvider.of<ProductViewModelCubit>(context);
 
@@ -53,7 +55,7 @@ class ProductViewModelCubit extends Cubit<ProductViewModelState> {
       // emit(AddToCartViewModelError(errorMessage: l.errorMessage));
     }, (r) {
       numberOfBagsItem = r.numOfCartItems!;
-      // emit(ChangeNumBadgeViewModelSuccess(numberOfBags: numberOfBagsItem));
+      emit(ChangeNumBadgeViewModelSuccess(numberOfBags: numberOfBagsItem));
       // emit(AddToCartViewModelLoading());
       print("add to cart success");
       emit(AddToCartViewModelSuccess(addToCartResponseEntity: r));
@@ -68,5 +70,13 @@ class ProductViewModelCubit extends Cubit<ProductViewModelState> {
     }, (r) {
       emit(AddToFavoriteViewModelSuccess(addToFavoriteResponseEntity: r));
     });
+  }
+
+  //! Function Search
+  void searchTextInList(String text) {
+    searchListProduct = listProduct.where((product) {
+      return product.title!.toLowerCase().contains(text.toLowerCase());
+    }).toList();
+    emit(SearchViewModelSuccess(productDataEntity: searchListProduct));
   }
 }

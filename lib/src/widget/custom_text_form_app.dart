@@ -21,6 +21,7 @@ class CustomTextFormApp extends StatefulWidget {
   TextEditingController? controller;
   EdgeInsetsGeometry? contentPadding;
   var keyboardtype;
+  void Function(String)? onChanged;
 
   CustomTextFormApp({
     this.isObscureText = false,
@@ -32,6 +33,7 @@ class CustomTextFormApp extends StatefulWidget {
     this.isSearch = false,
     this.contentPadding,
     required this.controller,
+    this.onChanged,
   });
 
   @override
@@ -46,6 +48,7 @@ class _CustomTextFormAppState extends State<CustomTextFormApp> {
       validator: widget.validator,
       keyboardType: widget.keyboardtype,
       controller: widget.controller,
+      onChanged: widget.onChanged,
       style: TextStyle(
         fontSize: 20.sp,
       ),

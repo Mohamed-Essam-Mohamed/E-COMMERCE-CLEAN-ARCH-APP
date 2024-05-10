@@ -29,7 +29,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             children: [
               ContainerSearchWidget(
                 controller: viewModel.searchController,
-                numberOfBages: 1,
+                numberOfBags: 0,
                 onTap: () {},
               ),
               Gap(15.h),

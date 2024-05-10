@@ -59,50 +59,21 @@ class DialogUtils {
       },
     );
   }
-  // static void showMessage(BuildContext context, String message,
-  //     {String title = 'Title',
-  //     String? posActionName,
-  //     VoidCallback? posAction,
-  //     String? negActionName,
-  //     VoidCallback? negAction,
-  //     bool isDismissable = false}) {
-  //   List<Widget> actions = [];
-  //   if (posActionName != null) {
-  //     actions.add(TextButton(
-  //         onPressed: () {
-  //           Navigator.pop(context);
-  //           posAction?.call();
-  //         },
-  //         child: Text(posActionName)));
-  //     if (negActionName != null) {
-  //       actions.add(TextButton(
-  //           onPressed: () {
-  //             Navigator.pop(context);
-  //             posAction?.call();
-  //           },
-  //           child: Text(negActionName)));
-  //     }
-  //     showDialog(
-  //       context: context,
-  //       barrierDismissible: isDismissable,
-  //       builder: ((context) {
-  //         return AlertDialog(
-  //           title: Text(
-  //             title,
-  //             style: AppTextStayl.textStyle22.copyWith(
-  //               color: AppColors.priamryColor,
-  //             ),
-  //           ),
-  //           content: Text(
-  //             message,
-  //             style: AppTextStayl.textStyle16,
-  //           ),
-  //           actions: actions,
-  //           titleTextStyle:
-  //               TextStyle(color: Theme.of(context).primaryColor, fontSize: 18),
-  //         );
-  //       }),
-  //     );
-  //   }
-  // }
+
+  static void showSnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(
+        message,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 18.sp,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+      backgroundColor: Colors.teal,
+      behavior: SnackBarBehavior.floating,
+      width: 300.w,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 }

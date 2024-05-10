@@ -1,10 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+
+import '../animation/shimmer_producte_item_image.dart';
 
 class ProductItem extends StatelessWidget {
   final String pathImage;
@@ -44,9 +47,12 @@ class ProductItem extends StatelessWidget {
                   topLeft: Radius.circular(15.r),
                   topRight: Radius.circular(15.r),
                 ),
-                child: FadeInImage.assetNetwork(
-                  placeholder: 'assets/image/item_2.png',
-                  image: pathImage,
+                child: CachedNetworkImage(
+                  imageUrl: pathImage,
+                  placeholder: (context, url) =>
+                      const ShimmerProductItemImage(),
+                  errorWidget: (context, url, error) =>
+                      Image.asset('assets/image/item_2.png'),
                   width: double.infinity,
                   height: 140.h,
                   fit: BoxFit.fill,
@@ -101,17 +107,16 @@ class ProductItem extends StatelessWidget {
                 ),
                 Spacer(),
                 InkWell(
-                  focusColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  onTap: onTapAddCard,
-                  child: SvgPicture.asset(
-                    'assets/icons/icon-add.svg',
-                    height: 30,
-                    width: 30,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    focusColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onTap: onTapAddCard,
+                    child: SvgPicture.asset(
+                      'assets/icons/icon-add.svg',
+                      height: 30,
+                      width: 30,
+                      fit: BoxFit.cover,
+                    )),
               ],
             ),
           ),

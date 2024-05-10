@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 ContainerSearchWidget(
                   controller: viewModel.searchController,
-                  numberOfBages: 1,
+                  numberOfBags: 1,
                   onTap: () {},
                 ),
                 Gap(10.h),

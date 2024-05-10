@@ -56,3 +56,10 @@ class AddToFavoriteViewModelSuccess extends ProductViewModelState {
   AddToFavoriteResponseEntity addToFavoriteResponseEntity;
   AddToFavoriteViewModelSuccess({required this.addToFavoriteResponseEntity});
 }
+
+//? search states
+class SearchViewModelSuccess extends ProductViewModelState {
+  List<ProductDataEntity> productDataEntity;
+
+  SearchViewModelSuccess({required this.productDataEntity});
+}
