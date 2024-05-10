@@ -1,13 +1,16 @@
+import 'package:e_commerce/src/animation/shimmer_producte_screen.dart';
 import 'package:e_commerce/src/domain/usecases/favorite_usecase/addtofavorite_usecase.dart';
+import 'package:e_commerce/src/utils/dailog.dart';
+import 'package:e_commerce/src/widget/custom_text_form_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 import '../../../domain/entities/product_entites/product_response_entity.dart';
 import '../../../domain/usecases/product_usecase/add_to_cart_usecase.dart';
 import '../../../domain/usecases/product_usecase/all_product_usecase.dart';
-import '../../../widget/containerSearchWidget.dart';
 import '../../../widget/product_details_view.dart';
 import '../../../widget/product_item.dart';
 import '../../cart/view/cart_screen.dart';
@@ -34,28 +37,73 @@ class _ProductScreenState extends State<ProductScreen> {
       child: SingleChildScrollView(
         child: BlocProvider<ProductViewModelCubit>(
           create: (context) => viewModel..getAllProduct(),
-          child: BlocBuilder<ProductViewModelCubit, ProductViewModelState>(
-            builder: (context, state) {
-              return Column(
-                children: [
-                  ContainerSearchWidget(
-                    controller: viewModel.searchController,
-                    numberOfBages: viewModel.numberOfBagesItem,
-                    onTap: () {
-                      Navigator.of(context).pushNamed(CartScreen.routeName);
-                    },
-                  ),
-                  Gap(15.h),
-                  state is ProductViewModelLoading
-                      ? Center(child: CircularProgressIndicator())
-                      : state is ProductViewModelError
-                          ? Center(child: Text('wrong'))
-                          : GridViewAllProduct(
-                              listProduct: viewModel.listProduct,
-                            ),
-                ],
-              );
-            },
+          child: Column(
+            children: [
+              //? search appBar
+
+              BlocSelector<ProductViewModelCubit, ProductViewModelState, int>(
+                selector: (state) {
+                  return viewModel.numberOfBagsItem;
+                },
+                builder: (context, state) {
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextFormApp(
+                          hintText: 'what do you search for?',
+                          isSearch: true,
+                          validator: (text) {},
+                          controller: viewModel.searchController,
+                          onChanged: (text) {
+                            viewModel.searchTextInList(text);
+                          },
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 10.h,
+                            vertical: 8.h,
+                          ),
+                        ),
+                      ),
+                      Gap(7.w),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(CartScreen.routeName);
+                        },
+                        child: Badge(
+                          label: Text(viewModel.numberOfBagsItem.toString()),
+                          alignment: Alignment.topLeft,
+                          child: SvgPicture.asset(
+                            'assets/icons/icon-shopping-cart.svg',
+                            width: 35.w,
+                            height: 35.h,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+
+              Gap(15.h),
+              BlocBuilder<ProductViewModelCubit, ProductViewModelState>(
+                builder: (context, state) {
+                  if (state is ProductViewModelLoading) {
+                    return const ShimmerProductScreen();
+                  } else if (state is ProductViewModelError) {
+                    return Center(
+                      child: Text(state.errorMessage ?? "wrong"),
+                    );
+                  } else {
+                    return GridViewAllProduct(
+                      listProduct: viewModel.searchController.text.isNotEmpty
+                          ? viewModel.searchListProduct
+                          : viewModel.listProduct,
+                      checkAddProductOrNot: viewModel.checkAddProductOrNot,
+                    );
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -65,16 +113,15 @@ class _ProductScreenState extends State<ProductScreen> {
 
 class GridViewAllProduct extends StatelessWidget {
   final List<ProductDataEntity> listProduct;
+  final bool checkAddProductOrNot;
   const GridViewAllProduct({
     super.key,
     required this.listProduct,
+    required this.checkAddProductOrNot,
   });
 
   @override
   Widget build(BuildContext context) {
-    bool isLove = false;
-
-    var bloc = BlocProvider.of<ProductViewModelCubit>(context);
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.8,
@@ -98,12 +145,18 @@ class GridViewAllProduct extends StatelessWidget {
           },
           child: ProductItem(
             onTapAddCard: () {
-              bloc.addToCart(productId: listProduct[index].id ?? '');
+              if (checkAddProductOrNot) {
+                ProductViewModelCubit.getBloc(context)
+                    .addToCart(productId: listProduct[index].id ?? '');
+                DialogUtils.showSnackBar(context, 'Added to cart');
+              }
             },
             onTapLove: () {
-              bloc.addToFavorite(productId: listProduct[index].id ?? '');
+              ProductViewModelCubit.getBloc(context)
+                  .addToFavorite(productId: listProduct[index].id ?? '');
+              DialogUtils.showSnackBar(context, 'Added to favorite');
             },
-            descriptionImage: listProduct[index].description ?? '',
+            descriptionImage: listProduct[index].title ?? '',
             pathImage: listProduct[index].imageCover ?? '',
             price: listProduct[index].price.toString(),
           ),

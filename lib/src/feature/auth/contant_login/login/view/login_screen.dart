@@ -8,7 +8,7 @@ import 'package:e_commerce/src/feature/auth/contant_login/forget_password/view/f
 import 'package:e_commerce/src/feature/auth/contant_login/login/view_model/login_view_model_cubit.dart';
 import 'package:e_commerce/src/feature/auth/widget/login_or_signup.dart';
 import 'package:e_commerce/src/feature/auth/widget/title_textfiel.dart';
-import 'package:e_commerce/src/feature/navigation_bar_screen/view/navigation_bar_screen.dart';
+import 'package:e_commerce/src/feature/navigation_bar_screen/navigation_bar_screen.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:e_commerce/src/utils/dailog.dart';

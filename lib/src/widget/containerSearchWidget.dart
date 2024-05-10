@@ -1,7 +1,7 @@
-import '../feature/product/view_modle/product_view_model_cubit.dart';
+import 'package:e_commerce/src/feature/product/view_modle/product_view_model_cubit.dart';
+
 import 'custom_text_form_app.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -10,12 +10,12 @@ class ContainerSearchWidget extends StatelessWidget {
   const ContainerSearchWidget({
     super.key,
     required this.controller,
-    required this.numberOfBages,
+    required this.numberOfBags,
     required this.onTap,
   });
 
   final TextEditingController controller;
-  final int numberOfBages;
+  final int numberOfBags;
   final void Function()? onTap;
 
   @override
@@ -38,7 +38,7 @@ class ContainerSearchWidget extends StatelessWidget {
         InkWell(
           onTap: onTap,
           child: Badge(
-            label: Text('$numberOfBages'),
+            label: Text(numberOfBags.toString()),
             alignment: Alignment.topLeft,
             child: SvgPicture.asset(
               'assets/icons/icon-shopping-cart.svg',

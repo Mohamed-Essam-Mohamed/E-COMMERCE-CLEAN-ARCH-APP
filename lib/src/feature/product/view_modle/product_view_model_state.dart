@@ -3,71 +3,63 @@ part of 'product_view_model_cubit.dart';
 @immutable
 sealed class ProductViewModelState {}
 
-final class ProductViewModelInitial extends ProductViewModelState {}
+class ProductViewModelLoading extends ProductViewModelState {}
 
-final class ProductViewModelLoading extends ProductViewModelState {
-  final String message;
-  ProductViewModelLoading({required this.message});
-}
-
-final class ProductViewModelError extends ProductViewModelState {
-  final String? errorMessage;
+class ProductViewModelError extends ProductViewModelState {
+  String? errorMessage;
   ProductViewModelError({required this.errorMessage});
 }
 
-final class ProductViewModelSuccess extends ProductViewModelState {
-  final ProductResponseEntity productResponseEntity;
+class ProductViewModelSuccess extends ProductViewModelState {
+  ProductResponseEntity productResponseEntity;
 
   ProductViewModelSuccess({required this.productResponseEntity});
 }
 
 //? add to cart states
-final class AddToCartInitial extends ProductViewModelState {}
 
-final class AddToCartViewModelLoading extends ProductViewModelState {
-  final String? message;
-  AddToCartViewModelLoading({required this.message});
-}
+class AddToCartViewModelLoading extends ProductViewModelState {}
 
-final class AddToCartViewModelError extends ProductViewModelState {
-  final String? errorMessage;
+class AddToCartViewModelError extends ProductViewModelState {
+  String? errorMessage;
   AddToCartViewModelError({required this.errorMessage});
 }
 
-final class AddToCartViewModelSuccess extends ProductViewModelState {
-  final AddToCartResponseEntity addToCartResponseEntity;
+class AddToCartViewModelSuccess extends ProductViewModelState {
+  AddToCartResponseEntity addToCartResponseEntity;
   AddToCartViewModelSuccess({required this.addToCartResponseEntity});
 }
 
 //?  number of badge states
 
-final class ChangeNumBadgeViewModelLoading extends ProductViewModelState {
-  final String? message;
-  ChangeNumBadgeViewModelLoading({required this.message});
-}
+class ChangeNumBadgeViewModelLoading extends ProductViewModelState {}
 
-final class ChangeNumBadgeViewModelError extends ProductViewModelState {
-  final String? errorMessage;
+class ChangeNumBadgeViewModelError extends ProductViewModelState {
+  String? errorMessage;
   ChangeNumBadgeViewModelError({required this.errorMessage});
 }
 
-final class ChangeNumBadgeViewModelSuccess extends ProductViewModelState {
-  final int? numberOfBages;
-  ChangeNumBadgeViewModelSuccess({required this.numberOfBages});
+class ChangeNumBadgeViewModelSuccess extends ProductViewModelState {
+  int? numberOfBags;
+  ChangeNumBadgeViewModelSuccess({required this.numberOfBags});
 }
 
 // ? add cart to Favorite
-final class AddToFavoriteViewModelLoading extends ProductViewModelState {
-  final String? message;
-  AddToFavoriteViewModelLoading({required this.message});
-}
+class AddToFavoriteViewModelLoading extends ProductViewModelState {}
 
-final class AddToFavoriteViewModelError extends ProductViewModelState {
-  final String? errorMessage;
+class AddToFavoriteViewModelError extends ProductViewModelState {
+  String? errorMessage;
   AddToFavoriteViewModelError({required this.errorMessage});
 }
 
-final class AddToFavoriteViewModelSuccess extends ProductViewModelState {
+class AddToFavoriteViewModelSuccess extends ProductViewModelState {
   AddToFavoriteResponseEntity addToFavoriteResponseEntity;
   AddToFavoriteViewModelSuccess({required this.addToFavoriteResponseEntity});
+}
+
+//? search states
+class SearchViewModelSuccess extends ProductViewModelState {
+  List<ProductDataEntity> productDataEntity;
+
+  SearchViewModelSuccess({required this.productDataEntity});
 }
