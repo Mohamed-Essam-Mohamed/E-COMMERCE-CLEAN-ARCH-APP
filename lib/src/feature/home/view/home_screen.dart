@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_commerce/src/animation/shimmer_home_screen.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_brand_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_catergories_usecase.dart';
 import 'package:e_commerce/src/feature/home/view/widget/brand_gridview.dart';
@@ -29,13 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeViewModelCubit, HomeViewModelState>(
+    return BlocBuilder<HomeViewModelCubit, HomeViewModelState>(
       bloc: viewModel
         ..getAllCategory()
         ..getAllBrand(),
-      listener: (context, state) {
-        // TODO: implement listener
-      },
       builder: (context, state) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 16.h),
@@ -44,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 ContainerSearchWidget(
                   controller: viewModel.searchController,
-                  numberOfBags: 1,
+                  numberOfBags: 0,
                   onTap: () {},
                 ),
                 Gap(10.h),
@@ -52,40 +50,42 @@ class _HomeScreenState extends State<HomeScreen> {
                 Gap(24.h),
                 ContainerTitle(onTap: () {}, title: "Categories"),
                 Gap(10.h),
-                state is HomeViewModelLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : state is HomeViewModelError
-                        ? Center(
-                            child: Text(
-                            state.errorMessage ?? 'wrong',
-                            style: AppTextStyle.textStyle24.copyWith(
-                              color: Colors.black,
-                            ),
-                          ))
-                        : SizedBox(
+                state is HomeViewModelError
+                    ? Center(
+                        child: Text(
+                          state.errorMessage ?? 'wrong',
+                          style: AppTextStyle.textStyle24.copyWith(
+                            color: Colors.black,
+                          ),
+                        ),
+                      )
+                    : state is HomeViewModelSuccess
+                        ? SizedBox(
                             height: 320.h,
                             child: CatergoryGridView(
                               catergoryList: viewModel.listCategoryData,
                             ),
-                          ),
+                          )
+                        : ShimmerHomeScreen(),
                 ContainerTitle(onTap: () {}, title: "Brands"),
                 Gap(10.h),
-                state is HomeViewModelLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : state is HomeViewModelError
-                        ? Center(
-                            child: Text(
-                            state.errorMessage ?? 'wrong',
-                            style: AppTextStyle.textStyle24.copyWith(
-                              color: Colors.black,
-                            ),
-                          ))
-                        : SizedBox(
+                state is HomeViewModelError
+                    ? Center(
+                        child: Text(
+                          state.errorMessage ?? 'wrong',
+                          style: AppTextStyle.textStyle24.copyWith(
+                            color: Colors.black,
+                          ),
+                        ),
+                      )
+                    : state is HomeViewModelSuccess
+                        ? SizedBox(
                             height: 320.h,
                             child: BrandGridView(
                               brandList: viewModel.listBrandData,
                             ),
-                          ),
+                          )
+                        : ShimmerHomeScreen(),
               ],
             ),
           ),

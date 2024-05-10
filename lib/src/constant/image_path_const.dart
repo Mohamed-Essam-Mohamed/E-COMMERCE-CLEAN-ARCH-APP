@@ -10,7 +10,7 @@ const String iconProfileSelected = "assets/icons/icon-profile-selected.svg";
 const String iconProfileUnSelected = "assets/icons/icon-profile-unselected.svg";
 //? image Path png Silder test
 const String imageSlider1 = "assets/image/image_slider_1.png";
-const String imageSlider2 = "assets/image/image_slider_2.png";
+const String imageSlider2 = "assets/image/image_slider2.png";
 const String imageSlider3 = "assets/image/image_slider_3.png";
 //? imag path png catergory
 const String imageCatergory1 = "assets/image/catergory_image1.png";
