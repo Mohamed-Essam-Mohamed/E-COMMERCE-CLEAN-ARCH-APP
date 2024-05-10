@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce/src/animation/shimmmer_catergory_item.dart';
 import 'package:e_commerce/src/domain/entities/home_entites/categoryorbrand_response_entity.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
@@ -38,10 +40,11 @@ class _BrandGridViewState extends State<BrandGridView> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ClipRRect(
-              child: FadeInImage.assetNetwork(
-                placeholder: 'assets/image/catergory_image1.png',
-                image: widget.brandList[index].image ?? '',
-                fit: BoxFit.contain,
+              child: CachedNetworkImage(
+                imageUrl: widget.brandList[index].image ?? '',
+                placeholder: (context, url) => ShimmerCatergoryItem(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                fit: BoxFit.cover,
                 height: 90.h,
                 width: 90.w,
               ),
