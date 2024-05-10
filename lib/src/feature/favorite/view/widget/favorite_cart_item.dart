@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/src/domain/entities/favorite_entities/get_all_favorite_response_enitiy.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 
+import '../../../../animation/shimmer_cart_item_image.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -38,10 +41,11 @@ class FavoriteCartItem extends StatelessWidget {
                     topLeft: Radius.circular(15.r),
                     bottomLeft: Radius.circular(15.r)),
               ),
-              child: FadeInImage.assetNetwork(
-                placeholder: "assets/image/image_slider_1.png",
-                image: favoriteDataEntity.imageCover ?? "",
-                fit: BoxFit.fill,
+              child: CachedNetworkImage(
+                imageUrl: favoriteDataEntity.imageCover ?? "",
+                placeholder: (context, url) => ShimmerCartItemImage(),
+                errorWidget: (context, url, error) =>
+                    Image.asset("assets/image/item_2.png"),
               ),
             ),
             Expanded(
@@ -51,7 +55,7 @@ class FavoriteCartItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 16.h),
+                      padding: EdgeInsets.only(top: 5.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -77,7 +81,19 @@ class FavoriteCartItem extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Spacer(),
+                    Row(
+                      children: [
+                        SvgPicture.asset("assets/icons/icon-start.svg"),
+                        Gap(4.w),
+                        Text(
+                          "${favoriteDataEntity.ratingsAverage} ratings",
+                          style: AppTextStyle.textStyle14.copyWith(
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Gap(10.h),
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.only(bottom: 14.h),
@@ -92,55 +108,21 @@ class FavoriteCartItem extends StatelessWidget {
                             ),
                             Container(
                               height: 80.h,
+                              padding: EdgeInsets.all(6.h),
+                              alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 color: AppColors.primaryColor,
                                 borderRadius: BorderRadius.circular(
                                   100.r,
                                 ),
                               ),
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    padding: EdgeInsets.zero,
-                                    onPressed: () {
-                                      // var counter = getProduct.count ?? 0;
-                                      // counter--;
-                                      // bloc.upadateCountCartItme(
-                                      //   cartId: getProduct.product?.id ?? '',
-                                      //   count: counter.toString(),
-                                      // );
-                                    },
-                                    icon: Icon(
-                                      Icons.remove_circle_outline_rounded,
-                                      color: AppColors.whiteColor,
-                                      size: 28.sp,
-                                    ),
-                                  ),
-                                  Text(
-                                    ' 1',
-                                    style: TextStyle(
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.whiteColor,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    padding: EdgeInsets.zero,
-                                    onPressed: () {
-                                      // var counter = getProduct.count ?? 0;
-                                      // counter++;
-                                      // bloc.upadateCountCartItme(
-                                      //   cartId: getProduct.product?.id ?? '',
-                                      //   count: counter.toString(),
-                                      // );
-                                    },
-                                    icon: Icon(
-                                      Icons.add_circle_outline_rounded,
-                                      color: AppColors.whiteColor,
-                                      size: 28.sp,
-                                    ),
-                                  ),
-                                ],
+                              child: Text(
+                                "it's your favorite",
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.whiteColor,
+                                ),
                               ),
                             )
                           ],
