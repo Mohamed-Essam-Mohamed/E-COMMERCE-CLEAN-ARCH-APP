@@ -411,8 +411,8 @@ class ApiManger {
       return Left(Failure(errorMessage: 'No Internet Connection'));
     }
   }
-  //! Function get  all favorite
 
+  //! Function get  all favorite
   Future<Either<Failure, GetAllFavoriteResponseDto>> getAllFavorite() async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());

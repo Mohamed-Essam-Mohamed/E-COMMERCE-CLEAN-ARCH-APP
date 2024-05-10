@@ -5,14 +5,10 @@ sealed class FavoriteViewModelState {}
 
 class FavoriteViewModelInitial extends FavoriteViewModelState {}
 
-class FavoriteViewModelLoading extends FavoriteViewModelState {
-  final String? message;
-
-  FavoriteViewModelLoading({required this.message});
-}
+class FavoriteViewModelLoading extends FavoriteViewModelState {}
 
 class FavoriteViewModelErorer extends FavoriteViewModelState {
-  final String? messageError;
+  String? messageError;
 
   FavoriteViewModelErorer({required this.messageError});
 }

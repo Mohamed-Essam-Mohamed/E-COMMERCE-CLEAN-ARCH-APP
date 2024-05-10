@@ -17,10 +17,10 @@ class FavoriteViewModelCubit extends Cubit<FavoriteViewModelState> {
   getAllFavorite() async {
     var either = await getAllFavoriteUsecase.invoke();
     either.fold((l) {
-      emit(FavoriteViewModelLoading(message: loading));
+      emit(FavoriteViewModelLoading());
       emit(FavoriteViewModelErorer(messageError: l.errorMessage));
     }, (r) {
-      emit(FavoriteViewModelLoading(message: loading));
+      emit(FavoriteViewModelLoading());
       favoriteList = r.data ?? [];
       emit(FavoriteViewModelSuccess(favoriteDataEntity: r.data));
     });

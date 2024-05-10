@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/animation/shimmer_cart_screen.dart';
 import 'package:e_commerce/src/domain/usecases/favorite_usecase/getallfavorite_usecase.dart';
 import 'package:e_commerce/src/feature/favorite/view/widget/favorite_cart_item.dart';
 import 'package:e_commerce/src/feature/favorite/view_model/favorite_view_model_cubit.dart';
@@ -23,37 +24,28 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return BlocBuilder<FavoriteViewModelCubit, FavoriteViewModelState>(
       bloc: viewModel..getAllFavorite(),
       builder: (context, state) {
-        return Container(
-          padding: EdgeInsets.all(16.h),
-          child: Column(
-            children: [
-              ContainerSearchWidget(
-                controller: viewModel.searchController,
-                numberOfBags: 0,
-                onTap: () {},
+        if (state is FavoriteViewModelLoading) {
+          return const ShimmmerCartScreen();
+        } else if (state is FavoriteViewModelErorer) {
+          return Center(child: Text(state.messageError ?? 'wrong'));
+        } else if (state is FavoriteViewModelSuccess) {
+          return Container(
+            padding: EdgeInsets.all(16.h),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.75,
+              child: ListView.builder(
+                itemCount: viewModel.favoriteList.length,
+                itemBuilder: (context, index) {
+                  return FavoriteCartItem(
+                    favoriteDataEntity: viewModel.favoriteList[index],
+                  );
+                },
               ),
-              Gap(15.h),
-              state is FavoriteViewModelLoading
-                  ? Center(
-                      child: CircularProgressIndicator(
-                      color: AppColors.primaryColor,
-                    ))
-                  : state is FavoriteViewModelErorer
-                      ? Center(child: Text(state.messageError ?? 'wrong'))
-                      : SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.7,
-                          child: ListView.builder(
-                              itemCount: viewModel.favoriteList.length,
-                              itemBuilder: (context, index) {
-                                return FavoriteCartItem(
-                                  favoriteDataEntity:
-                                      viewModel.favoriteList[index],
-                                );
-                              }),
-                        )
-            ],
-          ),
-        );
+            ),
+          );
+        } else {
+          return const ShimmmerCartScreen();
+        }
       },
     );
   }
