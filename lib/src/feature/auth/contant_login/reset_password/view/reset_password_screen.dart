@@ -10,7 +10,7 @@ import '../../../../../utils/app_text_style.dart';
 import '../../../../../utils/dailog.dart';
 import '../../../../../widget/custom_button_app.dart';
 import '../../../../../widget/custom_text_form_app.dart';
-import '../../../../navigation_bar_screen/view/navigation_bar_screen.dart';
+import '../../../../navigation_bar_screen/navigation_bar_screen.dart';
 import '../../forget_password/view/forget_password_screen.dart';
 import '../view_model/reset_password_view_model_cubit.dart';
 

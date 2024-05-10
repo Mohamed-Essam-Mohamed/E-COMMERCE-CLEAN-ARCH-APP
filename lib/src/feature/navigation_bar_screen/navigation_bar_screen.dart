@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../utils/app_colors.dart';
+import '../../utils/app_colors.dart';
 
 class NavigationBarScreen extends StatefulWidget {
   static const String routeName = "NavigationBarScreen";

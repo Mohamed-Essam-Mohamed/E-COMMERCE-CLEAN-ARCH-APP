@@ -9,7 +9,7 @@ import 'src/feature/auth/contant_login/reset_password/view/reset_password_screen
 import 'src/feature/auth/register/view/register_screen.dart';
 import 'src/feature/auth/widget/sign_success_screen.dart';
 import 'src/feature/home/view/home_screen.dart';
-import 'src/feature/navigation_bar_screen/view/navigation_bar_screen.dart';
+import 'src/feature/navigation_bar_screen/navigation_bar_screen.dart';
 import 'src/feature/splash/splash_screen.dart';
 import 'src/utils/app_theme.dart';
 import 'src/utils/shared_preference_utils.dart';
