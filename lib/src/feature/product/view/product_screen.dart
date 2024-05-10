@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/animation/shimmer_producte_screen.dart';
 import 'package:e_commerce/src/domain/usecases/favorite_usecase/addtofavorite_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,28 +35,33 @@ class _ProductScreenState extends State<ProductScreen> {
       child: SingleChildScrollView(
         child: BlocProvider<ProductViewModelCubit>(
           create: (context) => viewModel..getAllProduct(),
-          child: BlocBuilder<ProductViewModelCubit, ProductViewModelState>(
-            builder: (context, state) {
-              return Column(
-                children: [
-                  ContainerSearchWidget(
-                    controller: viewModel.searchController,
-                    numberOfBages: viewModel.numberOfBagesItem,
-                    onTap: () {
-                      Navigator.of(context).pushNamed(CartScreen.routeName);
-                    },
-                  ),
-                  Gap(15.h),
-                  state is ProductViewModelLoading
-                      ? Center(child: CircularProgressIndicator())
-                      : state is ProductViewModelError
-                          ? Center(child: Text('wrong'))
-                          : GridViewAllProduct(
-                              listProduct: viewModel.listProduct,
-                            ),
-                ],
-              );
-            },
+          child: Column(
+            children: [
+              ContainerSearchWidget(
+                controller: viewModel.searchController,
+                numberOfBages: viewModel.numberOfBagsItem,
+                onTap: () {
+                  Navigator.of(context).pushNamed(CartScreen.routeName);
+                },
+              ),
+              Gap(15.h),
+              BlocBuilder<ProductViewModelCubit, ProductViewModelState>(
+                builder: (context, state) {
+                  if (state is ProductViewModelLoading) {
+                    return const ShimmerProductScreen();
+                  } else if (state is ProductViewModelError) {
+                    return Center(
+                      child: Text(state.errorMessage ?? "wrong"),
+                    );
+                  } else if (state is ProductViewModelSuccess) {
+                    return GridViewAllProduct(
+                      listProduct: viewModel.listProduct,
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -74,7 +80,6 @@ class GridViewAllProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLove = false;
 
-    var bloc = BlocProvider.of<ProductViewModelCubit>(context);
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.8,
@@ -98,10 +103,12 @@ class GridViewAllProduct extends StatelessWidget {
           },
           child: ProductItem(
             onTapAddCard: () {
-              bloc.addToCart(productId: listProduct[index].id ?? '');
+              ProductViewModelCubit.getBloc(context)
+                  .addToCart(productId: listProduct[index].id ?? '');
             },
             onTapLove: () {
-              bloc.addToFavorite(productId: listProduct[index].id ?? '');
+              ProductViewModelCubit.getBloc(context)
+                  .addToFavorite(productId: listProduct[index].id ?? '');
             },
             descriptionImage: listProduct[index].description ?? '',
             pathImage: listProduct[index].imageCover ?? '',
