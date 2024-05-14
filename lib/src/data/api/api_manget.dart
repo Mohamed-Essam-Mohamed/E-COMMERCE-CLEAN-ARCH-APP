@@ -18,7 +18,6 @@ import 'package:e_commerce/src/data/model/response/categoryorbrand_response_dto/
 import 'package:e_commerce/src/data/model/response/favorite_response_dto/add_to_favoirte_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/favorite_response_dto/get_all_favorite_response_dto.dart';
 import 'package:e_commerce/src/data/model/response/product_response_dto/product_response_dto.dart';
-import 'package:e_commerce/src/domain/entities/favorite_entities/get_all_favorite_response_enitiy.dart';
 import 'package:e_commerce/src/helper/failuers/failures.dart';
 import 'package:e_commerce/src/utils/shared_preference_utils.dart';
 import 'package:http/http.dart' as http;
@@ -50,6 +49,9 @@ class ApiManger {
           RegisterResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         //? success get data
+        if (SharedPreferencesUtils.getData(key: 'Token') != null) {
+          SharedPreferencesUtils.removeData(key: 'Token');
+        }
         SharedPreferencesUtils.saveData(
             key: 'Token', value: registerResponse.token);
         return Right(registerResponse);
@@ -82,6 +84,9 @@ class ApiManger {
       var loginResponse = LoginResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         //? success get data
+        if (SharedPreferencesUtils.getData(key: 'Token') != null) {
+          SharedPreferencesUtils.removeData(key: 'Token');
+        }
         SharedPreferencesUtils.saveData(
             key: 'Token', value: loginResponse.token);
 
@@ -166,6 +171,9 @@ class ApiManger {
       if (response.statusCode >= 200 &&
           response.statusCode < 300 &&
           resetPasswordResponse.token != null) {
+        if (SharedPreferencesUtils.getData(key: 'Token') != null) {
+          SharedPreferencesUtils.removeData(key: 'Token');
+        }
         SharedPreferencesUtils.saveData(
             key: 'Token', value: resetPasswordResponse.token);
         return Right(resetPasswordResponse);
@@ -259,7 +267,7 @@ class ApiManger {
   }
 
   //! get Token
-  var token = SharedPreferencesUtils.getData(key: 'Token');
+  var token = SharedPreferencesUtils.getData(key: 'Token').toString();
   //! function add to cart
   Future<Either<Failure, AddToCartResponseDto>> addToCart(
       {required String productId}) async {
@@ -271,7 +279,7 @@ class ApiManger {
       //? connected internet
       Uri url = Uri.https(apiBaseUrl, apiAddToCart);
       var response = await http.post(url, headers: {
-        "token": token.toString(),
+        "token": token,
       }, body: {
         "productId": productId,
       });

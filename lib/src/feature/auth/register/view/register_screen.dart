@@ -126,8 +126,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (value == null || value.trim().isEmpty) {
                         return entPassword;
                       }
-                      if (value.length >= 8) {
-                        return invalidStrongPassword;
+                      bool emailValid = RegExp(
+                              r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                          .hasMatch(value);
+                      if (!emailValid) {
+                        return weekPassword;
                       }
                     },
                   ),

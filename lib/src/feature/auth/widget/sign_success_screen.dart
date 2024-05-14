@@ -31,7 +31,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
   @override
   Widget build(BuildContext context) {
     Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 4),
       () {
         Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
       },

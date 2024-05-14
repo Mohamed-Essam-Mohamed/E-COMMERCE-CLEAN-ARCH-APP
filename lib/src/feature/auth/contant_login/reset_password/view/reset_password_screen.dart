@@ -61,6 +61,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   ),
                 ),
                 child: Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   key: viewModel.fromState,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -118,8 +119,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             return samePassword;
                           }
 
-                          if (viewModel.confirmPasswordController !=
-                              viewModel.passwordController) {
+                          if (viewModel.passwordController ==
+                              viewModel.confirmPasswordController) {
                             return notMatchPassword;
                           }
                           return null;

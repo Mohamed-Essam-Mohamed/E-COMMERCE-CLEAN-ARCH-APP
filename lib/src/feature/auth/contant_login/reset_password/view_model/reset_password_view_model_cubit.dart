@@ -16,6 +16,7 @@ class ResetPasswordViewModelCubit extends Cubit<ResetPasswordViewModelState> {
   ResetPasswordUseCase resetPasswordUseCases;
   void resetPassword({required String email}) async {
     if (fromState.currentState!.validate()) {
+      fromState.currentState!.reset();
       emit(ResetPasswordViewModelLoading());
       var either = await resetPasswordUseCases.invoke(ResetPasswordRequest(
           email: email, newPassword: passwordController?.text));

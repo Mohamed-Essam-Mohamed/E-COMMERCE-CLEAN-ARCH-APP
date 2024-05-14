@@ -41,7 +41,7 @@ const String entFullName = "please enter your name ";
 const String invalidName = "invalid name";
 
 const String mobileNumber = "Mobile Number";
-const String hintNumber = "010 2057 9625";
+const String hintNumber = "10 2057 9625";
 const String entNumber = "please enter your mobile number ";
 const String invalidNumber = "invalid mobile number ";
 

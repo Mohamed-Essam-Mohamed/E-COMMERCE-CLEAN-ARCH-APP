@@ -20,7 +20,7 @@ class FavoriteDataEntity {
   String? imageCover;
   FavoriteCategoryEntity? category;
   FavoriteCategoryEntity? brand;
-  double? ratingsAverage;
+  num? ratingsAverage;
   String? createdAt;
   String? updatedAt;
   int? iV;
