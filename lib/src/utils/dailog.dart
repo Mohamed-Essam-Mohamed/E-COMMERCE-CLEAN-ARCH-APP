@@ -73,6 +73,7 @@ class DialogUtils {
       backgroundColor: Colors.teal,
       behavior: SnackBarBehavior.floating,
       width: 300.w,
+      duration: const Duration(milliseconds: 300),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }

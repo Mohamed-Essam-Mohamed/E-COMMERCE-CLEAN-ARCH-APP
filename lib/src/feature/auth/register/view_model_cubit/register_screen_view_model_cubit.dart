@@ -26,7 +26,7 @@ class RegisterViewModelCubit extends Cubit<RegisterViewModelState> {
           email: emailController.text,
           password: passwordController.text,
           name: nameController.text,
-          phone: mobileController.text,
+          phone: "0${mobileController.text}",
           rePassword: passwordController.text,
         ),
       );

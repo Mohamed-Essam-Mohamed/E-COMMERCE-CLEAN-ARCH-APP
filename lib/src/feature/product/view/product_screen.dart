@@ -1,12 +1,14 @@
 import 'package:e_commerce/src/animation/shimmer_producte_screen.dart';
 import 'package:e_commerce/src/domain/usecases/favorite_usecase/addtofavorite_usecase.dart';
 import 'package:e_commerce/src/utils/dailog.dart';
+import 'package:e_commerce/src/utils/shared_preference_utils.dart';
 import 'package:e_commerce/src/widget/custom_text_form_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../domain/entities/product_entites/product_response_entity.dart';
 import '../../../domain/usecases/product_usecase/add_to_cart_usecase.dart';

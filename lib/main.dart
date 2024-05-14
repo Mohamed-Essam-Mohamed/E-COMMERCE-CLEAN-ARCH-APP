@@ -22,7 +22,7 @@ void main() async {
   String route;
   var user = SharedPreferencesUtils.getData(key: 'Token');
   if (user == null) {
-    route = LoginScreen.routeName;
+    route = SplashScreen.routeName;
   } else {
     route = NavigationBarScreen.routeName;
   }

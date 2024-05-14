@@ -35,8 +35,7 @@ class LoginOrSignUp extends StatelessWidget {
           hoverColor: Colors.transparent,
           splashColor: Colors.transparent,
           onTap: () {
-            Navigator.of(context)
-                .pushReplacementNamed(RegisterScreen.routeName);
+            Navigator.of(context).pushNamed(RegisterScreen.routeName);
           },
           child: Text(
             endTitle,
