@@ -12,19 +12,14 @@ class ShimmerHomeScreen extends StatelessWidget {
       baseColor: Color.fromARGB(255, 207, 207, 207),
       highlightColor: Color.fromARGB(255, 255, 255, 255),
       child: SizedBox(
-        height: 320.h,
+        height: 280.h,
         child: GridView.builder(
-          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
           ),
           itemBuilder: (context, index) => Container(
-            height: 150.h,
-            width: 80.w,
-            clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),
             ),
@@ -32,7 +27,7 @@ class ShimmerHomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(100.r),
+                  borderRadius: BorderRadius.circular(10.r),
                   child: Container(
                     height: 90.h,
                     width: 90.w,
@@ -42,10 +37,47 @@ class ShimmerHomeScreen extends StatelessWidget {
                 Gap(5.h),
                 Container(
                   height: 10.h,
-                  width: 50,
-                  color: Colors.grey.shade200,
-                )
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                ),
               ],
+            ),
+          ),
+          itemCount: 10,
+        ),
+      ),
+    );
+  }
+}
+
+class BrandsShimmer extends StatelessWidget {
+  const BrandsShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Color.fromARGB(255, 207, 207, 207),
+      highlightColor: Color.fromARGB(255, 255, 255, 255),
+      child: SizedBox(
+        height: 100.h,
+        child: GridView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 1,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 5,
+            mainAxisExtent: 130,
+          ),
+          itemBuilder: (context, index) => Container(
+            padding: EdgeInsets.all(10.h),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.r),
+              color: Colors.grey.shade200,
             ),
           ),
           itemCount: 10,

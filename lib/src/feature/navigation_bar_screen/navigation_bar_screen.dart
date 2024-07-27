@@ -31,95 +31,88 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: SvgPicture.asset(
-          'assets/icons/iocn-logo.svg',
-          height: 22.h,
-          width: 66.w,
-          fit: BoxFit.contain,
-        ),
-      ),
-      body: screens[currentIndex],
-      bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(22.r),
-          topRight: Radius.circular(22.r),
-        ),
-        clipBehavior: Clip.antiAlias,
-        child: BottomNavigationBar(
-          currentIndex: currentIndex,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: AppColors.primaryColor,
-          enableFeedback: false,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          elevation: 0,
-          onTap: (index) {
-            changeIndex(index);
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/icons/icon-home-unselected.svg',
-                height: 34.h,
-                width: 36.w,
-                fit: BoxFit.cover,
-              ),
-              activeIcon: SvgPicture.asset(
-                'assets/icons/icon-home-selected.svg',
-                height: 34.h,
-                width: 36.w,
-                fit: BoxFit.cover,
-              ),
-              label: "",
+      body: SafeArea(child: screens[currentIndex]),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        enableFeedback: false,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        elevation: 0,
+        onTap: (index) {
+          changeIndex(index);
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/icons/icon-shop.svg',
+              height: 25.h,
+              width: 25.w,
+              fit: BoxFit.cover,
+              color: AppColors.grayColor,
             ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/icons/icon-category-unselected.svg',
-                height: 34.h,
-                width: 36.w,
-                fit: BoxFit.cover,
-              ),
-              activeIcon: SvgPicture.asset(
-                'assets/icons/icon-category-selected.svg',
-                height: 34.h,
-                width: 36.w,
-                fit: BoxFit.cover,
-              ),
-              label: "",
+            activeIcon: SvgPicture.asset(
+              'assets/icons/icon-shop.svg',
+              height: 25.h,
+              width: 25.w,
+              fit: BoxFit.fill,
+              color: AppColors.primaryColor,
             ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/icons/icon-love-unselected.svg',
-                height: 34.h,
-                width: 36.w,
-                fit: BoxFit.cover,
-              ),
-              activeIcon: SvgPicture.asset(
-                'assets/icons/icon-love-selected.svg',
-                height: 34.h,
-                width: 36.w,
-                fit: BoxFit.cover,
-              ),
-              label: "",
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/icons/icon-category-unselected.svg',
+              height: 34.h,
+              width: 36.w,
+              fit: BoxFit.cover,
+              color: AppColors.grayColor,
             ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/icons/icon-profile-unselected.svg',
-                height: 34.h,
-                width: 36.w,
-                fit: BoxFit.cover,
-              ),
-              activeIcon: SvgPicture.asset(
-                'assets/icons/icon-profile-selected.svg',
-                height: 34.h,
-                width: 36.w,
-                fit: BoxFit.cover,
-              ),
-              label: "",
+            activeIcon: SvgPicture.asset(
+              'assets/icons/icon-category-unselected.svg',
+              height: 34.h,
+              width: 36.w,
+              fit: BoxFit.cover,
+              color: AppColors.primaryColor,
             ),
-          ],
-        ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/icons/icon-heart.svg',
+              height: 25.h,
+              width: 25.w,
+              fit: BoxFit.fill,
+              color: AppColors.grayColor,
+            ),
+            activeIcon: SvgPicture.asset(
+              'assets/icons/icon-heart.svg',
+              height: 25.h,
+              width: 25.w,
+              fit: BoxFit.fill,
+              color: AppColors.primaryColor,
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/icons/icon-user.svg',
+              height: 25.h,
+              width: 25.w,
+              color: AppColors.grayColor,
+              fit: BoxFit.fill,
+            ),
+            activeIcon: SvgPicture.asset(
+              'assets/icons/icon-user.svg',
+              height: 25.h,
+              width: 25.w,
+              color: AppColors.primaryColor,
+              fit: BoxFit.fill,
+            ),
+            label: "",
+          ),
+        ],
       ),
     );
   }

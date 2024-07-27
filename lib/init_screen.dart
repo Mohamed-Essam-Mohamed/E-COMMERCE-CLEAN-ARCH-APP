@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:e_commerce/src/animation/animation_show_welcom.dart';
 import 'package:e_commerce/src/constant/string_const_app.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/login/view/login_screen.dart';
@@ -17,16 +15,16 @@ class InitScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: AppColors.whiteColor,
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 64.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Gap(100.h),
+            const Spacer(),
             Align(
               alignment: Alignment.topLeft,
-              child: AnimatedText(
+              child: CustomAnimatedText(
                 text: welcom,
                 fontSize: 30.sp,
               ),
@@ -37,14 +35,14 @@ class InitScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: AppTextStyle.textStyle18,
             ),
-            Spacer(),
+            const Spacer(),
             CustomButtonApp(
               onPressed: () {
                 Navigator.of(context).pushNamed(LoginScreen.routeName);
               },
               text: login,
-              backgroundColor: Colors.white,
-              colorText: AppColors.primaryColor,
+              backgroundColor: AppColors.primaryColor,
+              colorText: AppColors.whiteColor,
             ),
             Gap(20.h),
             CustomButtonApp(
@@ -52,6 +50,7 @@ class InitScreen extends StatelessWidget {
                 Navigator.of(context).pushNamed(RegisterScreen.routeName);
               },
               text: signUp,
+              colorText: AppColors.primaryColor,
             ),
             Gap(20.h),
             CustomButtonApp(
@@ -59,8 +58,9 @@ class InitScreen extends StatelessWidget {
                 Navigator.of(context).pushNamed(NavigationBarScreen.routeName);
               },
               text: skip,
+              colorText: AppColors.primaryColor,
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+import 'package:e_commerce/src/feature/splash/widget/splash_content.dart';
+
 import 'src/animation/shimmer_cart_screen.dart';
 import 'src/feature/cart/view/cart_screen.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'init_screen.dart';
 import 'src/feature/auth/contant_login/forget_password/view/forget_password_screen.dart';
 import 'src/feature/auth/contant_login/login/view/login_screen.dart';
-import 'src/feature/auth/contant_login/reset_code/view/reset_code_email_screen.dart';
+import 'src/feature/auth/contant_login/reset_code/view/resend_code_email_screen.dart';
 import 'src/feature/auth/contant_login/reset_password/view/reset_password_screen.dart';
 import 'src/feature/auth/register/view/register_screen.dart';
 import 'src/feature/auth/widget/sign_success_screen.dart';
@@ -27,15 +29,15 @@ void main() async {
     route = NavigationBarScreen.routeName;
   }
   runApp(
-    EcommerceRouteApp(
+    EcommerceApp(
       routeName: route,
     ),
   );
 }
 
-class EcommerceRouteApp extends StatelessWidget {
+class EcommerceApp extends StatelessWidget {
   final String routeName;
-  const EcommerceRouteApp({required this.routeName, super.key});
+  const EcommerceApp({required this.routeName, super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import '../../../../../constant/string_const_app.dart';
 import '../../../../../domain/usecases/auth_usecases/forgot_pass_usecase.dart';
 import '../view_model/forgot_password_cubit.dart';
-import '../../reset_code/view/reset_code_email_screen.dart';
+import '../../reset_code/view/resend_code_email_screen.dart';
 import '../../../../../utils/app_colors.dart';
 import '../../../../../utils/app_text_style.dart';
 import '../../../../../utils/dailog.dart';
@@ -47,7 +47,20 @@ class _ForGetPasswordScreenState extends State<ForGetPasswordScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: AppColors.whiteColor,
+        appBar: AppBar(
+          elevation: 0,
+          title: Text(
+            "Forgot Password",
+            style: AppTextStyle.textStyle18.copyWith(
+              color: AppColors.grayColor,
+              fontWeight: FontWeight.w300,
+              fontSize: 20,
+            ),
+          ),
+          backgroundColor: AppColors.primaryColor,
+          centerTitle: true,
+        ),
+        backgroundColor: AppColors.primaryColor,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -55,7 +68,7 @@ class _ForGetPasswordScreenState extends State<ForGetPasswordScreen> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 decoration: BoxDecoration(
-                  color: AppColors.primaryColor,
+                  color: AppColors.whiteColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50.r),
                     topRight: Radius.circular(50.r),
@@ -103,7 +116,8 @@ class _ForGetPasswordScreenState extends State<ForGetPasswordScreen> {
                       onPressed: () {
                         viewModel.forgotPassword();
                       },
-                      backgroundColor: AppColors.whiteColor,
+                      backgroundColor: AppColors.primaryColor,
+                      colorText: AppColors.whiteColor,
                     ),
                     Gap(240.h)
                   ],

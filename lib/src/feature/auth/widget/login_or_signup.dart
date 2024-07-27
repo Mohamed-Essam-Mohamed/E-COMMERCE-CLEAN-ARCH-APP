@@ -8,11 +8,13 @@ import '../register/view/register_screen.dart';
 class LoginOrSignUp extends StatelessWidget {
   final String startTitle;
   final String endTitle;
+  final void Function()? onTap;
 
   const LoginOrSignUp({
     super.key,
     required this.endTitle,
     required this.startTitle,
+    required this.onTap,
   });
 
   @override
@@ -34,13 +36,11 @@ class LoginOrSignUp extends StatelessWidget {
           highlightColor: Colors.transparent,
           hoverColor: Colors.transparent,
           splashColor: Colors.transparent,
-          onTap: () {
-            Navigator.of(context).pushNamed(RegisterScreen.routeName);
-          },
+          onTap: onTap,
           child: Text(
             endTitle,
             style: AppTextStyle.textStyle20.copyWith(
-              color: AppColors.blackColor,
+              color: AppColors.primaryColor,
               fontWeight: FontWeight.w500,
             ),
           ),

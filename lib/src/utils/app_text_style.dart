@@ -5,7 +5,7 @@ import 'app_colors.dart';
 
 class AppTextStyle {
   static TextStyle textStyle30 = TextStyle(
-    color: AppColors.whiteColor,
+    color: AppColors.blackColor,
     fontSize: 30.sp,
     fontWeight: FontWeight.w400,
   );
@@ -15,21 +15,21 @@ class AppTextStyle {
     fontWeight: FontWeight.bold,
   );
   static TextStyle textStyle18 = TextStyle(
-    color: AppColors.whiteColor,
+    color: AppColors.blackColor,
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
   );
   static TextStyle textStyle14 = TextStyle(
-    color: AppColors.primaryColor,
+    color: AppColors.blackColor,
     fontSize: 14.sp,
     fontWeight: FontWeight.w400,
   );
   static TextStyle textStyle20 = TextStyle(
-      color: AppColors.whiteColor,
+      color: AppColors.blackColor,
       fontSize: 20.sp,
       fontWeight: FontWeight.w300);
   static TextStyle textStyle13 = TextStyle(
-    color: AppColors.whiteColor,
+    color: AppColors.blackColor,
     fontSize: 13.sp,
   );
 }

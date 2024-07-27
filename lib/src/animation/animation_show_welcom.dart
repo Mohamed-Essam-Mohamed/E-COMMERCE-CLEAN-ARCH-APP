@@ -4,10 +4,10 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class AnimatedText extends StatelessWidget {
+class CustomAnimatedText extends StatelessWidget {
   final String text;
   final double fontSize;
-  const AnimatedText({required this.text, required this.fontSize});
+  const CustomAnimatedText({required this.text, required this.fontSize});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -20,7 +20,7 @@ class AnimatedText extends StatelessWidget {
             TyperAnimatedText(
               text,
               textStyle: TextStyle(
-                color: AppColors.whiteColor,
+                color: AppColors.blackColor,
                 fontSize: fontSize,
                 fontWeight: FontWeight.w500,
               ),

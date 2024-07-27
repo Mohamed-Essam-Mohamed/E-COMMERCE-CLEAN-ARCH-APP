@@ -5,13 +5,13 @@ import '../../../helper/failuers/failures.dart';
 import '../../entities/home_entites/categoryorbrand_response_entity.dart';
 import '../../repository/home_repository/repository/home_repository.dart';
 
-class GetAllBrandUsecase {
-  final HomeRepository BrandRepository;
-  const GetAllBrandUsecase({required this.BrandRepository});
+class GetAllBrandUseCase {
+  final HomeRepository brandRepository;
+  const GetAllBrandUseCase({required this.brandRepository});
   Future<Either<Failure, CategoryOrBrandResponseEntity>> invoke() async {
-    return BrandRepository.getAllBrand();
+    return brandRepository.getAllBrand();
   }
 }
 
-GetAllBrandUsecase injectGetAllBrandsUseCases() =>
-    GetAllBrandUsecase(BrandRepository: injectHomeRepository());
+GetAllBrandUseCase injectGetAllBrandsUseCases() =>
+    GetAllBrandUseCase(brandRepository: injectHomeRepository());

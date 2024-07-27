@@ -19,7 +19,7 @@ class _ShimmerCatergoryItemState extends State<ShimmerCatergoryItem> {
       baseColor: Color.fromARGB(255, 207, 207, 207),
       highlightColor: Color.fromARGB(255, 255, 255, 255),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(100.r),
+        borderRadius: BorderRadius.circular(10.r),
         child: Container(
           height: 90.h,
           width: 90.w,

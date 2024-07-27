@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/feature/product/view_modle/product_view_model_cubit.dart';
+import 'package:e_commerce/src/utils/app_colors.dart';
 
 import 'custom_text_form_app.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,14 @@ class ContainerSearchWidget extends StatelessWidget {
           onTap: onTap,
           child: Badge(
             label: Text(numberOfBags.toString()),
+            backgroundColor: AppColors.primaryColor,
             alignment: Alignment.topLeft,
             child: SvgPicture.asset(
               'assets/icons/icon-shopping-cart.svg',
               width: 35.w,
               height: 35.h,
               fit: BoxFit.cover,
+              color: AppColors.primaryColor,
             ),
           ),
         ),

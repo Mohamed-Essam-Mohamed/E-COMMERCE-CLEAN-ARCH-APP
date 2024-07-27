@@ -6,6 +6,7 @@ import 'package:e_commerce/src/constant/string_const_app.dart';
 import 'package:e_commerce/src/domain/usecases/auth_usecases/login_usecase.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/forget_password/view/forget_password_screen.dart';
 import 'package:e_commerce/src/feature/auth/contant_login/login/view_model/login_view_model_cubit.dart';
+import 'package:e_commerce/src/feature/auth/register/view/register_screen.dart';
 import 'package:e_commerce/src/feature/auth/widget/login_or_signup.dart';
 import 'package:e_commerce/src/feature/auth/widget/title_textfiel.dart';
 import 'package:e_commerce/src/feature/navigation_bar_screen/navigation_bar_screen.dart';
@@ -54,11 +55,19 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       child: Scaffold(
-        // resizeToAvoidBottomInset: true,
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: AppColors.primaryColor,
+          title: Text(
+            "Sign in",
+            style: AppTextStyle.textStyle18.copyWith(
+              color: AppColors.grayColor,
+              fontWeight: FontWeight.w300,
+              fontSize: 20,
+            ),
+          ),
+          backgroundColor: AppColors.whiteColor,
+          centerTitle: true,
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -68,15 +77,8 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Image.asset(
-                  'assets/image/route.png',
-                  width: 200.w,
-                  height: 100.h,
-                  fit: BoxFit.contain,
-                  alignment: Alignment.center,
-                ),
-                Gap(60.h),
-                AnimatedText(
+                Gap(90.h),
+                CustomAnimatedText(
                   text: welcomeBack,
                   fontSize: 24.sp,
                 ),
@@ -134,7 +136,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: Text(
                     forgotPassword,
-                    style: AppTextStyle.textStyle18,
+                    style: AppTextStyle.textStyle18.copyWith(
+                      color: AppColors.primaryColor,
+                    ),
                     textAlign: TextAlign.end,
                   ),
                 ),
@@ -144,12 +148,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     viewModel.login();
                   },
                   text: login,
-                  backgroundColor: AppColors.whiteColor,
+                  backgroundColor: AppColors.primaryColor,
+                  colorText: AppColors.whiteColor,
                 ),
                 Gap(32.h),
                 LoginOrSignUp(
                   startTitle: dontHaveAccount,
                   endTitle: signUp,
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(RegisterScreen.routeName),
                 ),
               ],
             ),

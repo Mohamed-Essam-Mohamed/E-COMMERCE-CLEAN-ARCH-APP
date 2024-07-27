@@ -133,7 +133,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         onPressed: () {
                           viewModel.resetPassword(email: args.email);
                         },
-                        backgroundColor: AppColors.whiteColor,
+                        backgroundColor: AppColors.primaryColor,
+                        colorText: AppColors.whiteColor,
                       ),
                       Gap(240.h)
                     ],

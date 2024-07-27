@@ -1,4 +1,4 @@
-part of 'reset_code_view_model_cubit.dart';
+part of 'resend_code_view_model_cubit.dart';
 
 @immutable
 sealed class ResetCodeViewModelState {}

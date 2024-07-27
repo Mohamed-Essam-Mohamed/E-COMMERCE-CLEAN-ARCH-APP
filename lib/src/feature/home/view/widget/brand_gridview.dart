@@ -7,7 +7,6 @@ import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 
 class BrandGridView extends StatefulWidget {
   const BrandGridView({required this.brandList, super.key});
@@ -26,41 +25,25 @@ class _BrandGridViewState extends State<BrandGridView> {
       scrollDirection: Axis.horizontal,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
+        childAspectRatio: 1,
         mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
+        crossAxisSpacing: 5,
+        mainAxisExtent: 130,
       ),
       itemBuilder: (context, index) => Container(
-        height: 150.h,
-        width: 80.w,
-        clipBehavior: Clip.antiAlias,
+        padding: EdgeInsets.all(10.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.r),
+          color: AppColors.primaryColor,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ClipRRect(
-              child: CachedNetworkImage(
-                imageUrl: widget.brandList[index].image ?? '',
-                placeholder: (context, url) => ShimmerCatergoryItem(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-                fit: BoxFit.cover,
-                height: 90.h,
-                width: 90.w,
-              ),
-              borderRadius: BorderRadius.circular(100.r),
-            ),
-            Gap(5.h),
-            Text(
-              widget.brandList[index].name ?? '',
-              style: AppTextStyle.textStyle18.copyWith(
-                color: AppColors.primaryColor,
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-            ),
-          ],
+        child: Text(
+          widget.brandList[index].name ?? '',
+          style: AppTextStyle.textStyle18.copyWith(
+            color: AppColors.whiteColor,
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
         ),
       ),
       itemCount: widget.brandList.length,

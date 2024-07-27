@@ -223,7 +223,44 @@ class ApiManger {
         connectivityResult.contains(ConnectivityResult.wifi)) {
       //? connected internet
       Uri url = Uri.https(apiBaseUrl, apiGetAllProducts);
-      var response = await http.get(url);
+      var response = await http.get(
+        url,
+      );
+
+      var getAllProductResponse =
+          ProductResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //? success get data
+        return Right(getAllProductResponse);
+      } else {
+        //? Incorrect
+        return Left(Failure(errorMessage: 'Error in response'));
+      }
+    } else {
+      return Left(Failure(errorMessage: 'No Internet Connection'));
+    }
+  }
+
+  //? getSpecificProduct
+  Future<Either<Failure, ProductResponseDto>> getSpecificProduct(
+      {required String specificProductId}) async {
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      //? connected internet
+      Uri url = Uri.https(
+        apiBaseUrl,
+        apiGetAllProducts,
+        {
+          "category": specificProductId,
+        },
+      );
+      var response = await http.get(
+        url,
+      );
 
       var getAllProductResponse =
           ProductResponseDto.fromJson(jsonDecode(response.body));

@@ -3,6 +3,8 @@
 import 'package:e_commerce/src/animation/shimmer_home_screen.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_brand_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_catergories_usecase.dart';
+import 'package:e_commerce/src/domain/usecases/home_usecase/get_specific_product.dart';
+import 'package:e_commerce/src/domain/usecases/product_usecase/all_product_usecase.dart';
 import 'package:e_commerce/src/feature/home/view/widget/brand_gridview.dart';
 import 'package:e_commerce/src/feature/home/view/widget/catergory_gridview.dart';
 import 'package:e_commerce/src/feature/home/view/widget/container_title.dart';
@@ -26,7 +28,23 @@ class _HomeScreenState extends State<HomeScreen> {
   final HomeViewModelCubit viewModel = HomeViewModelCubit(
     getAllCategoriesUseCases: injectGetAllCategoriesUseCases(),
     getAllBrandsUseCases: injectGetAllBrandsUseCases(),
+    allProductUseCases: injectAllProductUseCase(),
+    getProductSpecificUseCase: injectGetProductSpecificUseCases(),
   );
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint("initState????????????????");
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    debugPrint("dispose????????????????????");
+    viewModel.searchController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ..getAllCategory()
         ..getAllBrand(),
       builder: (context, state) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.h),
+        return Padding(
+          padding: EdgeInsets.only(left: 16.h, right: 16.h, top: 25.h),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -61,9 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     : state is HomeViewModelSuccess
                         ? SizedBox(
-                            height: 320.h,
-                            child: CatergoryGridView(
-                              catergoryList: viewModel.listCategoryData,
+                            height: 280.h,
+                            child: CategoryGridView(
+                              categoryList: viewModel.listCategoryData,
                             ),
                           )
                         : ShimmerHomeScreen(),
@@ -80,12 +98,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     : state is HomeViewModelSuccess
                         ? SizedBox(
-                            height: 320.h,
+                            height: 100.h,
                             child: BrandGridView(
                               brandList: viewModel.listBrandData,
                             ),
                           )
-                        : ShimmerHomeScreen(),
+                        : BrandsShimmer(),
               ],
             ),
           ),

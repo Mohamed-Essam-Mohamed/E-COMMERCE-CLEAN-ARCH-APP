@@ -23,7 +23,6 @@ class _SuccessScreenState extends State<SuccessScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
     final player = Audio.load('assets/audio/success-1-6297.mp3');
     player.play();
   }
@@ -37,7 +36,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
       },
     );
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: SizedBox(
           width: double.infinity,

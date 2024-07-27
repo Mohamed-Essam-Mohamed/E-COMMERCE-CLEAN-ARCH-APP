@@ -16,7 +16,7 @@ final class HomeViewModelError extends HomeViewModelState {
 }
 
 final class HomeViewModelSuccess extends HomeViewModelState {
-  final CategoryOrBrandResponseEntity categoryResponseEntity;
+  // final CategoryOrBrandResponseEntity categoryResponseEntity;
 
-  HomeViewModelSuccess({required this.categoryResponseEntity});
+  HomeViewModelSuccess();
 }

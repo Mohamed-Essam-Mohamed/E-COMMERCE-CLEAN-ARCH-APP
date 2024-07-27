@@ -7,7 +7,7 @@ const String signUp = "Sign Up";
 const String skip = "Skip";
 
 //? login Screen Strings
-const String welcomeBack = "Welcome Back To Route";
+const String welcomeBack = "Welcome Back To TOKOTO";
 const String loginToYourAccount = "Login to your account";
 
 const String email = "E-mail address";

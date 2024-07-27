@@ -19,7 +19,9 @@ import '../../cart/view/cart_screen.dart';
 import '../view_modle/product_view_model_cubit.dart';
 
 class ProductScreen extends StatefulWidget {
-  ProductScreen({super.key});
+  static const String routeName = 'ProductScreen';
+  ProductScreen({this.productId, super.key});
+  String? productId;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -35,7 +37,7 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.h),
+      padding: EdgeInsets.only(left: 16.h, right: 16.h, top: 25.h),
       child: SingleChildScrollView(
         child: BlocProvider<ProductViewModelCubit>(
           create: (context) => viewModel..getAllProduct(),

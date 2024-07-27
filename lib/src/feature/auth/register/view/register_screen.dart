@@ -1,3 +1,6 @@
+import 'package:e_commerce/src/animation/animation_show_welcom.dart';
+import 'package:e_commerce/src/feature/auth/widget/login_or_signup.dart';
+import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,10 +49,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: AppColors.primaryColor,
+          backgroundColor: AppColors.whiteColor,
+          title: Text(
+            "Sign up",
+            style: AppTextStyle.textStyle18.copyWith(
+              color: AppColors.grayColor,
+              fontWeight: FontWeight.w300,
+              fontSize: 20,
+            ),
+          ),
+          centerTitle: true,
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -59,15 +71,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    'assets/image/route.png',
-                    width: 200.w,
-                    height: 100.h,
-                    fit: BoxFit.contain,
-                    alignment: Alignment.center,
+                  Gap(40.h),
+                  Text(
+                    "Register Account",
+                    style: AppTextStyle.textStyle30,
                   ),
-                  Gap(50.h),
-                  TitleTextField(title: fullName),
+                  Gap(5.h),
+                  Text(
+                    "Complete your details or continue \nwith social media",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Gap(30.h),
+                  const TitleTextField(title: fullName),
                   CustomTextFormApp(
                     hintText: hintFullName,
                     isObscureText: false,
@@ -79,10 +99,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (value.length <= 3) {
                         return invalidName;
                       }
+                      return null;
                     },
                   ),
                   Gap(15.h),
-                  TitleTextField(title: mobileNumber),
+                  const TitleTextField(title: mobileNumber),
                   CustomTextFormApp(
                     hintText: hintNumber,
                     controller: viewModel.mobileController,
@@ -93,6 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (value == null || value.isEmpty) {
                         return entNumber;
                       }
+                      return null;
                     },
                   ),
                   Gap(15.h),
@@ -137,11 +159,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Gap(30.h),
                   CustomButtonApp(
                     text: signUp,
-                    colorText: AppColors.primaryColor,
+                    colorText: AppColors.whiteColor,
                     onPressed: () {
                       viewModel.register();
                     },
-                    backgroundColor: AppColors.whiteColor,
+                    backgroundColor: AppColors.primaryColor,
+                  ),
+                  Gap(32.h),
+                  LoginOrSignUp(
+                    startTitle: dontHaveAccount,
+                    endTitle: "Sign In",
+                    onTap: () => Navigator.of(context).pop(),
                   ),
                 ],
               ),
@@ -151,13 +179,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-
-  // String? validator(String? value) {
-  //   if (value == null || value.isEmpty) {
-  //     return entFullName;
-  //   }
-  //   if (value.length <= 3) {
-  //     return invalidName;
-  //   }
-  // }
 }

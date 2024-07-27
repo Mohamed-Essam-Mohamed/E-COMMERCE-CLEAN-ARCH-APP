@@ -20,7 +20,7 @@ class TitleTextField extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 16.sp,
-              color: AppColors.whiteColor,
+              color: AppColors.blackColor,
             ),
           ),
           Gap(10.h),

@@ -5,7 +5,7 @@ import '../../../../../domain/usecases/auth_usecases/reset_code_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-part 'reset_code_view_model_state.dart';
+part 'resend_code_view_model_state.dart';
 
 class ResetCodeViewModelCubit extends Cubit<ResetCodeViewModelState> {
   ResetCodeViewModelCubit({required this.resetCodeUseCases})

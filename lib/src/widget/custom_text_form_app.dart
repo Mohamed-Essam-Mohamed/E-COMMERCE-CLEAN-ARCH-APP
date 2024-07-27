@@ -79,12 +79,14 @@ class _CustomTextFormAppState extends State<CustomTextFormApp> {
                       width: 26.w,
                       height: 26.h,
                       fit: BoxFit.contain,
+                      color: AppColors.primaryColor,
                     ),
                   )
                 : null,
-        enabledBorder: customOutLineInputBorder(color: AppColors.blackColor),
+        enabledBorder: customOutLineInputBorder(
+            color: widget.isSearch ? Colors.transparent : AppColors.blackColor),
         errorBorder: customOutLineInputBorder(color: AppColors.redColor),
-        focusedBorder: customOutLineInputBorder(color: AppColors.blueColor),
+        focusedBorder: customOutLineInputBorder(color: AppColors.primaryColor),
       ),
     );
   }
