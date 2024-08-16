@@ -60,7 +60,8 @@ class DialogUtils {
     );
   }
 
-  static void showSnackBar(BuildContext context, String message) {
+  static void showSnackBar(BuildContext context, String message,
+      {Color? color = Colors.teal}) {
     final snackBar = SnackBar(
       content: Text(
         message,
@@ -70,7 +71,7 @@ class DialogUtils {
           overflow: TextOverflow.ellipsis,
         ),
       ),
-      backgroundColor: Colors.teal,
+      backgroundColor: color,
       behavior: SnackBarBehavior.floating,
       width: 300.w,
       duration: const Duration(milliseconds: 300),

@@ -458,6 +458,7 @@ class ApiManger {
   }
 
   //! Function get  all favorite
+
   Future<Either<Failure, GetAllFavoriteResponseDto>> getAllFavorite() async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());

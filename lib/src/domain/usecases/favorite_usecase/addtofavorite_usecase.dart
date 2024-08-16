@@ -5,10 +5,10 @@ import 'package:e_commerce/src/domain/repository/favorite_repository/repository/
 import '../../../helper/failuers/failures.dart';
 import '../../entities/favorite_entities/add_to_favorite_response_entity.dart';
 
-class AddFavorteUsecase {
+class AddFavoriteUseCase {
   FavoriteRepository favoriteRepository;
 
-  AddFavorteUsecase({required this.favoriteRepository});
+  AddFavoriteUseCase({required this.favoriteRepository});
 
   Future<Either<Failure, AddToFavoriteResponseEntity>> invoke(
       {required String productId}) async {
@@ -16,6 +16,6 @@ class AddFavorteUsecase {
   }
 }
 
-AddFavorteUsecase injectAddFavorteUsecase() {
-  return AddFavorteUsecase(favoriteRepository: injectFavoriteRepository());
+AddFavoriteUseCase injectAddFavoriteUseCase() {
+  return AddFavoriteUseCase(favoriteRepository: injectFavoriteRepository());
 }

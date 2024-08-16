@@ -1,7 +1,8 @@
-import 'package:e_commerce/src/feature/favorite/view/favorite_screen.dart';
+import 'package:e_commerce/src/feature/favorite/favorite_screen.dart';
 import 'package:e_commerce/src/feature/home/view/home_screen.dart';
 import 'package:e_commerce/src/feature/product/view/product_screen.dart';
 import 'package:e_commerce/src/feature/profile/view/profile_screen.dart';
+import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,6 +32,17 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Text(
+          'TOKOTO',
+          style: AppTextStyle.textStyle30.copyWith(
+            color: AppColors.primaryColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: SafeArea(child: screens[currentIndex]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,

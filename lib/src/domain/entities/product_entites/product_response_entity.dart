@@ -1,4 +1,7 @@
-class ProductResponseEntity {
+import 'package:hive/hive.dart';
+part 'product_response_entity.g.dart';
+
+class ProductResponseEntity extends HiveObject {
   ProductResponseEntity({
     this.results,
     this.data,
@@ -7,6 +10,7 @@ class ProductResponseEntity {
   List<ProductDataEntity>? data;
 }
 
+@HiveType(typeId: 1)
 class ProductDataEntity {
   ProductDataEntity({
     this.sold,
@@ -24,19 +28,27 @@ class ProductDataEntity {
     this.brand,
     this.ratingsAverage,
   });
+  @HiveField(0)
   int? sold;
-  List<String>? images;
+  @HiveField(1)
+  List<String>? images; //?
   List<SubcategoryEntity>? subcategory;
   int? ratingsQuantity;
+  @HiveField(2)
   String? id;
-  String? title;
+  @HiveField(3)
+  String? title; //?
   String? slug;
-  String? description;
+  @HiveField(4)
+  String? description; //?
   int? quantity;
+  @HiveField(5)
   int? price;
+  @HiveField(6)
   String? imageCover;
   CategoryEntity? category;
   BrandEntity? brand;
+  @HiveField(7)
   num? ratingsAverage;
 }
 

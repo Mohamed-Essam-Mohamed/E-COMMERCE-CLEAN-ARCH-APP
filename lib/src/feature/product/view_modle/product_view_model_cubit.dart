@@ -1,7 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/src/domain/entities/favorite_entities/add_to_favorite_response_entity.dart';
+import 'package:e_commerce/src/domain/entities/favorite_entities/get_all_favorite_response_enitiy.dart';
+import 'package:e_commerce/src/domain/entities/home_entites/categoryorbrand_response_entity.dart';
 import 'package:e_commerce/src/domain/usecases/favorite_usecase/addtofavorite_usecase.dart';
-import '../../../domain/entities/product_entites/add_to_cart/addtocart_response_enitiy.dart';
+import 'package:e_commerce/src/domain/usecases/favorite_usecase/getallfavorite_usecase.dart';
+import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_brand_usecase.dart';
+import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_catergories_usecase.dart';
+import 'package:e_commerce/src/domain/usecases/home_usecase/get_specific_product.dart';
 import '../../../domain/usecases/product_usecase/add_to_cart_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../domain/entities/product_entites/product_response_entity.dart';
@@ -12,71 +16,129 @@ import 'package:meta/meta.dart';
 part 'product_view_model_state.dart';
 
 class ProductViewModelCubit extends Cubit<ProductViewModelState> {
+  GetAllCategoriesUseCases getAllCategoriesUseCases;
+  GetAllBrandUseCase getAllBrandsUseCases;
   AllProductUseCase allProductUseCases;
   AddToCartUseCase addToCartUseCase;
-  AddFavorteUsecase addFavorteUsecase;
+  AddFavoriteUseCase addFavoriteUseCase;
+  GetProductSpecificUseCase getProductSpecificUseCase;
+  GetAllFavoriteUseCase getAllFavoriteUseCase;
 
-  int numberOfBagsItem = 0;
   bool checkAddProductOrNot = true;
 
   ProductViewModelCubit({
     required this.allProductUseCases,
     required this.addToCartUseCase,
-    required this.addFavorteUsecase,
+    required this.addFavoriteUseCase,
+    required this.getAllCategoriesUseCases,
+    required this.getAllBrandsUseCases,
+    required this.getProductSpecificUseCase,
+    required this.getAllFavoriteUseCase,
   }) : super(
-          ProductViewModelLoading(),
+          ProductViewModelInitial(),
         );
 
-  TextEditingController searchController = TextEditingController();
-  List<ProductDataEntity> listProduct = [];
-  List<ProductDataEntity> searchListProduct = [];
   static ProductViewModelCubit getBloc(context) =>
       BlocProvider.of<ProductViewModelCubit>(context);
 
-  void getAllProduct() async {
+  //? Get All Product
+  List<ProductDataEntity> allProductList = [];
+  Future<void> getAllProduct() async {
+    emit(GetAllProductViewModelLoading());
     var either = await allProductUseCases.invoke();
     either.fold(
       (l) {
-        emit(ProductViewModelLoading());
-        emit(ProductViewModelError(errorMessage: l.errorMessage));
+        emit(GetAllProductViewModelError(errorMessage: l.errorMessage));
       },
       (r) {
-        emit(ProductViewModelLoading());
-        listProduct = r.data ?? [];
-        emit(ProductViewModelSuccess(productResponseEntity: r));
+        allProductList = r.data ?? [];
+        emit(GetAllProductViewModelSuccess());
       },
     );
   }
 
-  void addToCart({required String productId}) async {
+  //? Add To Cart
+  Future<void> addToCart({required String productId}) async {
+    emit(AddToCartViewModelLoading());
     var either = await addToCartUseCase.invoke(productId: productId);
     either.fold((l) {
-      // emit(AddToCartViewModelLoading());
-      // emit(AddToCartViewModelError(errorMessage: l.errorMessage));
+      emit(AddToCartViewModelError(errorMessage: l.errorMessage));
     }, (r) {
-      numberOfBagsItem = r.numOfCartItems!;
-      emit(ChangeNumBadgeViewModelSuccess(numberOfBags: numberOfBagsItem));
-      // emit(AddToCartViewModelLoading());
-      print("add to cart success");
-      emit(AddToCartViewModelSuccess(addToCartResponseEntity: r));
+      emit(AddToCartViewModelSuccess());
     });
   }
 
-  void addToFavorite({required String productId}) async {
-    var either = await addFavorteUsecase.invoke(productId: productId);
+  //? Add to Favorite
+  Future<void> addToFavorite({required String productId}) async {
+    emit(AddToFavoriteViewModelLoading());
+    var either = await addFavoriteUseCase.invoke(productId: productId);
     either.fold((l) {
-      emit(AddToFavoriteViewModelLoading());
       emit(AddToFavoriteViewModelError(errorMessage: l.errorMessage));
     }, (r) {
-      emit(AddToFavoriteViewModelSuccess(addToFavoriteResponseEntity: r));
+      emit(AddToFavoriteViewModelSuccess());
     });
   }
 
-  //! Function Search
+  //? get All Favorite
+  List<FavoriteDataEntity> allFavoriteList = [];
+  Future<void> getAllFavorite() async {
+    emit(GetAllFavoriteViewModelLoading());
+    var either = await getAllFavoriteUseCase.invoke();
+    either.fold((l) {
+      emit(GetAllFavoriteViewModelError(errorMessage: l.errorMessage));
+    }, (r) {
+      allFavoriteList = r.data ?? [];
+      emit(GetAllFavoriteViewModelSuccess());
+      emit(ProductViewModelInitial());
+    });
+  }
+
+  //? Search
+  List<ProductDataEntity> searchProductList = [];
+  TextEditingController searchController = TextEditingController();
   void searchTextInList(String text) {
-    searchListProduct = listProduct.where((product) {
+    searchProductList = allProductList.where((product) {
       return product.title!.toLowerCase().contains(text.toLowerCase());
     }).toList();
-    emit(SearchViewModelSuccess(productDataEntity: searchListProduct));
+    emit(SearchTextInListViewModelSuccess());
+  }
+
+  //? Get All Category
+  List<CategoryOrBrandDataEntity> allCategoryList = [];
+  Future<void> getAllCategory() async {
+    emit(GetAllCategoryViewModelLoading());
+    var either = await getAllCategoriesUseCases.invoke();
+    return either.fold((l) {
+      emit(GetAllCategoryViewModelError(errorMessage: l.errorMessage));
+    }, (r) {
+      allCategoryList = r.data ?? [];
+      emit(GetAllCategoryViewModelSuccess());
+    });
+  }
+
+  //? Get All Brand
+  List<CategoryOrBrandDataEntity> allBrandList = [];
+  Future<void> getAllBrand() async {
+    emit(GetAllBrandViewModelLoading());
+    var either = await getAllBrandsUseCases.invoke();
+    return either.fold((l) {
+      emit(GetAllBrandViewModelError(errorMessage: l.errorMessage));
+    }, (r) {
+      allBrandList = r.data ?? [];
+      emit(GetAllBrandViewModelSuccess(listBrandData: allBrandList));
+    });
+  }
+
+  //? Get Specific Product
+  Future<void> getSpecificProduct({required String productId}) async {
+    emit(GetSpecificProductViewModelLoading());
+    var either =
+        await getProductSpecificUseCase.invoke(specificProductId: productId);
+    return either.fold((l) {
+      emit(GetSpecificProductViewModelError(errorMessage: l.errorMessage));
+    }, (r) {
+      allProductList = r.data ?? [];
+      emit(GetSpecificProductViewModelSuccess());
+    });
   }
 }

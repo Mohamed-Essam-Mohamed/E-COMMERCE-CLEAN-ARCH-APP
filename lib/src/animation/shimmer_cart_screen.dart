@@ -13,7 +13,7 @@ class ShimmmerCartScreen extends StatelessWidget {
       baseColor: Color.fromARGB(255, 207, 207, 207),
       highlightColor: Color.fromARGB(255, 255, 255, 255),
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.8,
+        height: MediaQuery.of(context).size.height * 0.75,
         child: ListView.builder(
           itemBuilder: (context, index) => Padding(
             padding: EdgeInsets.all(16.h),

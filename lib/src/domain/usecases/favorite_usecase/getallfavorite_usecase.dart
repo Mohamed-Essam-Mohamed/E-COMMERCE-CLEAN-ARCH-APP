@@ -7,16 +7,16 @@ import 'package:e_commerce/src/domain/repository/favorite_repository/repository/
 
 import '../../../helper/failuers/failures.dart';
 
-class GetAllFavoriteUsecase {
+class GetAllFavoriteUseCase {
   FavoriteRepository favoriteRepository;
 
-  GetAllFavoriteUsecase({required this.favoriteRepository});
+  GetAllFavoriteUseCase({required this.favoriteRepository});
 
   Future<Either<Failure, GetAllFavoriteResponseEntity>> invoke() async {
     return favoriteRepository.getAllFavorite();
   }
 }
 
-GetAllFavoriteUsecase injectGetAllFavoriteUsecase() {
-  return GetAllFavoriteUsecase(favoriteRepository: injectFavoriteRepository());
+GetAllFavoriteUseCase injectGetAllFavoriteUseCase() {
+  return GetAllFavoriteUseCase(favoriteRepository: injectFavoriteRepository());
 }

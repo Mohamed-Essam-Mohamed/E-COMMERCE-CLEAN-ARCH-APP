@@ -1,21 +1,25 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:e_commerce/src/animation/shimmer_brands.dart';
 import 'package:e_commerce/src/animation/shimmer_home_screen.dart';
+import 'package:e_commerce/src/domain/usecases/favorite_usecase/addtofavorite_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_brand_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_catergories_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_specific_product.dart';
+import 'package:e_commerce/src/domain/usecases/product_usecase/add_to_cart_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/product_usecase/all_product_usecase.dart';
 import 'package:e_commerce/src/feature/home/view/widget/brand_gridview.dart';
 import 'package:e_commerce/src/feature/home/view/widget/catergory_gridview.dart';
-import 'package:e_commerce/src/feature/home/view/widget/container_title.dart';
 import 'package:e_commerce/src/feature/home/view/widget/slider_image.dart';
-import 'package:e_commerce/src/feature/home/view_model/home_view_model_cubit.dart';
+import 'package:e_commerce/src/feature/product/view_modle/product_view_model_cubit.dart';
+import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
-import 'package:e_commerce/src/widget/containerSearchWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
+import '../../../domain/usecases/favorite_usecase/getallfavorite_usecase.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "HomeScreen";
@@ -25,90 +29,118 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final HomeViewModelCubit viewModel = HomeViewModelCubit(
-    getAllCategoriesUseCases: injectGetAllCategoriesUseCases(),
-    getAllBrandsUseCases: injectGetAllBrandsUseCases(),
-    allProductUseCases: injectAllProductUseCase(),
-    getProductSpecificUseCase: injectGetProductSpecificUseCases(),
-  );
+  late ProductViewModelCubit viewModel;
 
   @override
   void initState() {
     super.initState();
-    debugPrint("initState????????????????");
+    viewModel = ProductViewModelCubit(
+      allProductUseCases: injectAllProductUseCase(),
+      addToCartUseCase: injectAddToCartUseCase(),
+      addFavoriteUseCase: injectAddFavoriteUseCase(),
+      getAllBrandsUseCases: injectGetAllBrandsUseCases(),
+      getAllCategoriesUseCases: injectGetAllCategoriesUseCases(),
+      getProductSpecificUseCase: injectGetProductSpecificUseCases(),
+      getAllFavoriteUseCase: injectGetAllFavoriteUseCase(),
+    );
+
+    // Fetch both categories and brands
+    viewModel
+      ..getAllBrand()
+      ..getAllCategory();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
-    debugPrint("dispose????????????????????");
+    viewModel.close();
     viewModel.searchController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeViewModelCubit, HomeViewModelState>(
-      bloc: viewModel
-        ..getAllCategory()
-        ..getAllBrand(),
-      builder: (context, state) {
-        return Padding(
-          padding: EdgeInsets.only(left: 16.h, right: 16.h, top: 25.h),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ContainerSearchWidget(
-                  controller: viewModel.searchController,
-                  numberOfBags: 0,
-                  onTap: () {},
-                ),
-                Gap(10.h),
-                SliderImages(),
-                Gap(24.h),
-                ContainerTitle(onTap: () {}, title: "Categories"),
-                Gap(10.h),
-                state is HomeViewModelError
-                    ? Center(
-                        child: Text(
-                          state.errorMessage ?? 'wrong',
-                          style: AppTextStyle.textStyle24.copyWith(
-                            color: Colors.black,
-                          ),
-                        ),
-                      )
-                    : state is HomeViewModelSuccess
-                        ? SizedBox(
-                            height: 280.h,
-                            child: CategoryGridView(
-                              categoryList: viewModel.listCategoryData,
-                            ),
-                          )
-                        : ShimmerHomeScreen(),
-                ContainerTitle(onTap: () {}, title: "Brands"),
-                Gap(10.h),
-                state is HomeViewModelError
-                    ? Center(
-                        child: Text(
-                          state.errorMessage ?? 'wrong',
-                          style: AppTextStyle.textStyle24.copyWith(
-                            color: Colors.black,
-                          ),
-                        ),
-                      )
-                    : state is HomeViewModelSuccess
-                        ? SizedBox(
-                            height: 100.h,
-                            child: BrandGridView(
-                              brandList: viewModel.listBrandData,
-                            ),
-                          )
-                        : BrandsShimmer(),
-              ],
+    return BlocProvider<ProductViewModelCubit>(
+      create: (context) => viewModel,
+      child: BlocBuilder<ProductViewModelCubit, ProductViewModelState>(
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsets.only(left: 16.h, right: 16.h, top: 5.h),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SliderImages(),
+                  Gap(24.h),
+                  _sectionTitle(onTap: () {}, title: "Categories"),
+                  Gap(10.h),
+                  state is GetAllCategoryViewModelLoading
+                      ? ShimmerHomeScreen()
+                      : state is GetAllCategoryViewModelError
+                          ? _errorStateWidget(state.errorMessage)
+                          : _successStateGetCategoryWidget(),
+                  _sectionTitle(onTap: () {}, title: "Brands"),
+                  Gap(10.h),
+                  state is GetAllCategoryViewModelLoading
+                      ? BrandsShimmer()
+                      : state is GetAllBrandViewModelError
+                          ? _errorStateWidget(state.errorMessage)
+                          : _successStateGetBrandWidget(),
+                ],
+              ),
             ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _successStateGetBrandWidget() {
+    return SizedBox(
+      height: 100.h,
+      child: BrandGridView(
+        allBrandsList: viewModel.allBrandList,
+      ),
+    );
+  }
+
+  Widget _successStateGetCategoryWidget() {
+    return SizedBox(
+      height: 280.h,
+      child: CategoryGridView(
+        allCategoryList: viewModel.allCategoryList,
+      ),
+    );
+  }
+
+  Widget _errorStateWidget(String? errorMessage) {
+    return Center(
+      child: Text(
+        errorMessage ?? 'wrong',
+        style: AppTextStyle.textStyle24.copyWith(
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
+  Widget _sectionTitle({required String title, required Function()? onTap}) {
+    return Row(
+      children: [
+        Text(
+          title,
+          style: AppTextStyle.textStyle20.copyWith(
+            color: AppColors.primaryColor,
+            fontWeight: FontWeight.w500,
           ),
-        );
-      },
+        ),
+        const Spacer(),
+        InkWell(
+          onTap: onTap,
+          child: Text(
+            'See all',
+            style: AppTextStyle.textStyle14,
+          ),
+        )
+      ],
     );
   }
 }

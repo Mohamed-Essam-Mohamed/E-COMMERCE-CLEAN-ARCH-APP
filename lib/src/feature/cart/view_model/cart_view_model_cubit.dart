@@ -1,64 +1,158 @@
+import 'package:e_commerce/src/constant/box_hive_const.dart';
+import 'package:e_commerce/src/domain/entities/product_entites/product_response_entity.dart';
+import 'package:e_commerce/src/domain/usecases/product_usecase/add_to_cart_usecase.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import '../../../constant/string_const_app.dart';
 import '../../../domain/entities/product_entites/add_to_cart/get_logged_cart_response_entity.dart';
 import '../../../domain/usecases/product_usecase/delete_item_cart_usecase.dart';
 import '../../../domain/usecases/product_usecase/get_all_logged_cart_usecase.dart';
 import '../../../domain/usecases/product_usecase/update_count_cart_usecase.dart';
 import 'cart_view_model_state.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CartViewModelCubit extends Cubit<CartStates> {
+class CartViewModelCubit extends Cubit<CartStatesViewModel> {
   GetAllLoggedCartUseCase getAllLoggedCartUseCase;
   DeleteItemCartUseCase deleteItemCartUseCase;
-  UpdateCuntCartUsecase updateCuntCartUsecase;
+  UpdateCuntCartUsecase updateCuntCartUseCase;
+  AddToCartUseCase addToCartUseCase;
+
   List<ProductsCartsEntity> productCartList = [];
-  bool _isClosed = false;
+  List<String> productCartIdList = [];
+  CartState cartState = CartState.noThing;
+  FavoriteState favoriteState = FavoriteState.noThing;
+  num? totalPrice = 0;
+
   CartViewModelCubit({
     required this.getAllLoggedCartUseCase,
     required this.deleteItemCartUseCase,
-    required this.updateCuntCartUsecase,
+    required this.updateCuntCartUseCase,
+    required this.addToCartUseCase,
   }) : super(GetCartInitialStates());
-  @override
-  Future<void> close() async {
-    _isClosed = true;
-    await super.close();
-  }
 
   static CartViewModelCubit get(cotext) =>
       BlocProvider.of<CartViewModelCubit>(cotext);
-  getAllCart() async {
+
+  Future<void> getAllCart() async {
     emit(GetCartLoadingStates(loadingMessage: loading));
     var either = await getAllLoggedCartUseCase.invoke();
     either.fold((l) {
       emit(GetCartErrorStates(errors: l.errorMessage));
-    }, (r) {
-      emit(GetCartLoadingStates(loadingMessage: loading));
+    }, (r) async {
       productCartList = r.data?.products ?? [];
-      emit(GetCartSuccessStates(dataCartEntity: r.data!));
+      totalPrice = r.data?.totalCartPrice ?? 0;
+      emit(GetCartSuccessStates());
     });
   }
 
-  deleteItemCart({required String cartId}) async {
-    emit(GetCartLoadingStates(loadingMessage: loading));
+  Future<void> deleteItemCart({required String cartId}) async {
+    emit(DeleteItemCartLoadingStates());
     var either = await deleteItemCartUseCase.invoke(carttId: cartId);
     either.fold((l) {
-      emit(GetCartErrorStates(errors: l.errorMessage));
+      emit(DeleteItemCartEerrorStates(errors: l.errorMessage));
     }, (r) {
-      emit(GetCartLoadingStates(loadingMessage: loading));
-      print("Deleted successfully");
-      emit(GetCartSuccessStates(dataCartEntity: r.data!));
+      totalPrice = r.data?.totalCartPrice ?? 0;
+      emit(DeleteItemCartSuccessStates());
     });
   }
 
-  upadateCountCartItme({required String cartId, required String count}) async {
+  Future<void> updateCountCartItem(
+      {required String cartId, required String count}) async {
     emit(UpdateCountInCartLoadingStates(loadingMessage: loading));
     var either =
-        await updateCuntCartUsecase.invoke(cartId: cartId, count: count);
+        await updateCuntCartUseCase.invoke(cartId: cartId, count: count);
     either.fold((l) {
       emit(UpdateCountInCartErrorStates(errors: l.errorMessage));
     }, (r) {
-      emit(GetCartLoadingStates(loadingMessage: loading));
-      print("Update successfully");
-      emit(GetCartSuccessStates(dataCartEntity: r.data!));
+      // emit(GetCartSuccessStates(dataCartEntity: r.data!));
     });
   }
+
+  Future<void> addToCart({required String productId}) async {
+    emit(AddToCartViewModelLoading());
+    var either = await addToCartUseCase.invoke(productId: productId);
+    either.fold((l) {
+      emit(AddToCartViewModelError(errorMessage: l.errorMessage));
+    }, (r) {
+      emit(AddToCartViewModelSuccess());
+    });
+  }
+
+  List<ProductDataEntity> productCartHiveList = [];
+  var poxCart = Hive.box<ProductDataEntity>(cartHive);
+
+  Future<void> getAllCartHive() async {
+    emit(GetCartLoadingStates(loadingMessage: loading));
+    productCartHiveList = poxCart.values.toList();
+    emit(GetCartSuccessStates());
+  }
+
+  Future<void> addToCartHive(
+      {required String productId, required ProductDataEntity product}) async {
+    await poxCart.put(productId, product);
+    getAllCartHive();
+  }
+
+  Future<void> deleteItemCartHive({required String productId}) async {
+    await poxCart.delete(productId);
+    getAllCartHive();
+  }
+
+  Future<void> processProductCartHive(
+      {required String productId, required ProductDataEntity product}) async {
+    if (poxCart.keys.contains(productId)) {
+      await deleteItemCartHive(productId: productId);
+      cartState = CartState.deletedToCart;
+      emit(DeleteItemCartSuccessStates());
+    } else {
+      await addToCartHive(productId: productId, product: product);
+      cartState = CartState.addedToCart;
+      emit(AddToCartViewModelSuccess());
+    }
+  }
+
+  List<ProductDataEntity> productFavoriteHiveList = [];
+  var poxFavorite = Hive.box<ProductDataEntity>(favoriteHive);
+  Future<void> getAllFavoriteHive() async {
+    emit(GetCartLoadingStates(loadingMessage: loading));
+    productFavoriteHiveList = poxFavorite.values.toList();
+    emit(GetCartSuccessStates());
+  }
+
+  Future<void> addToFavoriteHive(
+      {required String productId, required ProductDataEntity product}) async {
+    await poxFavorite.put(productId, product);
+    getAllFavoriteHive();
+  }
+
+  Future<void> deleteItemFavoriteHive({required String productId}) async {
+    await poxFavorite.delete(productId);
+    getAllFavoriteHive();
+  }
+
+  processProductFavoriteHive(
+      {required String productId, required ProductDataEntity product}) async {
+    if (poxFavorite.keys.contains(productId)) {
+      favoriteState = FavoriteState.deletedToFavorite;
+      await deleteItemFavoriteHive(productId: productId);
+      emit(DeleteItemCartSuccessStates());
+    } else {
+      favoriteState = FavoriteState.addedToFavorite;
+      await addToFavoriteHive(productId: productId, product: product);
+      emit(AddToCartViewModelSuccess());
+    }
+  }
+}
+
+enum CartState {
+  addedToCart,
+  deletedToCart,
+  noThing,
+}
+
+enum FavoriteState {
+  addedToFavorite,
+  deletedToFavorite,
+  noThing,
 }

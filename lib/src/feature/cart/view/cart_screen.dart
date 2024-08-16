@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/domain/usecases/product_usecase/add_to_cart_usecase.dart';
 import 'package:e_commerce/src/feature/cart/view_model/cart_view_model_state.dart';
 
 import '../../../animation/shimmer_cart_screen.dart';
@@ -24,137 +25,177 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  CartViewModelCubit viewModel = CartViewModelCubit(
-    getAllLoggedCartUseCase: injectGetAllLoggedCartUseCase(),
-    deleteItemCartUseCase: injectDeleteItemCartUseCase(),
-    updateCuntCartUsecase: injectUpdateCuntCartUseCase(),
-  );
+  late CartViewModelCubit viewModel;
+  final listKey = GlobalKey<AnimatedListState>();
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel = CartViewModelCubit(
+      getAllLoggedCartUseCase: injectGetAllLoggedCartUseCase(),
+      deleteItemCartUseCase: injectDeleteItemCartUseCase(),
+      updateCuntCartUseCase: injectUpdateCuntCartUseCase(),
+      addToCartUseCase: injectAddToCartUseCase(),
+    );
+    getDataCart();
+  }
+
+  getDataCart() async {
+    await viewModel.getAllCart();
+    await viewModel.getAllCartHive();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CartViewModelCubit>(
-      create: (context) => viewModel..getAllCart(),
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () {
-              // Button logic here
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
-          ),
-          title: Text(
-            'Cart',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: Theme.of(context).primaryColor),
-          ),
-        ),
-        body: BlocBuilder<CartViewModelCubit, CartStates>(
-          builder: (context, state) {
-            if (state is GetCartLoadingStates) {
-              return ShimmmerCartScreen();
-            } else if (state is GetCartErrorStates) {
-              return Center(child: Text(state.errors ?? 'wrong'));
-            } else if (state is GetCartSuccessStates) {
-              return Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Column(
-                  children: [
-                    Gap(15.h),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.77,
-                      child: ListView.builder(
-                        itemBuilder: (context, index) => CartItem(
-                          getProduct: state.dataCartEntity.products![index],
-                        ),
-                        itemCount: state.dataCartEntity.products?.length,
-                      ),
-                    ),
-                    const Spacer(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 12.h),
-                              child: Text(
-                                'Total Price',
-                                style: AppTextStyle.textStyle18.copyWith(
-                                  color: AppColors.grayColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              'EGP ${state.dataCartEntity.totalCartPrice}',
-                              style: AppTextStyle.textStyle20.copyWith(
-                                color: AppColors.primaryColor,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                        InkWell(
-                          onTap: () {
-                            //logic here
-                          },
-                          child: Container(
-                            height: 48.h,
-                            width: 270.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.r),
-                              color: AppColors.primaryColor,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                top: 12.h,
-                                bottom: 12.h,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 83.w),
-                                    child: Text(
-                                      'Check out',
-                                      style: AppTextStyle.textStyle20.copyWith(
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 27.w, right: 32.w),
-                                    child: Icon(Icons.arrow_forward,
-                                        size: 20.w,
-                                        color: AppColors.whiteColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Gap(20.h),
-                  ],
+    return Scaffold(
+      appBar: _appBarWidget(context),
+      body: BlocBuilder<CartViewModelCubit, CartStatesViewModel>(
+        bloc: viewModel,
+        builder: (context, state) {
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              children: [
+                Gap(15.h),
+                state is GetCartLoadingStates
+                    ? const ShimmmerCartScreen()
+                    : state is GetCartErrorStates
+                        ? Text("Wrong", style: AppTextStyle.textStyle24)
+                        : _listCartsWidget(context, viewModel),
+                const Spacer(),
+                _checkOutWidget(),
+                Gap(20.h),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  AppBar _appBarWidget(BuildContext context) {
+    return AppBar(
+      centerTitle: true,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: IconButton(
+        onPressed: () {
+          // Button logic here
+          Navigator.pop(context);
+        },
+        icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
+      ),
+      title: Text(
+        'Cart',
+        style: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: Theme.of(context).primaryColor),
+      ),
+    );
+  }
+
+  Widget _checkOutWidget() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(bottom: 12.h),
+              child: Text(
+                'Total Price',
+                style: AppTextStyle.textStyle18.copyWith(
+                  color: AppColors.grayColor,
+                  fontWeight: FontWeight.bold,
                 ),
-              );
-            }
-            return Center(
-              child: CircularProgressIndicator(
-                color: AppColors.primaryColor,
               ),
+            ),
+            Text(
+              'EGP ${viewModel.totalPrice.toString()}',
+              style: AppTextStyle.textStyle20.copyWith(
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+        InkWell(
+          onTap: () {
+            //?logic here Checkout
+          },
+          child: Container(
+            height: 48.h,
+            width: 270.w,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.r),
+              color: AppColors.primaryColor,
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: 12.h,
+                bottom: 12.h,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 83.w),
+                    child: Text(
+                      'Check out',
+                      style: AppTextStyle.textStyle20
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 27.w, right: 32.w),
+                    child: Icon(Icons.arrow_forward,
+                        size: 20.w, color: AppColors.whiteColor),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _listCartsWidget(BuildContext context, CartViewModelCubit viewModel) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.77,
+      child: AnimatedList(
+        key: listKey,
+        itemBuilder: (context, index, animation) => CartItem(
+          animation: animation,
+          getProduct: viewModel.productCartList[index],
+          deleteOnTap: () async {
+            removeItemInListAnimation(index);
+
+            await viewModel.deleteItemCartHive(
+              productId: viewModel.productCartList[index].product?.id ?? "",
+            );
+            await viewModel.deleteItemCart(
+              cartId: viewModel.productCartList[index].product?.id ?? "",
             );
           },
         ),
+        initialItemCount: viewModel.productCartList.length,
       ),
+    );
+  }
+
+  void removeItemInListAnimation(int index) {
+    final removedItem = viewModel.productCartList[index];
+    viewModel.productCartList.removeAt(index);
+    listKey.currentState!.removeItem(
+      index,
+      (context, animation) => CartItem(
+        animation: animation,
+        getProduct: removedItem,
+        deleteOnTap: () async {},
+      ),
+      duration: const Duration(milliseconds: 400),
     );
   }
 }
