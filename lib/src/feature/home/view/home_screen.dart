@@ -2,7 +2,6 @@
 
 import 'package:e_commerce/src/animation/shimmer_brands.dart';
 import 'package:e_commerce/src/animation/shimmer_home_screen.dart';
-import 'package:e_commerce/src/domain/usecases/favorite_usecase/addtofavorite_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_brand_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_catergories_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_specific_product.dart';
@@ -18,8 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-
-import '../../../domain/usecases/favorite_usecase/getallfavorite_usecase.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "HomeScreen";
@@ -37,14 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
     viewModel = ProductViewModelCubit(
       allProductUseCases: injectAllProductUseCase(),
       addToCartUseCase: injectAddToCartUseCase(),
-      addFavoriteUseCase: injectAddFavoriteUseCase(),
       getAllBrandsUseCases: injectGetAllBrandsUseCases(),
       getAllCategoriesUseCases: injectGetAllCategoriesUseCases(),
       getProductSpecificUseCase: injectGetProductSpecificUseCases(),
-      getAllFavoriteUseCase: injectGetAllFavoriteUseCase(),
     );
 
-    // Fetch both categories and brands
     viewModel
       ..getAllBrand()
       ..getAllCategory();

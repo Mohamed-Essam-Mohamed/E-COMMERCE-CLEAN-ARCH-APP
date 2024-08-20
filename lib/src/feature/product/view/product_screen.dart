@@ -1,10 +1,7 @@
 import 'package:e_commerce/src/animation/shimmer_producte_screen.dart';
-import 'package:e_commerce/src/domain/usecases/favorite_usecase/addtofavorite_usecase.dart';
-import 'package:e_commerce/src/domain/usecases/favorite_usecase/getallfavorite_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_catergories_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_specific_product.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
-import 'package:e_commerce/src/utils/dailog.dart';
 import 'package:e_commerce/src/widget/custom_text_form_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,9 +39,7 @@ class _ProductScreenState extends State<ProductScreen> {
       getAllBrandsUseCases: injectGetAllBrandsUseCases(),
       allProductUseCases: injectAllProductUseCase(),
       addToCartUseCase: injectAddToCartUseCase(),
-      addFavoriteUseCase: injectAddFavoriteUseCase(),
       getProductSpecificUseCase: injectGetProductSpecificUseCases(),
-      getAllFavoriteUseCase: injectGetAllFavoriteUseCase(),
     );
 
     viewModel.getAllProduct();

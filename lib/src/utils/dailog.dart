@@ -78,4 +78,47 @@ class DialogUtils {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
+  static void showMessageProfile({
+    required BuildContext context,
+    required String message,
+    required void Function()? onPressed,
+  }) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          actions: [
+            IconButton(
+              onPressed: onPressed,
+              icon: Text(
+                'Ok',
+                style: TextStyle(color: AppColors.primaryColor),
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Text(
+                'Cancel',
+                style: TextStyle(color: AppColors.redColor),
+              ),
+            ),
+          ],
+          title: Icon(
+            Icons.warning_amber,
+            color: AppColors.primaryColor,
+            size: 30.sp,
+          ),
+          content: Text(
+            message,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        );
+      },
+    );
+  }
 }

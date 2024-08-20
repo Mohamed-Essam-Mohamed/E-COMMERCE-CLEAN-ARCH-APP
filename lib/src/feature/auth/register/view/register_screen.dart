@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:e_commerce/src/animation/animation_show_welcom.dart';
+import 'package:e_commerce/src/feature/auth/widget/button_sheet_selected_image.dart';
 import 'package:e_commerce/src/feature/auth/widget/login_or_signup.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
+import 'package:e_commerce/src/utils/image_fucntions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,8 +29,23 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  RegisterViewModelCubit viewModel =
-      RegisterViewModelCubit(registerUseCasese: injcectRegisterUseCasese());
+  late RegisterViewModelCubit viewModel;
+  @override
+  void initState() {
+    super.initState();
+    viewModel =
+        RegisterViewModelCubit(registerUseCasese: injcectRegisterUseCasese());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    viewModel.emailController.dispose();
+    viewModel.passwordController.dispose();
+    viewModel.nameController.dispose();
+    viewModel.mobileController.dispose();
+    viewModel.close();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +62,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           );
         } else if (state is RegisterViewModelSuccess) {
           DialogUtils.hideLoading(context);
-          // print('${state.registerResponse?.message}');
-
           Navigator.of(context).pushReplacementNamed(SuccessScreen.routeName);
         }
       },
@@ -71,12 +88,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Gap(40.h),
                   Text(
                     "Register Account",
                     style: AppTextStyle.textStyle30,
                   ),
-                  Gap(5.h),
                   Text(
                     "Complete your details or continue \nwith social media",
                     textAlign: TextAlign.center,
@@ -86,7 +101,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: Colors.grey,
                     ),
                   ),
-                  Gap(30.h),
+                  Gap(10.h),
+                  _selectedImageSectionWidget(),
                   const TitleTextField(title: fullName),
                   CustomTextFormApp(
                     hintText: hintFullName,
@@ -102,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                   ),
-                  Gap(15.h),
+                  Gap(10.h),
                   const TitleTextField(title: mobileNumber),
                   CustomTextFormApp(
                     hintText: hintNumber,
@@ -117,8 +133,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                   ),
-                  Gap(15.h),
-                  TitleTextField(title: email),
+                  Gap(10.h),
+                  const TitleTextField(title: email),
                   CustomTextFormApp(
                     hintText: hintEmail,
                     controller: viewModel.emailController,
@@ -137,8 +153,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                   ),
-                  Gap(15.h),
-                  TitleTextField(title: password),
+                  Gap(10.h),
+                  const TitleTextField(title: password),
                   CustomTextFormApp(
                     hintText: hintPassword,
                     isObscureText: true,
@@ -156,7 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                     },
                   ),
-                  Gap(30.h),
+                  Gap(20.h),
                   CustomButtonApp(
                     text: signUp,
                     colorText: AppColors.whiteColor,
@@ -165,7 +181,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     backgroundColor: AppColors.primaryColor,
                   ),
-                  Gap(32.h),
+                  Gap(20.h),
                   LoginOrSignUp(
                     startTitle: dontHaveAccount,
                     endTitle: "Sign In",
@@ -176,6 +192,63 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _selectedImageSectionWidget() {
+    return Stack(
+      children: [
+        viewModel.image != null
+            ? CircleAvatar(
+                radius: 64.r,
+                backgroundImage: FileImage(viewModel.image!),
+                backgroundColor: Colors.transparent,
+              )
+            : CircleAvatar(
+                radius: 64.r,
+                backgroundImage: const NetworkImage(
+                  "https://cvhrma.org/wp-content/uploads/2015/07/default-profile-photo.jpg",
+                ),
+                backgroundColor: Colors.transparent,
+              ),
+        Positioned(
+          bottom: -10.h,
+          left: 80.w,
+          child: IconButton(
+            onPressed: _selectedImage,
+            icon: Icon(
+              Icons.add_a_photo,
+              size: 28.sp,
+              color: AppColors.primaryColor,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _selectedImage() async {
+    //? creat modal bottom sheet chose image from gallery or camera
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => BottomSheetOptions(
+        onPressedCamera: () async {
+          File? temp = await ImageFunctions.cameraPicker();
+          if (temp != null) {
+            viewModel.image = temp;
+          }
+          setState(() {});
+          Navigator.pop(context);
+        },
+        onPressedGallery: () async {
+          File? temp = await ImageFunctions.galleryPicker();
+          if (temp != null) {
+            viewModel.image = temp;
+          }
+          setState(() {});
+          Navigator.pop(context);
+        },
       ),
     );
   }

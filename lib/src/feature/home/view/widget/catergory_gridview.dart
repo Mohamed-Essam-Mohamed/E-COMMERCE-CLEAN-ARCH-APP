@@ -4,6 +4,7 @@ import 'dart:ffi';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/src/animation/shimmmer_catergory_item.dart';
+import 'package:e_commerce/src/constant/image_path_const.dart';
 import 'package:e_commerce/src/domain/entities/home_entites/categoryorbrand_response_entity.dart';
 import 'package:e_commerce/src/feature/home/view/specific_product_screen.dart';
 import 'package:e_commerce/src/feature/product/view/product_screen.dart';
@@ -58,7 +59,9 @@ class _CategoryGridViewState extends State<CategoryGridView> {
               child: CachedNetworkImage(
                 imageUrl: widget.allCategoryList[index].image ?? '',
                 placeholder: (context, url) => ShimmerCatergoryItem(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                errorWidget: (context, url, error) => Image.asset(
+                  "assets/image/download.jpg",
+                ),
                 fit: BoxFit.cover,
                 height: 80.h,
                 width: 80.w,

@@ -1,6 +1,4 @@
 import 'package:e_commerce/src/animation/shimmer_producte_screen.dart';
-import 'package:e_commerce/src/domain/usecases/favorite_usecase/addtofavorite_usecase.dart';
-import 'package:e_commerce/src/domain/usecases/favorite_usecase/getallfavorite_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_catergories_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_specific_product.dart';
 import 'package:e_commerce/src/feature/product/view/product_screen.dart';
@@ -36,9 +34,7 @@ class _SpecificProductScreenState extends State<SpecificProductScreen> {
       getAllBrandsUseCases: injectGetAllBrandsUseCases(),
       allProductUseCases: injectAllProductUseCase(),
       addToCartUseCase: injectAddToCartUseCase(),
-      addFavoriteUseCase: injectAddFavoriteUseCase(),
       getProductSpecificUseCase: injectGetProductSpecificUseCases(),
-      getAllFavoriteUseCase: injectGetAllFavoriteUseCase(),
     );
   }
 

@@ -1,4 +1,9 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:bloc/bloc.dart';
+import 'package:e_commerce/src/data/firebase/app_firebase.dart';
+import 'package:e_commerce/src/data/model/firebase_model/app_user.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../data/model/request/auth_request/register_request.dart';
@@ -16,6 +21,7 @@ class RegisterViewModelCubit extends Cubit<RegisterViewModelState> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var formState = GlobalKey<FormState>();
+  File? image;
 
   RegisterUseCase registerUseCasese;
   void register() async {
@@ -30,11 +36,38 @@ class RegisterViewModelCubit extends Cubit<RegisterViewModelState> {
           rePassword: passwordController.text,
         ),
       );
+
       either.fold((l) {
         emit(RegisterViewModelError(errorMessage: l.errorMessage));
-      }, (Response) {
-        emit(RegisterViewModelSuccess(authResponseEntity: Response));
+      }, (response) async {
+        String _token = response!.token!;
+        await AppFirebase.addImageProfile(
+          childName: "profile",
+          path: image!,
+          authIdUser: _token,
+        );
+        String _imageUrl = await AppFirebase.getUrlImageProfile(
+          childName: "profile",
+          uint8List: convertImageToUint8List(image),
+          currentUser: _token,
+        );
+        AppUser _appUser = AppUser(
+          email: emailController.text,
+          fullName: nameController.text,
+          phone: "0${mobileController.text}",
+          imageUrl: _imageUrl,
+          token: _token,
+        );
+        await AppFirebase.addUser(_appUser);
+        emit(RegisterViewModelSuccess(authResponseEntity: response));
       });
     }
+  }
+
+  Uint8List convertImageToUint8List(File? image) {
+    if (image != null) {
+      return image.readAsBytesSync();
+    }
+    return Uint8List(0);
   }
 }

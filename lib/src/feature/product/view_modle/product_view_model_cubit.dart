@@ -1,8 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce/src/domain/entities/favorite_entities/get_all_favorite_response_enitiy.dart';
 import 'package:e_commerce/src/domain/entities/home_entites/categoryorbrand_response_entity.dart';
-import 'package:e_commerce/src/domain/usecases/favorite_usecase/addtofavorite_usecase.dart';
-import 'package:e_commerce/src/domain/usecases/favorite_usecase/getallfavorite_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_brand_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_catergories_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_specific_product.dart';
@@ -20,20 +17,16 @@ class ProductViewModelCubit extends Cubit<ProductViewModelState> {
   GetAllBrandUseCase getAllBrandsUseCases;
   AllProductUseCase allProductUseCases;
   AddToCartUseCase addToCartUseCase;
-  AddFavoriteUseCase addFavoriteUseCase;
   GetProductSpecificUseCase getProductSpecificUseCase;
-  GetAllFavoriteUseCase getAllFavoriteUseCase;
 
   bool checkAddProductOrNot = true;
 
   ProductViewModelCubit({
     required this.allProductUseCases,
     required this.addToCartUseCase,
-    required this.addFavoriteUseCase,
     required this.getAllCategoriesUseCases,
     required this.getAllBrandsUseCases,
     required this.getProductSpecificUseCase,
-    required this.getAllFavoriteUseCase,
   }) : super(
           ProductViewModelInitial(),
         );
@@ -65,31 +58,6 @@ class ProductViewModelCubit extends Cubit<ProductViewModelState> {
       emit(AddToCartViewModelError(errorMessage: l.errorMessage));
     }, (r) {
       emit(AddToCartViewModelSuccess());
-    });
-  }
-
-  //? Add to Favorite
-  Future<void> addToFavorite({required String productId}) async {
-    emit(AddToFavoriteViewModelLoading());
-    var either = await addFavoriteUseCase.invoke(productId: productId);
-    either.fold((l) {
-      emit(AddToFavoriteViewModelError(errorMessage: l.errorMessage));
-    }, (r) {
-      emit(AddToFavoriteViewModelSuccess());
-    });
-  }
-
-  //? get All Favorite
-  List<FavoriteDataEntity> allFavoriteList = [];
-  Future<void> getAllFavorite() async {
-    emit(GetAllFavoriteViewModelLoading());
-    var either = await getAllFavoriteUseCase.invoke();
-    either.fold((l) {
-      emit(GetAllFavoriteViewModelError(errorMessage: l.errorMessage));
-    }, (r) {
-      allFavoriteList = r.data ?? [];
-      emit(GetAllFavoriteViewModelSuccess());
-      emit(ProductViewModelInitial());
     });
   }
 

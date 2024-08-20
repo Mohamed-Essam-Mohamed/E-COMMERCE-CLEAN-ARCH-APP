@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:e_commerce/src/data/api/api_auth.dart';
 
 import '../../../../domain/entities/auth_entities/auth_response_entities.dart';
 import '../../../../domain/entities/auth_entities/fotgot_pass_response_entity.dart';
@@ -6,7 +7,7 @@ import '../../../../domain/entities/auth_entities/reset_code_response_entity.dar
 import '../../../../domain/entities/auth_entities/reset_pass_response_entity.dart';
 import '../../../../domain/repository/auth_repository/data_source/auth_remote_datasource_contract.dart';
 import '../../../../helper/failuers/failures.dart';
-import '../../../api/api_manget.dart';
+
 import '../../../model/request/auth_request/forgot_pass_request.dart';
 import '../../../model/request/auth_request/login_request.dart';
 import '../../../model/request/auth_request/register_request.dart';
@@ -14,13 +15,13 @@ import '../../../model/request/auth_request/reset_pass_request.dart';
 import '../../../model/request/auth_request/resset_code_request.dart';
 
 class AuthRemoteDataSourceImp implements AuthRemoteDataSourceContract {
-  ApiManger apiManger;
+  ApiAuth apiauth;
 
-  AuthRemoteDataSourceImp(this.apiManger);
+  AuthRemoteDataSourceImp(this.apiauth);
   @override
   Future<Either<Failure, AuthResponseEntity>> register(
       RegisterRequest registerRequest) async {
-    var either = await apiManger.register(registerRequest);
+    var either = await apiauth.register(registerRequest);
 
     return either.fold((l) {
       return Left(Failure(errorMessage: l.errorMessage));
@@ -32,7 +33,7 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSourceContract {
   @override
   Future<Either<Failure, AuthResponseEntity>> login(
       LoginRequest loginRequest) async {
-    var either = await apiManger.login(loginRequest: loginRequest);
+    var either = await apiauth.login(loginRequest: loginRequest);
     return either.fold((l) {
       return Left(Failure(errorMessage: l.errorMessage));
     }, (response) {
@@ -43,7 +44,7 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSourceContract {
   @override
   Future<Either<Failure, ForgotPasswordResponseEntity>> forgotPassword(
       ForgotPasswordRequest forgotPasswordRequest) async {
-    var either = await apiManger.forgotPassword(
+    var either = await apiauth.forgotPassword(
         forgotPasswordRequest: forgotPasswordRequest);
     return either.fold((l) {
       return Left(Failure(errorMessage: l.errorMessage));
@@ -55,7 +56,7 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSourceContract {
   @override
   Future<Either<Failure, ResetCodeResponseEntity>> resetCode(
       ResetCodeRequest resetCodeRequest) async {
-    var either = await apiManger.resetCode(resetCodeRequest: resetCodeRequest);
+    var either = await apiauth.resetCode(resetCodeRequest: resetCodeRequest);
     return either.fold((l) {
       return Left(Failure(errorMessage: l.errorMessage));
     }, (response) {
@@ -66,8 +67,8 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSourceContract {
   @override
   Future<Either<Failure, ResetPasswordResponseEntity>> resetPassword(
       ResetPasswordRequest resetPasswordRequest) async {
-    var either = await apiManger.resetPassword(
-        resetPasswordRequest: resetPasswordRequest);
+    var either =
+        await apiauth.resetPassword(resetPasswordRequest: resetPasswordRequest);
     return either.fold((l) {
       return Left(Failure(errorMessage: l.errorMessage));
     }, (response) {
@@ -77,5 +78,5 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSourceContract {
 }
 
 AuthRemoteDataSourceContract injectAuthRemoteDataSource() {
-  return AuthRemoteDataSourceImp(ApiManger.instance);
+  return AuthRemoteDataSourceImp(ApiAuth.instance);
 }

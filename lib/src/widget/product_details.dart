@@ -2,8 +2,6 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/src/animation/shimmer_producte_details.dart';
-import 'package:e_commerce/src/domain/usecases/favorite_usecase/addtofavorite_usecase.dart';
-import 'package:e_commerce/src/domain/usecases/favorite_usecase/getallfavorite_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_catergories_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/product_usecase/add_to_cart_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/product_usecase/all_product_usecase.dart';
@@ -55,15 +53,8 @@ class _ProductDetailsState extends State<ProductDetails> {
       getAllBrandsUseCases: injectGetAllBrandsUseCases(),
       allProductUseCases: injectAllProductUseCase(),
       addToCartUseCase: injectAddToCartUseCase(),
-      addFavoriteUseCase: injectAddFavoriteUseCase(),
       getProductSpecificUseCase: injectGetProductSpecificUseCases(),
-      getAllFavoriteUseCase: injectGetAllFavoriteUseCase(),
     );
-    _getAllFavoriteWating();
-  }
-
-  _getAllFavoriteWating() async {
-    await viewModel.getAllFavorite();
   }
 
   @override
@@ -77,19 +68,8 @@ class _ProductDetailsState extends State<ProductDetails> {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
-        child: BlocConsumer<ProductViewModelCubit, ProductViewModelState>(
+        child: BlocBuilder<ProductViewModelCubit, ProductViewModelState>(
           bloc: viewModel,
-          listener: (context, state) {
-            if (state is GetAllFavoriteViewModelSuccess) {
-              viewModel.allFavoriteList.forEach((element) {
-                if (element.sId == widget.argsData.id) {
-                  setState(() {
-                    isAddedToCart = true;
-                  });
-                }
-              });
-            }
-          },
           builder: (context, state) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

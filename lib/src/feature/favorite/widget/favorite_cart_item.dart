@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:e_commerce/src/domain/entities/favorite_entities/get_all_favorite_response_enitiy.dart';
 import 'package:e_commerce/src/domain/entities/product_entites/product_response_entity.dart';
 import 'package:e_commerce/src/feature/cart/view_model/cart_view_model_cubit.dart';
-import 'package:e_commerce/src/utils/dailog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';

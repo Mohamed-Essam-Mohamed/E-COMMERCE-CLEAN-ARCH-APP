@@ -1,6 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce/src/feature/cart/view_model/cart_view_model_cubit.dart';
+import 'package:e_commerce/src/helper/user_data/user_data.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+
 import '../../auth/contant_login/forget_password/view/forget_password_screen.dart';
 import '../../auth/contant_login/login/view/login_screen.dart';
-import '../../auth/register/view/register_screen.dart';
 import '../../../utils/app_text_style.dart';
 import '../../../utils/shared_preference_utils.dart';
 import 'package:gap/gap.dart';
@@ -22,6 +27,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    var bloc = BlocProvider.of<CartViewModelCubit>(context);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.h),
       child: Column(
@@ -34,87 +40,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Gap(16.h),
                 Text(
                   "Account",
-                  style: AppTextStyle.textStyle20.copyWith(
-                    fontWeight: FontWeight.w500,
+                  style: AppTextStyle.textStyle24.copyWith(
                     color: AppColors.primaryColor,
                   ),
                 ),
                 Gap(16.h),
-                Container(
-                  height: 80,
-                  padding: EdgeInsets.all(16.h),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.grey.shade200,
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 52,
-                        height: 52,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.grey.shade300,
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.person,
-                            size: 32,
-                            color: Colors.grey.shade500,
-                          ),
-                        ),
-                      ),
-                      Gap(16.h),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(LoginScreen.routeName);
-                        },
-                        child: Text(
-                          "Login",
-                          style: AppTextStyle.textStyle18
-                              .copyWith(color: Colors.blue),
-                        ),
-                      ),
-                      Text(
-                        " / ",
-                        style: AppTextStyle.textStyle18
-                            .copyWith(color: Colors.blue),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(RegisterScreen.routeName);
-                        },
-                        child: Text(
-                          "Register",
-                          style: AppTextStyle.textStyle18
-                              .copyWith(color: Colors.blue),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Gap(32),
+                const InformationUser(),
+                Gap(32.h),
                 Text(
                   "Settings",
                   style: AppTextStyle.textStyle24.copyWith(
                     color: AppColors.primaryColor,
                   ),
                 ),
-                Gap(32),
-                // _buildListTile('Appearance', Icons.dark_mode, _.theme.toCapitalized(), Colors.purple, theme, onTab: () => _showAppearanceModal(theme, _.theme));
+                Gap(32.h),
                 _buildListTile(
                   'Change Password',
                   Icons.security,
                   '',
                   Colors.orange,
                   onTab: () {
-                    Navigator.of(context)
-                        .pushNamed(ForGetPasswordScreen.routeName);
+                    DialogUtils.showMessageProfile(
+                      context: context,
+                      message: "Are you sure you want to change password",
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(ForGetPasswordScreen.routeName);
+                      },
+                    );
                   },
                 ),
-                Gap(25),
+                Gap(25.h),
                 _buildListTile(
                   'Notifications',
                   Icons.notifications_outlined,
@@ -122,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Colors.blue,
                   onTab: () {},
                 ),
-                Gap(25),
+                Gap(25.h),
                 _buildListTile(
                   'Help',
                   Icons.help,
@@ -130,25 +86,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Colors.green,
                   onTab: () {},
                 ),
-                Gap(25),
+                Gap(25.h),
                 _buildListTile(
                   'Logout',
                   Icons.exit_to_app,
                   '',
                   Colors.red,
                   onTab: () {
-                    var user = SharedPreferencesUtils.getData(key: 'Token');
-                    if (user == null) {
-                      DialogUtils.showMessage(
-                        context: context,
-                        message: 'Dont have account',
-                      );
-                    } else {
-                      SharedPreferencesUtils.removeData(key: 'Token');
-                      Navigator.of(context).pushReplacementNamed(
-                        LoginScreen.routeName,
-                      );
-                    }
+                    DialogUtils.showMessageProfile(
+                      context: context,
+                      message: "Are you sure you want to Logout",
+                      onPressed: () async {
+                        var user = SharedPreferencesUtils.getData(key: 'Token');
+                        if (user == null) {
+                          DialogUtils.showMessage(
+                            context: context,
+                            message: 'Dont have account',
+                          );
+                        } else {
+                          SharedPreferencesUtils.removeData(key: 'Token');
+                          Navigator.of(context).pushReplacementNamed(
+                            LoginScreen.routeName,
+                          );
+                        }
+
+                        await bloc.poxCart.clear();
+                        await bloc.poxFavorite.clear();
+                      },
+                    );
                   },
                 ),
               ],
@@ -211,6 +176,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
       onTap: onTab,
+    );
+  }
+}
+
+class InformationUser extends StatelessWidget {
+  const InformationUser({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var provider = Provider.of<SaveUserProvider>(context);
+    return Container(
+      height: 100.h,
+      padding: EdgeInsets.all(16.h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.grey.shade200,
+      ),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(52.h),
+            child: CachedNetworkImage(
+              height: 52.h,
+              width: 52.w,
+              fit: BoxFit.contain,
+              imageUrl: provider.user?.imageUrl ?? "",
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Container(
+                width: 52.w,
+                height: 52.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey.shade300,
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.person,
+                    size: 32,
+                    color: Colors.grey.shade500,
+                  ),
+                ),
+              ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
+          ),
+          Gap(16.h),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                provider.user?.fullName ?? "",
+                style: AppTextStyle.textStyle18.copyWith(color: Colors.blue),
+              ),
+              Gap(8.h),
+              Text(
+                provider.user?.email ?? "",
+                style: AppTextStyle.textStyle18.copyWith(color: Colors.blue),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

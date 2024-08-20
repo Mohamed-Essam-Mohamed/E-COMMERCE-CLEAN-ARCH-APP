@@ -7,6 +7,7 @@ import 'package:e_commerce/src/utils/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../domain/usecases/product_usecase/add_to_cart_usecase.dart';
 
@@ -34,6 +35,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    viewModel.close();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder(
       bloc: viewModel..getAllFavoriteHive(),
@@ -42,28 +50,35 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           padding: EdgeInsets.all(16.h),
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.75,
-            child: AnimatedList(
-              key: listKey,
-              itemBuilder: (context, index, animation) => FavoriteCartItem(
-                animation: animation,
-                favoriteDataEntity: viewModel.productFavoriteHiveList[index],
-                onPressed: () async {
-                  removeItemInListAnimation(index);
-                  await viewModel.processProductFavoriteHive(
-                    product: viewModel.productFavoriteHiveList[index],
-                    productId:
-                        viewModel.productFavoriteHiveList[index].id.toString(),
-                  );
-                  viewModel.favoriteState == FavoriteState.addedToFavorite
-                      ? DialogUtils.showSnackBar(context, 'Added to favorite')
-                      : null;
-                  viewModel.favoriteState == FavoriteState.deletedToFavorite
-                      ? DialogUtils.showSnackBar(context, 'Removed to favorite')
-                      : null;
-                },
-              ),
-              initialItemCount: viewModel.productFavoriteHiveList.length,
-            ),
+            child: viewModel.productFavoriteHiveList.isEmpty
+                ? Lottie.asset("assets/animation/impty_animation_lottie.json")
+                : AnimatedList(
+                    key: listKey,
+                    itemBuilder: (context, index, animation) =>
+                        FavoriteCartItem(
+                      animation: animation,
+                      favoriteDataEntity:
+                          viewModel.productFavoriteHiveList[index],
+                      onPressed: () async {
+                        removeItemInListAnimation(index);
+                        await viewModel.processProductFavoriteHive(
+                          product: viewModel.productFavoriteHiveList[index],
+                          productId: viewModel.productFavoriteHiveList[index].id
+                              .toString(),
+                        );
+                        viewModel.favoriteState == FavoriteState.addedToFavorite
+                            ? DialogUtils.showSnackBar(
+                                context, 'Added to favorite')
+                            : null;
+                        viewModel.favoriteState ==
+                                FavoriteState.deletedToFavorite
+                            ? DialogUtils.showSnackBar(
+                                context, 'Removed to favorite')
+                            : null;
+                      },
+                    ),
+                    initialItemCount: viewModel.productFavoriteHiveList.length,
+                  ),
           ),
         );
       },
@@ -84,25 +99,3 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     );
   }
 }
-
-/*
-
-AnimatedList(
-        key: listKey,
-        itemBuilder: (context, index, animation) => CartItem(
-          animation: animation,
-          getProduct: viewModel.productCartList[index],
-          deleteOnTap: () async {
-            removeItemInListAnimation(index);
-
-            await viewModel.deleteItemCartHive(
-              productId: viewModel.productCartList[index].product?.id ?? "",
-            );
-            await viewModel.deleteItemCart(
-              cartId: viewModel.productCartList[index].product?.id ?? "",
-            );
-          },
-        ),
-        initialItemCount: viewModel.productCartList.length,
-      ) 
-*/

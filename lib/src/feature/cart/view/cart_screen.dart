@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/domain/usecases/product_usecase/add_to_cart_usecase.dart';
 import 'package:e_commerce/src/feature/cart/view_model/cart_view_model_state.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../animation/shimmer_cart_screen.dart';
 import 'widget/cart_item.dart';
@@ -46,6 +47,12 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    viewModel.close();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBarWidget(context),
@@ -58,7 +65,7 @@ class _CartScreenState extends State<CartScreen> {
               children: [
                 Gap(15.h),
                 state is GetCartLoadingStates
-                    ? const ShimmmerCartScreen()
+                    ? const ShimmerCartScreen()
                     : state is GetCartErrorStates
                         ? Text("Wrong", style: AppTextStyle.textStyle24)
                         : _listCartsWidget(context, viewModel),
@@ -164,24 +171,27 @@ class _CartScreenState extends State<CartScreen> {
   Widget _listCartsWidget(BuildContext context, CartViewModelCubit viewModel) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.77,
-      child: AnimatedList(
-        key: listKey,
-        itemBuilder: (context, index, animation) => CartItem(
-          animation: animation,
-          getProduct: viewModel.productCartList[index],
-          deleteOnTap: () async {
-            removeItemInListAnimation(index);
+      child: viewModel.productCartList.isEmpty
+          ? Lottie.asset("assets/animation/impty_animation_lottie.json")
+          : AnimatedList(
+              key: listKey,
+              itemBuilder: (context, index, animation) => CartItem(
+                animation: animation,
+                getProduct: viewModel.productCartList[index],
+                deleteOnTap: () async {
+                  removeItemInListAnimation(index);
 
-            await viewModel.deleteItemCartHive(
-              productId: viewModel.productCartList[index].product?.id ?? "",
-            );
-            await viewModel.deleteItemCart(
-              cartId: viewModel.productCartList[index].product?.id ?? "",
-            );
-          },
-        ),
-        initialItemCount: viewModel.productCartList.length,
-      ),
+                  await viewModel.deleteItemCartHive(
+                    productId:
+                        viewModel.productCartList[index].product?.id ?? "",
+                  );
+                  await viewModel.deleteItemCart(
+                    cartId: viewModel.productCartList[index].product?.id ?? "",
+                  );
+                },
+              ),
+              initialItemCount: viewModel.productCartList.length,
+            ),
     );
   }
 

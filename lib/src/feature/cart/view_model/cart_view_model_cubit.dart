@@ -18,8 +18,6 @@ class CartViewModelCubit extends Cubit<CartStatesViewModel> {
   UpdateCuntCartUsecase updateCuntCartUseCase;
   AddToCartUseCase addToCartUseCase;
 
-  List<ProductsCartsEntity> productCartList = [];
-  List<String> productCartIdList = [];
   CartState cartState = CartState.noThing;
   FavoriteState favoriteState = FavoriteState.noThing;
   num? totalPrice = 0;
@@ -33,6 +31,8 @@ class CartViewModelCubit extends Cubit<CartStatesViewModel> {
 
   static CartViewModelCubit get(cotext) =>
       BlocProvider.of<CartViewModelCubit>(cotext);
+
+  List<ProductsCartsEntity> productCartList = [];
 
   Future<void> getAllCart() async {
     emit(GetCartLoadingStates(loadingMessage: loading));
@@ -91,12 +91,12 @@ class CartViewModelCubit extends Cubit<CartStatesViewModel> {
   Future<void> addToCartHive(
       {required String productId, required ProductDataEntity product}) async {
     await poxCart.put(productId, product);
-    getAllCartHive();
+    // getAllCartHive();
   }
 
   Future<void> deleteItemCartHive({required String productId}) async {
     await poxCart.delete(productId);
-    getAllCartHive();
+    // getAllCartHive();
   }
 
   Future<void> processProductCartHive(
@@ -141,6 +141,30 @@ class CartViewModelCubit extends Cubit<CartStatesViewModel> {
       favoriteState = FavoriteState.addedToFavorite;
       await addToFavoriteHive(productId: productId, product: product);
       emit(AddToCartViewModelSuccess());
+    }
+  }
+
+  Future<void> initDataHiveApp() async {
+    await getAllCart();
+
+    if (productCartList.isEmpty && productCartHiveList.isEmpty) {
+      return;
+    } else if (productCartHiveList.isEmpty && productCartList.isNotEmpty) {
+      for (var element in productCartList) {
+        await addToCartHive(
+          productId: element.product?.id ?? "",
+          product: ProductDataEntity(
+            id: element.product?.id ?? "",
+            title: element.product?.title ?? "",
+            sold: 3333,
+            images: [],
+            description: "",
+            price: 100,
+            imageCover: element.product?.imageCover ?? "",
+            ratingsAverage: 4.0,
+          ),
+        );
+      }
     }
   }
 }

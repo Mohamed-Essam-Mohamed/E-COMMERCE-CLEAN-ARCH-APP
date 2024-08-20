@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ShimmmerCartScreen extends StatelessWidget {
+class ShimmerCartScreen extends StatelessWidget {
   static const String routeName = "ShimmmerCartScreen";
-  const ShimmmerCartScreen({super.key});
+  const ShimmerCartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

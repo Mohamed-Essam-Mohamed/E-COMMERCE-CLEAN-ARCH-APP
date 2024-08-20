@@ -14,7 +14,7 @@ const String imageSlider2 = "assets/image/image_slider2.png";
 const String imageSlider3 = "assets/image/image_slider_3.png";
 //? imag path png catergory
 const String imageCatergory1 = "assets/image/catergory_image1.png";
-const String imageCatergory2 = "assets/image/catergory_image2.png";
+const String imageCategory2 = "assets/image/catergory_image2.png";
 const String imageCatergory3 = "assets/image/catergory_image3.png";
 const String imageCatergory4 = "assets/image/catergory_image4.png";
 const String imageCatergory5 = "assets/image/catergory_image5.png";
