@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:e_commerce/src/animation/shimmer_brands.dart';
 import 'package:e_commerce/src/animation/shimmer_home_screen.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_brand_usecase.dart';
@@ -49,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
     viewModel.close();
     viewModel.searchController.dispose();
+    log("dispose home screen");
   }
 
   @override

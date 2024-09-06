@@ -10,6 +10,7 @@ import 'package:e_commerce/src/feature/cart/view/cart_screen.dart';
 import 'package:e_commerce/src/feature/home/view/home_screen.dart';
 import 'package:e_commerce/src/feature/home/view/specific_product_screen.dart';
 import 'package:e_commerce/src/feature/navigation_bar_screen/navigation_bar_screen.dart';
+import 'package:e_commerce/src/feature/notification/view/notification_screen.dart';
 import 'package:e_commerce/src/feature/splash/splash_screen.dart';
 import 'package:e_commerce/src/utils/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,7 @@ class MaterialTokotoApp extends StatelessWidget {
         ResetPasswordScreen.routeName: (context) => ResetPasswordScreen(),
         CartScreen.routeName: (context) => CartScreen(),
         SpecificProductScreen.routeName: (context) => SpecificProductScreen(),
+        NotificationScreen.routeName: (context) => const NotificationScreen(),
       },
     );
   }

@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/feature/favorite/favorite_screen.dart';
 import 'package:e_commerce/src/feature/home/view/home_screen.dart';
+import 'package:e_commerce/src/feature/notification/view/notification_screen.dart';
 import 'package:e_commerce/src/feature/product/view/product_screen.dart';
 import 'package:e_commerce/src/feature/profile/view/profile_screen.dart';
 import 'package:e_commerce/src/helper/user_data/user_data.dart';
@@ -49,6 +50,22 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
+          actions: [
+            Badge(
+              isLabelVisible: false,
+              child: IconButton(
+                onPressed: () {
+                  //? go to notification screen
+                  Navigator.pushNamed(context, NotificationScreen.routeName);
+                },
+                icon: Icon(
+                  Icons.notifications,
+                  color: AppColors.primaryColor,
+                  size: 30.sp,
+                ),
+              ),
+            ),
+          ],
         ),
         body: SafeArea(child: screens[currentIndex]),
         bottomNavigationBar: BottomNavigationBar(
