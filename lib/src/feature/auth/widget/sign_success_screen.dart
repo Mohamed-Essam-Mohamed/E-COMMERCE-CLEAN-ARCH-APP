@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:audiofileplayer/audiofileplayer.dart';
+// import 'package:audiofileplayer/audiofileplayer.dart';
 import 'package:e_commerce/src/feature/navigation_bar_screen/navigation_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,8 +23,8 @@ class _SuccessScreenState extends State<SuccessScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    final player = Audio.load('assets/audio/success-1-6297.mp3');
-    player.play();
+    // final player = Audio.load('assets/audio/success-1-6297.mp3');
+    // player.play();
   }
 
   @override

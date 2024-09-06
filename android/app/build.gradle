@@ -27,7 +27,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.e_commerce"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -53,7 +53,7 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-
+    
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
@@ -62,6 +62,7 @@ android {
         }
     }
 }
+
 
 flutter {
     source '../..'

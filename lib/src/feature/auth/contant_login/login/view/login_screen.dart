@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables
 
-import 'package:audiofileplayer/audiofileplayer.dart';
+// import 'package:audiofileplayer/audiofileplayer.dart';
 import 'package:e_commerce/src/animation/animation_show_welcom.dart';
 import 'package:e_commerce/src/constant/string_const_app.dart';
 import 'package:e_commerce/src/domain/usecases/auth_usecases/login_usecase.dart';
@@ -48,8 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
         } else if (state is LoginViewModelSuccess) {
           DialogUtils.hideLoading(context);
           // print('${state.registerResponse?.message}');
-          final player = Audio.load('assets/audio/success-1-6297.mp3');
-          player.play();
+          // final player = Audio.load('assets/audio/success-1-6297.mp3');
+          // player.play();
           Navigator.of(context)
               .pushReplacementNamed(NavigationBarScreen.routeName);
         }
