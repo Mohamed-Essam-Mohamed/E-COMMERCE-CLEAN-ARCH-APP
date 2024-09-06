@@ -11,6 +11,9 @@ import 'package:hive_flutter/adapters.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await SharedPreferencesUtils.init();
   await Hive.initFlutter();
   Hive.registerAdapter(ProductDataEntityAdapter());
@@ -18,15 +21,11 @@ void main() async {
   await Hive.openBox<ProductDataEntity>(favoriteHive);
   String route;
   var user = SharedPreferencesUtils.getData(key: 'Token');
-
   if (user == null) {
     route = SplashScreen.routeName;
   } else {
     route = NavigationBarScreen.routeName;
   }
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   runApp(
     CommerceApp(routeName: route),
   );
