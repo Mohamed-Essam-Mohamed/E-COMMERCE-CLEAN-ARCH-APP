@@ -44,7 +44,7 @@ class ProductViewModelCubit extends Cubit<ProductViewModelState> {
         emit(GetAllProductViewModelError(errorMessage: l.errorMessage));
       },
       (r) {
-        allProductList = r.data ?? [];
+        allProductList = r.dataS ?? [];
         emit(GetAllProductViewModelSuccess());
       },
     );
@@ -105,7 +105,7 @@ class ProductViewModelCubit extends Cubit<ProductViewModelState> {
     return either.fold((l) {
       emit(GetSpecificProductViewModelError(errorMessage: l.errorMessage));
     }, (r) {
-      allProductList = r.data ?? [];
+      allProductList = r.dataS ?? [];
       emit(GetSpecificProductViewModelSuccess());
     });
   }

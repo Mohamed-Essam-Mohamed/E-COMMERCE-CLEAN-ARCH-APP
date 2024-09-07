@@ -38,6 +38,13 @@ class ProductRepositoryImp implements ProductRepository {
     return productRemoteDataSource.updateCountInCart(
         cartId: cartId, count: count);
   }
+
+  @override
+  Future<Either<Failure, ProductDataEntity>> getProductItemDetails(
+      {required String productId}) async {
+    return await productRemoteDataSource.getProductItemDetails(
+        productId: productId);
+  }
 }
 
 ProductRepository injectProductRepository() {

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/src/data/model/firebase_model/app_user.dart';
+import 'package:e_commerce/src/data/models/firebase_model/app_user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class AppFirebase {

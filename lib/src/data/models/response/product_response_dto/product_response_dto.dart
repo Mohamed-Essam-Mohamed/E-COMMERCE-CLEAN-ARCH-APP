@@ -4,7 +4,7 @@ class ProductResponseDto extends ProductResponseEntity {
   ProductResponseDto({
     super.results,
     super.metadata,
-    super.data,
+    super.dataS,
   });
 
   ProductResponseDto.fromJson(dynamic json) {
@@ -13,9 +13,9 @@ class ProductResponseDto extends ProductResponseEntity {
         ? MetadataDto.fromJson(json['metadata'])
         : null;
     if (json['data'] != null) {
-      data = [];
+      dataS = [];
       json['data'].forEach((v) {
-        data?.add(ProductDataDto.fromJson(v));
+        dataS?.add(ProductDataDto.fromJson(v));
       });
     }
   }
@@ -74,39 +74,9 @@ class ProductDataDto extends ProductDataEntity {
     updatedAt = json['updatedAt'];
     id = json['id'];
   }
-  // int? sold;
-  // List<String>? images;
-  // List<Subcategory>? subcategory;
-  // int? ratingsQuantity;
-  // String? id;
-  // String? title;
-  // String? slug;
-  // String? description;
-  // int? quantity;
-  // int? price;
-  // String? imageCover;
-  // Category? category;
-  // Brand? brand;
-  // num? ratingsAverage;
+
   String? createdAt;
   String? updatedAt;
-  // ProductDataEntity toEntity() => ProductDataEntity(
-  //       id: id,
-  //       title: title,
-  //       slug: slug,
-  //       description: description,
-  //       quantity: quantity,
-  //       price: price,
-  //       imageCover: imageCover,
-  //       ratingsAverage: ratingsAverage,
-  //       sold: sold,
-  //       images: images,
-  //       subcategory:
-  //           subcategory?.map((subcategory) => subcategory.toEntity()).toList(),
-  //       ratingsQuantity: ratingsQuantity,
-  //       brand: brand?.toEntity(),
-  //       category: category?.toEntity(),
-  //     );
 }
 
 class BrandDto extends BrandEntity {
@@ -123,16 +93,6 @@ class BrandDto extends BrandEntity {
     slug = json['slug'];
     image = json['image'];
   }
-  // String? id;
-  // String? name;
-  // String? slug;
-  // String? image;
-  // BrandEntity toEntity() => BrandEntity(
-  //       id: id,
-  //       name: name,
-  //       slug: slug,
-  //       image: image,
-  //     );
 }
 
 class CategoryDto extends CategoryEntity {
@@ -149,16 +109,6 @@ class CategoryDto extends CategoryEntity {
     slug = json['slug'];
     image = json['image'];
   }
-  // String? id;
-  // String? name;
-  // String? slug;
-  // String? image;
-  // CategoryEntity toEntity() => CategoryEntity(
-  //       id: id,
-  //       name: name,
-  //       slug: slug,
-  //       image: image,
-  //     );
 }
 
 class SubcategoryDto extends CategoryEntity {

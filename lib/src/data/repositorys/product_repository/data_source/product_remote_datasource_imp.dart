@@ -64,6 +64,17 @@ class ProductRemoteDataSourceImp implements ProductRemoteDataSource {
       return Right(r);
     });
   }
+
+  @override
+  Future<Either<Failure, ProductDataEntity>> getProductItemDetails(
+      {required String productId}) async {
+    var either = await apiManger.getProductItemDetails(productId: productId);
+    return either.fold((l) {
+      return Left(Failure(errorMessage: l.errorMessage));
+    }, (r) {
+      return Right(r.data!);
+    });
+  }
 }
 
 ProductRemoteDataSource injectProductRemoteDataSource() {

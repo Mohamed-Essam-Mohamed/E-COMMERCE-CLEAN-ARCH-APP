@@ -61,20 +61,23 @@ class _NotificationScreenState extends State<NotificationScreen> {
             BlocBuilder<NotificationViewModelCubit, NotificationViewModelState>(
           bloc: viewModel,
           builder: (context, state) {
-            if (state is NotificationViewModelLoading) {
-              return const Center(child: Text("Loading..."));
+            if (state is NotificationViewModelError) {
+              return Center(child: Text(state.message));
             }
             if (state is NotificationViewModelSuccess) {
               return viewModel.appLocalNotificationHiveList.isEmpty
                   ? _notificationScreenIsEmpty()
                   : _notificationListViewBuilder();
             }
-            return const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(),
-              ],
+            return const SizedBox(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                ],
+              ),
             );
           },
         ),
@@ -139,39 +142,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => ProductDetails(
-              argsData: ProductDataEntity(
-                id: viewModel.productItem.id,
-                title: viewModel.productItem.title,
-                price: viewModel.productItem.price,
-                description: viewModel.productItem.description,
-                category: CategoryEntity(
-                  id: viewModel.productItem.category?.id,
-                  name: viewModel.productItem.category?.name,
-                  slug: viewModel.productItem.category?.slug,
-                  image: viewModel.productItem.category?.image,
-                ),
-                imageCover: viewModel.productItem.imageCover,
-                ratingsAverage: viewModel.productItem.ratingsAverage,
-                ratingsQuantity: viewModel.productItem.ratingsQuantity,
-                sold: viewModel.productItem.sold,
-                quantity: viewModel.productItem.quantity,
-                subcategory: viewModel.productItem.subcategory
-                    ?.map((subcategory) => SubcategoryEntity(
-                          id: subcategory.id,
-                          name: subcategory.name,
-                          slug: subcategory.slug,
-                          category: subcategory.category,
-                        ))
-                    .toList(),
-                brand: BrandEntity(
-                  id: viewModel.productItem.brand?.id,
-                  name: viewModel.productItem.brand?.name,
-                  slug: viewModel.productItem.brand?.slug,
-                  image: viewModel.productItem.brand?.image,
-                ),
-                images: viewModel.productItem.images,
-                slug: viewModel.productItem.slug,
-              ),
+              argsData: viewModel.productItem!,
             ),
           ),
         );

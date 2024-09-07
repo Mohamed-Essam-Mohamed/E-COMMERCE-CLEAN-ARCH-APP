@@ -3,10 +3,10 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce/src/data/firebase/app_firebase.dart';
-import 'package:e_commerce/src/data/model/firebase_model/app_user.dart';
+import 'package:e_commerce/src/data/models/firebase_model/app_user.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../data/model/request/auth_request/register_request.dart';
+import '../../../../data/models/request/auth_request/register_request.dart';
 import '../../../../domain/entities/auth_entities/auth_response_entities.dart';
 import '../../../../domain/usecases/auth_usecases/rsegister_usecase.dart';
 

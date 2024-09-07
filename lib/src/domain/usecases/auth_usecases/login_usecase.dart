@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../data/model/request/auth_request/login_request.dart';
+import '../../../data/models/request/auth_request/login_request.dart';
 import '../../../data/repositorys/auth_repository/repository/auth_repsitory_imp.dart';
 import '../../../helper/failuers/failures.dart';
 import '../../entities/auth_entities/auth_response_entities.dart';

@@ -1,13 +1,15 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
-import 'package:e_commerce/src/data/model/response/add_cart_response_dto/addcart_response_dto.dart';
-import 'package:e_commerce/src/data/model/response/add_cart_response_dto/get_logged_cart_response_dto.dart';
-import 'package:e_commerce/src/data/model/response/categoryorbrand_response_dto/categoriesorbrand_response_dto.dart';
-import 'package:e_commerce/src/data/model/response/product_response_dto/product_response_dto.dart';
+import 'package:e_commerce/src/data/models/response/add_cart_response_dto/addcart_response_dto.dart';
+import 'package:e_commerce/src/data/models/response/add_cart_response_dto/get_logged_cart_response_dto.dart';
+import 'package:e_commerce/src/data/models/response/categoryorbrand_response_dto/categoriesorbrand_response_dto.dart';
+import 'package:e_commerce/src/data/models/response/product_response_dto/product_response_dto.dart';
+import 'package:e_commerce/src/data/models/response/product_response_dto/product_specific_dto.dart';
 import 'package:e_commerce/src/helper/failuers/failures.dart';
 import 'package:e_commerce/src/utils/shared_preference_utils.dart';
 import 'package:http/http.dart' as http;
@@ -112,21 +114,22 @@ class ApiManger {
   }
 
   //? function get product item details
-  Future<Either<Failure, ProductDataDto>> getProductItemDetails(
+  Future<Either<Failure, ProuductSpecificDataDto>> getProductItemDetails(
       {required String productId}) async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
     if (connectivityResult.contains(ConnectivityResult.mobile) ||
         connectivityResult.contains(ConnectivityResult.wifi)) {
-      Uri url = Uri.parse("https://$apiBaseUrl$apiGetAllProducts/$productId");
+      Uri url = Uri.parse(
+          "https://ecommerce.routemisr.com/api/v1/products/$productId");
       var response = await http.get(url);
 
-      var getProductResponse =
-          ProductDataDto.fromJson(jsonDecode(response.body));
+      var getDataProduct =
+          ProuductSpecificDataDto.fromJson(jsonDecode(response.body));
 
-      if (response.statusCode >= 200 && response.statusCode < 300) {
+      if (response.statusCode == 200) {
         //? success get data
-        return Right(getProductResponse);
+        return Right(getDataProduct);
       } else {
         //? Incorrect
         return Left(Failure(errorMessage: 'Error in response'));

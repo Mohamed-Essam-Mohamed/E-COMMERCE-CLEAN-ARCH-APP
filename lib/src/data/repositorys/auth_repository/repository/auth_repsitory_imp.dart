@@ -7,11 +7,11 @@ import '../../../../domain/entities/auth_entities/reset_pass_response_entity.dar
 import '../../../../domain/repository/auth_repository/data_source/auth_remote_datasource_contract.dart';
 import '../../../../domain/repository/auth_repository/repository/auth_repository_contract.dart';
 import '../../../../helper/failuers/failures.dart';
-import '../../../model/request/auth_request/forgot_pass_request.dart';
-import '../../../model/request/auth_request/login_request.dart';
-import '../../../model/request/auth_request/register_request.dart';
-import '../../../model/request/auth_request/reset_pass_request.dart';
-import '../../../model/request/auth_request/resset_code_request.dart';
+import '../../../models/request/auth_request/forgot_pass_request.dart';
+import '../../../models/request/auth_request/login_request.dart';
+import '../../../models/request/auth_request/register_request.dart';
+import '../../../models/request/auth_request/reset_pass_request.dart';
+import '../../../models/request/auth_request/resset_code_request.dart';
 import '../data_source/auth_data_source_imp.dart';
 
 class AuthRepositoryImp extends AuthRepositoryContract {

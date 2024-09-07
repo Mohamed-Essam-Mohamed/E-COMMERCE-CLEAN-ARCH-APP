@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import '../../../data/model/request/auth_request/resset_code_request.dart';
+import '../../../data/models/request/auth_request/resset_code_request.dart';
 import '../../../data/repositorys/auth_repository/repository/auth_repsitory_imp.dart';
 import '../../entities/auth_entities/reset_code_response_entity.dart';
 import '../../repository/auth_repository/repository/auth_repository_contract.dart';

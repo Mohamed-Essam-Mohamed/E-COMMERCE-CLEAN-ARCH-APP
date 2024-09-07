@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import '../../../../../data/model/request/auth_request/login_request.dart';
+import '../../../../../data/models/request/auth_request/login_request.dart';
 import '../../../../../domain/entities/auth_entities/auth_response_entities.dart';
 import '../../../../../domain/usecases/auth_usecases/login_usecase.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import '../../../../../data/model/request/auth_request/resset_code_request.dart';
+import '../../../../../data/models/request/auth_request/resset_code_request.dart';
 import '../../../../../domain/entities/auth_entities/reset_code_response_entity.dart';
 import '../../../../../domain/usecases/auth_usecases/reset_code_usecase.dart';
 import 'package:flutter/material.dart';

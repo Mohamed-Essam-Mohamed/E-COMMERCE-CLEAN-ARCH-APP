@@ -2,21 +2,25 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce/src/constant/box_hive_const.dart';
-import 'package:e_commerce/src/data/api/api_manget.dart';
-import 'package:e_commerce/src/data/model/response/product_response_dto/product_response_dto.dart';
+import 'package:e_commerce/src/domain/entities/product_entites/product_response_entity.dart';
+import 'package:e_commerce/src/domain/usecases/product_usecase/get_product_item.dart';
 import 'package:e_commerce/src/feature/notification/local_notification/app_local_notification.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 part 'notification_view_model_state.dart';
 
 class NotificationViewModelCubit extends Cubit<NotificationViewModelState> {
-  NotificationViewModelCubit() : super(NotificationViewModelInitial());
-  ProductDataDto productItem = ProductDataDto();
+  late GetProductItemUseCase getProductItemDetails;
+
+  NotificationViewModelCubit() : super(NotificationViewModelInitial()) {
+    getProductItemDetails = injectGetProductItemUseCase();
+  }
+
+  ProductDataEntity? productItem;
   //? get product details
   Future<void> productItemDetails({required String productId}) async {
     emit(NotificationViewModelLoading());
-    ApiManger apiManger = ApiManger.instance;
-    var either = await apiManger.getProductItemDetails(productId: productId);
+    var either = await getProductItemDetails.invoke(productId: productId);
     either.fold((l) {
       emit(NotificationViewModelError(message: l.errorMessage ?? "Wrong"));
     }, (r) {

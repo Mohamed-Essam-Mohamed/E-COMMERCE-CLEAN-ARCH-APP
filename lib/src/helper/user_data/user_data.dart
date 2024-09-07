@@ -1,5 +1,5 @@
 import 'package:e_commerce/src/data/firebase/app_firebase.dart';
-import 'package:e_commerce/src/data/model/firebase_model/app_user.dart';
+import 'package:e_commerce/src/data/models/firebase_model/app_user.dart';
 import 'package:e_commerce/src/utils/shared_preference_utils.dart';
 import 'package:flutter/foundation.dart';
 

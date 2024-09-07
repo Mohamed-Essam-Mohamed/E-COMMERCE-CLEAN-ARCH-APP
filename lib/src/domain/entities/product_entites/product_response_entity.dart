@@ -5,11 +5,11 @@ class ProductResponseEntity extends HiveObject {
   ProductResponseEntity({
     this.results,
     this.metadata,
-    this.data,
+    this.dataS,
   });
   int? results;
   MetadataEntity? metadata;
-  List<ProductDataEntity>? data;
+  List<ProductDataEntity>? dataS;
 }
 
 @HiveType(typeId: 1)

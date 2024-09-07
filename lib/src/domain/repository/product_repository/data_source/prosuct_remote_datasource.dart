@@ -13,4 +13,7 @@ abstract class ProductRemoteDataSource {
       {required String cartId});
   Future<Either<Failure, GetLoggedCartResponseEntity>> updateCountInCart(
       {required String cartId, required String count});
+
+  Future<Either<Failure, ProductDataEntity>> getProductItemDetails(
+      {required String productId});
 }

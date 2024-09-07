@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import '../../../data/model/request/auth_request/forgot_pass_request.dart';
+import '../../../data/models/request/auth_request/forgot_pass_request.dart';
 import '../../../data/repositorys/auth_repository/repository/auth_repsitory_imp.dart';
 import '../../entities/auth_entities/fotgot_pass_response_entity.dart';
 import '../../repository/auth_repository/repository/auth_repository_contract.dart';
