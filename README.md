@@ -7,6 +7,7 @@
 
 
 
+
 - Developed a modern e-commerce app using clean architecture principles.
 - Cubit state management, and RESTful API integration.
 - Built a highly scalable and maintainable codebase.
