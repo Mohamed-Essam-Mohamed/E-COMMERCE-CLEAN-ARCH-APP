@@ -10,6 +10,7 @@ import 'package:e_commerce/src/feature/auth/register/view/register_screen.dart';
 import 'package:e_commerce/src/feature/auth/widget/login_or_signup.dart';
 import 'package:e_commerce/src/feature/auth/widget/title_textfiel.dart';
 import 'package:e_commerce/src/feature/navigation_bar_screen/navigation_bar_screen.dart';
+import 'package:e_commerce/src/feature/notification/view_model/notification_view_model_cubit.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:e_commerce/src/utils/dailog.dart';
@@ -30,6 +31,17 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   LoginViewModelCubit viewModel =
       LoginViewModelCubit(loginUseCases: injcectLoginUseCasese());
+  @override
+  void dispose() async {
+    // TODO: implement dispose
+    super.dispose();
+    await NotificationViewModelCubit().showBasicNotification(
+      title: 'Welcome Again TOKOTO',
+      body: 'TOKOTO APP Where All New With Us',
+      id: 0,
+      payload: 'Welcome TOKOTO',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

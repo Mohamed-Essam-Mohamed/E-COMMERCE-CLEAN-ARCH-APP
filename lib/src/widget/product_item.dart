@@ -62,7 +62,6 @@ class _ProductItemState extends State<ProductItem> {
           const Spacer(),
           _reviewSectionWidget(),
           const Spacer(),
-          Gap(2.h),
         ],
       ),
     );

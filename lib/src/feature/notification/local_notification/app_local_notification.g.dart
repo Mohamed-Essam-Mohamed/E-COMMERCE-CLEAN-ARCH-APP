@@ -21,13 +21,14 @@ class AppLocalNotificationAdapter extends TypeAdapter<AppLocalNotification> {
       title: fields[1] as String,
       body: fields[2] as String,
       payload: fields[3] as String,
+      dateTime: fields[4] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, AppLocalNotification obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class AppLocalNotificationAdapter extends TypeAdapter<AppLocalNotification> {
       ..writeByte(2)
       ..write(obj.body)
       ..writeByte(3)
-      ..write(obj.payload);
+      ..write(obj.payload)
+      ..writeByte(4)
+      ..write(obj.dateTime);
   }
 
   @override

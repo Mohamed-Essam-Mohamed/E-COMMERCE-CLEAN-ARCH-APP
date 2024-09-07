@@ -57,6 +57,7 @@ dependencies:
   readmore: ^3.0.0
   shared_preferences: ^2.2.3
   shimmer: ^3.0.0
+  timeago: ^3.7.0
   timezone: ^0.9.4
   url_launcher: ^6.3.0
   workmanager: ^0.5.2

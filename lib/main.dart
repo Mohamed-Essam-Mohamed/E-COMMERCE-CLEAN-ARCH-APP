@@ -1,7 +1,6 @@
 import 'package:e_commerce/ecommerce_app.dart';
 import 'package:e_commerce/firebase_options.dart';
 import 'package:e_commerce/src/constant/box_hive_const.dart';
-import 'package:e_commerce/src/data/work_manager_service/work_manager_service.dart';
 import 'package:e_commerce/src/domain/entities/product_entites/product_response_entity.dart';
 import 'package:e_commerce/src/feature/notification/local_notification/app_local_notification.dart';
 import 'package:e_commerce/src/feature/notification/view_model/notification_view_model_cubit.dart';
@@ -18,14 +17,15 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await NotificationViewModelCubit.init();
-  await WorkManagerService.init();
   await SharedPreferencesUtils.init();
+
   await Hive.initFlutter();
   Hive.registerAdapter(ProductDataEntityAdapter());
   Hive.registerAdapter(AppLocalNotificationAdapter());
   await Hive.openBox<ProductDataEntity>(cartHive);
   await Hive.openBox<ProductDataEntity>(favoriteHive);
-  await Hive.openBox<ProductDataEntity>(notifcationHive);
+  await Hive.openBox<AppLocalNotification>(notifcationHive);
+
   String route;
   var user = SharedPreferencesUtils.getData(key: 'Token');
   if (user == null) {

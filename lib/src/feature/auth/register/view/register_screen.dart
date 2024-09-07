@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:e_commerce/src/animation/animation_show_welcom.dart';
 import 'package:e_commerce/src/feature/auth/widget/button_sheet_selected_image.dart';
 import 'package:e_commerce/src/feature/auth/widget/login_or_signup.dart';
+import 'package:e_commerce/src/feature/notification/view_model/notification_view_model_cubit.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:e_commerce/src/utils/image_fucntions.dart';
 import 'package:flutter/material.dart';
@@ -38,13 +39,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   @override
-  void dispose() {
+  void dispose() async {
     super.dispose();
     viewModel.emailController.dispose();
     viewModel.passwordController.dispose();
     viewModel.nameController.dispose();
     viewModel.mobileController.dispose();
     viewModel.close();
+    await NotificationViewModelCubit().showBasicNotification(
+      title: 'Welcome TOKOTO',
+      body: 'TOKOTO APP Where All New With Us',
+      id: 0,
+      payload: 'Welcome TOKOTO',
+    );
   }
 
   @override

@@ -13,10 +13,14 @@ class AppLocalNotification extends HiveObject {
   @HiveField(3)
   String payload;
 
+  @HiveField(4)
+  DateTime dateTime;
+
   AppLocalNotification({
     required this.id,
     required this.title,
     required this.body,
     required this.payload,
+    required this.dateTime,
   });
 }
