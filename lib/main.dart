@@ -3,6 +3,7 @@ import 'package:e_commerce/firebase_options.dart';
 import 'package:e_commerce/src/constant/box_hive_const.dart';
 import 'package:e_commerce/src/domain/entities/product_entites/product_response_entity.dart';
 import 'package:e_commerce/src/feature/notification/local_notification/app_local_notification.dart';
+import 'package:e_commerce/src/feature/notification/push_notification/app_push_notification.dart';
 import 'package:e_commerce/src/feature/notification/view_model/notification_view_model_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +14,14 @@ import 'package:hive_flutter/adapters.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   await NotificationViewModelCubit.init();
   await SharedPreferencesUtils.init();
+  await AppPushNotification().initialize();
 
   await Hive.initFlutter();
   Hive.registerAdapter(ProductDataEntityAdapter());
