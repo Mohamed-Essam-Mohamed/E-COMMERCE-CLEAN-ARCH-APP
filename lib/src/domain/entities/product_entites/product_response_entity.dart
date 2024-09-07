@@ -4,9 +4,11 @@ part 'product_response_entity.g.dart';
 class ProductResponseEntity extends HiveObject {
   ProductResponseEntity({
     this.results,
+    this.metadata,
     this.data,
   });
   int? results;
+  MetadataEntity? metadata;
   List<ProductDataEntity>? data;
 }
 
@@ -92,4 +94,18 @@ class CategoryEntity {
   String? name;
   String? slug;
   String? image;
+}
+
+class MetadataEntity {
+  MetadataEntity({
+    this.currentPage,
+    this.numberOfPages,
+    this.limit,
+    this.nextPage,
+  });
+
+  int? currentPage;
+  int? numberOfPages;
+  int? limit;
+  int? nextPage;
 }

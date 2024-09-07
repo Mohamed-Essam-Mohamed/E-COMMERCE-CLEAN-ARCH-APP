@@ -111,6 +111,31 @@ class ApiManger {
     }
   }
 
+  //? function get product item details
+  Future<Either<Failure, ProductDataDto>> getProductItemDetails(
+      {required String productId}) async {
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      Uri url = Uri.parse("https://$apiBaseUrl$apiGetAllProducts/$productId");
+      var response = await http.get(url);
+
+      var getProductResponse =
+          ProductDataDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //? success get data
+        return Right(getProductResponse);
+      } else {
+        //? Incorrect
+        return Left(Failure(errorMessage: 'Error in response'));
+      }
+    } else {
+      return Left(Failure(errorMessage: 'No Internet Connection'));
+    }
+  }
+
   //? function getBrand
   Future<Either<Failure, CategoryOrBrandResponseDto>> getAllBrands() async {
     final List<ConnectivityResult> connectivityResult =

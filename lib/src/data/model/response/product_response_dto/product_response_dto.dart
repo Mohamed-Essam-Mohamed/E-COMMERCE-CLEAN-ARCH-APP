@@ -1,59 +1,60 @@
 import '../../../../domain/entities/product_entites/product_response_entity.dart';
 
-class ProductResponseDto {
+class ProductResponseDto extends ProductResponseEntity {
   ProductResponseDto({
-    this.results,
-    this.metadata,
-    this.data,
+    super.results,
+    super.metadata,
+    super.data,
   });
 
   ProductResponseDto.fromJson(dynamic json) {
     results = json['results'];
-    metadata =
-        json['metadata'] != null ? Metadata.fromJson(json['metadata']) : null;
+    metadata = json['metadata'] != null
+        ? MetadataDto.fromJson(json['metadata'])
+        : null;
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        data?.add(ProductDataDto.fromJson(v));
       });
     }
   }
-  int? results;
-  Metadata? metadata;
-  List<Data>? data;
-  ProductResponseEntity toEntity() => ProductResponseEntity(
-        data: data?.map((data) => data.toEntity()).toList(),
-        results: results,
-      );
+  // int? results;
+  // Metadata? metadata;
+  // List<ProductDataDto>? data;
+  // ProductResponseEntity toEntity() => ProductResponseEntity(
+  //       data: data?.map((data) => data.toEntity()).toList(),
+  //       results: results,
+  //     );
 }
 
-class Data {
-  Data({
-    this.sold,
-    this.images,
-    this.subcategory,
-    this.ratingsQuantity,
-    this.id,
-    this.title,
-    this.slug,
-    this.description,
-    this.quantity,
-    this.price,
-    this.imageCover,
-    this.category,
-    this.brand,
-    this.ratingsAverage,
+class ProductDataDto extends ProductDataEntity {
+  ProductDataDto({
+    super.sold,
+    super.images,
+    super.subcategory,
+    super.ratingsQuantity,
+    super.id,
+    super.title,
+    super.slug,
+    super.description,
+    super.quantity,
+    super.price,
+    super.imageCover,
+    super.category,
+    super.brand,
+    super.ratingsAverage,
     this.createdAt,
     this.updatedAt,
   });
 
-  Data.fromJson(dynamic json) {
+  ProductDataDto.fromJson(dynamic json) {
     sold = json['sold'];
     images = json['images'] != null ? json['images'].cast<String>() : [];
     if (json['subcategory'] != null) {
       subcategory = [];
       json['subcategory'].forEach((v) {
-        subcategory?.add(Subcategory.fromJson(v));
+        subcategory?.add(SubcategoryDto.fromJson(v).toEntity());
       });
     }
     ratingsQuantity = json['ratingsQuantity'];
@@ -64,110 +65,111 @@ class Data {
     quantity = json['quantity'];
     price = json['price'];
     imageCover = json['imageCover'];
-    category =
-        json['category'] != null ? Category.fromJson(json['category']) : null;
-    brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
+    category = json['category'] != null
+        ? CategoryDto.fromJson(json['category'])
+        : null;
+    brand = json['brand'] != null ? BrandDto.fromJson(json['brand']) : null;
     ratingsAverage = json['ratingsAverage'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     id = json['id'];
   }
-  int? sold;
-  List<String>? images;
-  List<Subcategory>? subcategory;
-  int? ratingsQuantity;
-  String? id;
-  String? title;
-  String? slug;
-  String? description;
-  int? quantity;
-  int? price;
-  String? imageCover;
-  Category? category;
-  Brand? brand;
-  num? ratingsAverage;
+  // int? sold;
+  // List<String>? images;
+  // List<Subcategory>? subcategory;
+  // int? ratingsQuantity;
+  // String? id;
+  // String? title;
+  // String? slug;
+  // String? description;
+  // int? quantity;
+  // int? price;
+  // String? imageCover;
+  // Category? category;
+  // Brand? brand;
+  // num? ratingsAverage;
   String? createdAt;
   String? updatedAt;
-  ProductDataEntity toEntity() => ProductDataEntity(
-        id: id,
-        title: title,
-        slug: slug,
-        description: description,
-        quantity: quantity,
-        price: price,
-        imageCover: imageCover,
-        ratingsAverage: ratingsAverage,
-        sold: sold,
-        images: images,
-        subcategory:
-            subcategory?.map((subcategory) => subcategory.toEntity()).toList(),
-        ratingsQuantity: ratingsQuantity,
-        brand: brand?.toEntity(),
-        category: category?.toEntity(),
-      );
+  // ProductDataEntity toEntity() => ProductDataEntity(
+  //       id: id,
+  //       title: title,
+  //       slug: slug,
+  //       description: description,
+  //       quantity: quantity,
+  //       price: price,
+  //       imageCover: imageCover,
+  //       ratingsAverage: ratingsAverage,
+  //       sold: sold,
+  //       images: images,
+  //       subcategory:
+  //           subcategory?.map((subcategory) => subcategory.toEntity()).toList(),
+  //       ratingsQuantity: ratingsQuantity,
+  //       brand: brand?.toEntity(),
+  //       category: category?.toEntity(),
+  //     );
 }
 
-class Brand {
-  Brand({
-    this.id,
-    this.name,
-    this.slug,
-    this.image,
+class BrandDto extends BrandEntity {
+  BrandDto({
+    super.id,
+    super.name,
+    super.slug,
+    super.image,
   });
 
-  Brand.fromJson(dynamic json) {
+  BrandDto.fromJson(dynamic json) {
     id = json['_id'];
     name = json['name'];
     slug = json['slug'];
     image = json['image'];
   }
-  String? id;
-  String? name;
-  String? slug;
-  String? image;
-  BrandEntity toEntity() => BrandEntity(
-        id: id,
-        name: name,
-        slug: slug,
-        image: image,
-      );
+  // String? id;
+  // String? name;
+  // String? slug;
+  // String? image;
+  // BrandEntity toEntity() => BrandEntity(
+  //       id: id,
+  //       name: name,
+  //       slug: slug,
+  //       image: image,
+  //     );
 }
 
-class Category {
-  Category({
-    this.id,
-    this.name,
-    this.slug,
-    this.image,
+class CategoryDto extends CategoryEntity {
+  CategoryDto({
+    super.id,
+    super.name,
+    super.slug,
+    super.image,
   });
 
-  Category.fromJson(dynamic json) {
+  CategoryDto.fromJson(dynamic json) {
     id = json['_id'];
     name = json['name'];
     slug = json['slug'];
     image = json['image'];
   }
-  String? id;
-  String? name;
-  String? slug;
-  String? image;
-  CategoryEntity toEntity() => CategoryEntity(
-        id: id,
-        name: name,
-        slug: slug,
-        image: image,
-      );
+  // String? id;
+  // String? name;
+  // String? slug;
+  // String? image;
+  // CategoryEntity toEntity() => CategoryEntity(
+  //       id: id,
+  //       name: name,
+  //       slug: slug,
+  //       image: image,
+  //     );
 }
 
-class Subcategory {
-  Subcategory({
+class SubcategoryDto extends CategoryEntity {
+  SubcategoryDto({
     this.id,
     this.name,
     this.slug,
     this.category,
   });
 
-  Subcategory.fromJson(dynamic json) {
+  SubcategoryDto.fromJson(dynamic json) {
     id = json['_id'];
     name = json['name'];
     slug = json['slug'];
@@ -185,22 +187,22 @@ class Subcategory {
       );
 }
 
-class Metadata {
-  Metadata({
-    this.currentPage,
-    this.numberOfPages,
-    this.limit,
-    this.nextPage,
+class MetadataDto extends MetadataEntity {
+  MetadataDto({
+    super.currentPage,
+    super.numberOfPages,
+    super.limit,
+    super.nextPage,
   });
 
-  Metadata.fromJson(dynamic json) {
+  MetadataDto.fromJson(dynamic json) {
     currentPage = json['currentPage'];
     numberOfPages = json['numberOfPages'];
     limit = json['limit'];
     nextPage = json['nextPage'];
   }
-  int? currentPage;
-  int? numberOfPages;
-  int? limit;
-  int? nextPage;
+  // int? currentPage;
+  // int? numberOfPages;
+  // int? limit;
+  // int? nextPage;
 }

@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:e_commerce/src/domain/entities/product_entites/product_response_entity.dart';
 import 'package:e_commerce/src/feature/notification/local_notification/app_local_notification.dart';
 import 'package:e_commerce/src/feature/notification/view_model/notification_view_model_cubit.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
 import 'package:e_commerce/src/utils/app_text_style.dart';
+import 'package:e_commerce/src/widget/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -115,46 +117,105 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   ListView _notificationListViewBuilder() {
-    return ListView.builder(
-      reverse: true,
+    return ListView.separated(
       itemCount: viewModel.appLocalNotificationHiveList.length,
       itemBuilder: (context, index) {
         return _notificationItem(
           appLocalNotification: viewModel.appLocalNotificationHiveList[index],
         );
       },
+      separatorBuilder: (context, index) => Gap(10.h),
     );
   }
 
-  Container _notificationItem(
-      {required AppLocalNotification appLocalNotification}) {
-    return Container(
-      height: 80.h,
-      width: double.infinity,
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        color: AppColors.primaryColor,
-        borderRadius: BorderRadius.circular(15.r),
-        border: Border.all(
-          width: 1.w,
-          color: AppColors.grayColor,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            appLocalNotification.title,
-            style: AppTextStyle.textStyle20.copyWith(
-              color: AppColors.whiteColor,
-              fontWeight: FontWeight.bold,
+  Widget _notificationItem({
+    required AppLocalNotification appLocalNotification,
+  }) {
+    return InkWell(
+      onTap: () async {
+        await viewModel.productItemDetails(
+            productId: appLocalNotification.payload);
+
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ProductDetails(
+              argsData: ProductDataEntity(
+                id: viewModel.productItem.id,
+                title: viewModel.productItem.title,
+                price: viewModel.productItem.price,
+                description: viewModel.productItem.description,
+                category: CategoryEntity(
+                  id: viewModel.productItem.category?.id,
+                  name: viewModel.productItem.category?.name,
+                  slug: viewModel.productItem.category?.slug,
+                  image: viewModel.productItem.category?.image,
+                ),
+                imageCover: viewModel.productItem.imageCover,
+                ratingsAverage: viewModel.productItem.ratingsAverage,
+                ratingsQuantity: viewModel.productItem.ratingsQuantity,
+                sold: viewModel.productItem.sold,
+                quantity: viewModel.productItem.quantity,
+                subcategory: viewModel.productItem.subcategory
+                    ?.map((subcategory) => SubcategoryEntity(
+                          id: subcategory.id,
+                          name: subcategory.name,
+                          slug: subcategory.slug,
+                          category: subcategory.category,
+                        ))
+                    .toList(),
+                brand: BrandEntity(
+                  id: viewModel.productItem.brand?.id,
+                  name: viewModel.productItem.brand?.name,
+                  slug: viewModel.productItem.brand?.slug,
+                  image: viewModel.productItem.brand?.image,
+                ),
+                images: viewModel.productItem.images,
+                slug: viewModel.productItem.slug,
+              ),
             ),
           ),
-          Text(
-            appLocalNotification.body,
-            style: AppTextStyle.textStyle18,
+        );
+      },
+      child: Container(
+        height: 90.h,
+        width: double.infinity,
+        padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: AppColors.primaryColor,
+          borderRadius: BorderRadius.circular(15.r),
+          border: Border.all(
+            width: 1.w,
+            color: AppColors.grayColor,
           ),
-        ],
+        ),
+        child: Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  appLocalNotification.title,
+                  style: AppTextStyle.textStyle20.copyWith(
+                    color: AppColors.whiteColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  appLocalNotification.body,
+                  style: AppTextStyle.textStyle18,
+                ),
+              ],
+            ),
+            const Spacer(),
+            Text(
+              timeago.format(appLocalNotification.dateTime, locale: 'en_short'),
+              style: AppTextStyle.textStyle14.copyWith(
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

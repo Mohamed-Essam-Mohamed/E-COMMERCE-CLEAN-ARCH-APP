@@ -38,7 +38,7 @@ class HomeRemoteDataSourceImp implements HomeRemoteDataSource {
     return either.fold((l) {
       return Left(Failure(errorMessage: l.errorMessage));
     }, (r) {
-      return Right(r.toEntity());
+      return Right(r);
     });
   }
 }
