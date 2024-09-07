@@ -69,54 +69,6 @@ class NotificationViewModelCubit extends Cubit<NotificationViewModelState> {
     );
   }
 
-  //? scheduled notification
-  static Future<void> showScheduledNotification({
-    required int id,
-    required String payload,
-    required String body,
-    required String title,
-  }) async {
-    NotificationDetails notificationDetails = NotificationDetails(
-      android: AndroidNotificationDetails(
-        'id 2',
-        'Scheduled Notification',
-        //? show when app is in foreground
-        importance: Importance.max,
-        priority: Priority.high,
-        color: AppColors.primaryColor,
-        colorized: true,
-        enableLights: true,
-        icon: '@mipmap/ic_launcher',
-      ),
-    );
-    tz.initializeTimeZones();
-    //! get location by flutter_timezone
-    final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
-    //! update location in package timezone
-    tz.setLocalLocation(tz.getLocation(currentTimeZone));
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate = tz.TZDateTime(
-      tz.local,
-      now.year,
-      now.month,
-      now.day,
-      now.hour,
-      now.minute + 1,
-    );
-
-    await fLNotification.zonedSchedule(
-      id,
-      title,
-      body,
-      // tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)),
-      scheduledDate,
-      notificationDetails,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      payload: payload,
-    );
-  }
-
   //! functions for hive notification
   List<AppLocalNotification> appLocalNotificationHiveList = [];
   var poxNotification = Hive.box<AppLocalNotification>(notifcationHive);
