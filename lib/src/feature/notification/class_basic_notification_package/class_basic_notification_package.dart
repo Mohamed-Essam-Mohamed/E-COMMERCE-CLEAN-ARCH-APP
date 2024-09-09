@@ -56,4 +56,9 @@ class ClassBasicNotificationPackage {
       payload: payload,
     );
   }
+
+  //? close notification
+  static void cancelNotification() async {
+    await fLNotification.cancelAll();
+  }
 }

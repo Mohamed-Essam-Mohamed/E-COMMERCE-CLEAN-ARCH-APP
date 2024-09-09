@@ -1,12 +1,10 @@
-import 'dart:async';
-
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:e_commerce/src/constant/image_path_const.dart';
-import 'package:e_commerce/src/domain/entities/product_entites/product_response_entity.dart';
+import 'package:e_commerce/src/data/dummy_class/offer_product.dart';
+import 'package:e_commerce/src/utils/app_text_style.dart';
+import 'package:e_commerce/src/widget/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:gap/gap.dart';
 
 import '../../../../utils/app_colors.dart';
 
@@ -14,76 +12,138 @@ class SliderImages extends StatelessWidget {
   SliderImages({
     super.key,
   });
-  final List<String> images = [
-    imageSlider1,
-    imageSlider2,
-    imageSlider3,
-  ];
+
+  List<OfferProduct> products = OfferProduct.offerProductList();
   @override
   Widget build(BuildContext context) {
     return ImageSlideshow(
       width: double.infinity,
       height: 200.h,
-      initialPage: 0,
+      initialPage: 1,
       indicatorColor: AppColors.primaryColor,
       indicatorBackgroundColor: AppColors.grayColor,
-      autoPlayInterval: 3000,
-
+      autoPlayInterval: 5000,
       isLoop: true,
-      onPageChanged: (value) {},
-
-      children: images
+      children: products
           .map(
-            (url) => Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.r),
-                image:
-                    DecorationImage(image: AssetImage(url), fit: BoxFit.fill),
-              ),
+            (url) => SliderItemWidget(
+              productItem: url,
             ),
           )
           .toList(),
-
-      /// Called whenever the page in the center of the viewport changes.
     );
   }
 }
 
-class ContainerImaWidget extends StatelessWidget {
-  const ContainerImaWidget({super.key, required this.url});
-  final String url;
-
+class SliderItemWidget extends StatelessWidget {
+  const SliderItemWidget({
+    super.key,
+    required this.productItem,
+  });
+  final OfferProduct productItem;
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20.r),
-      child: CachedNetworkImage(
-        imageUrl: url,
-        placeholder: (context, url) => const ShimmerSliderImage(),
-        errorWidget: (context, url, error) =>
-            Image.asset('assets/image/item_2.png'),
-        width: double.infinity,
-        height: 140.h,
-        fit: BoxFit.fill,
-      ),
-    );
-  }
-}
-
-class ShimmerSliderImage extends StatelessWidget {
-  const ShimmerSliderImage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: Color.fromARGB(255, 207, 207, 207),
-      highlightColor: Color.fromARGB(255, 255, 255, 255),
-      child: ClipRRect(
+    return Container(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.r),
-        child: Container(
-          height: 160.h,
-          width: double.infinity,
-          color: Colors.grey.shade200,
+        image: DecorationImage(
+          image: AssetImage(productItem.imageCover!),
+          fit: BoxFit.fill,
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.only(top: 20.h, left: 40.w),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "UP TO",
+              style: AppTextStyle.textStyle24.copyWith(
+                fontWeight: FontWeight.bold,
+                color: productItem.isBlueColor!
+                    ? AppColors.primaryColor
+                    : Colors.white,
+                height: 0,
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: "${productItem.offerProduct}%",
+                    style: TextStyle(
+                      fontSize: 30.sp,
+                      fontWeight: FontWeight.bold,
+                      color: productItem.isBlueColor!
+                          ? AppColors.primaryColor
+                          : Colors.white,
+                      height: 0,
+                    ),
+                  ),
+                  TextSpan(
+                    text: " OFF",
+                    style: AppTextStyle.textStyle18.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: productItem.isBlueColor!
+                          ? AppColors.primaryColor
+                          : Colors.white,
+                      height: 0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              "${productItem.offerString!.split('&')[0]}",
+              style: AppTextStyle.textStyle20.copyWith(
+                fontWeight: FontWeight.w400,
+                color: productItem.isBlueColor!
+                    ? AppColors.primaryColor
+                    : Colors.white,
+                height: 0,
+              ),
+            ),
+            Text(
+              "& ${productItem.offerString!.split('&')[1]}",
+              style: AppTextStyle.textStyle20.copyWith(
+                fontWeight: FontWeight.w400,
+                color: productItem.isBlueColor!
+                    ? AppColors.primaryColor
+                    : Colors.white,
+                height: 0,
+              ),
+            ),
+            Gap(2.h),
+            MaterialButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetailsScreen(
+                      argsData: productItem,
+                      imageTest: productItem.imageCover!,
+                    ),
+                  ),
+                );
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              color: productItem.isBlueColor!
+                  ? AppColors.primaryColor
+                  : Colors.white,
+              child: Text(
+                "Shop Now",
+                style: AppTextStyle.textStyle20.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: productItem.isBlueColor!
+                      ? Colors.white
+                      : AppColors.primaryColor,
+                  height: 0,
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

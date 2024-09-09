@@ -51,23 +51,20 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
             ),
           ),
           actions: [
-            Badge(
-              isLabelVisible: false,
-              child: IconButton(
-                onPressed: () {
-                  //? go to notification screen
-                  Navigator.pushNamed(context, NotificationScreen.routeName);
-                },
-                icon: Icon(
-                  Icons.notifications,
-                  color: AppColors.primaryColor,
-                  size: 30.sp,
-                ),
+            IconButton(
+              onPressed: () {
+                //? go to notification screen
+                Navigator.of(context).pushNamed(NotificationScreen.routeName);
+              },
+              icon: Icon(
+                Icons.notifications,
+                color: AppColors.primaryColor,
+                size: 30.sp,
               ),
             ),
           ],
         ),
-        body: SafeArea(child: screens[currentIndex]),
+        body: screens[currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           type: BottomNavigationBarType.fixed,

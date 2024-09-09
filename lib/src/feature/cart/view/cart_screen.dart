@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:e_commerce/src/domain/usecases/product_usecase/add_to_cart_usecase.dart';
 import 'package:e_commerce/src/feature/cart/view_model/cart_view_model_state.dart';
 import 'package:lottie/lottie.dart';
@@ -41,7 +43,7 @@ class _CartScreenState extends State<CartScreen> {
     getDataCart();
   }
 
-  getDataCart() async {
+  void getDataCart() async {
     await viewModel.getAllCart();
     await viewModel.getAllCartHive();
   }
@@ -71,7 +73,7 @@ class _CartScreenState extends State<CartScreen> {
                         : _listCartsWidget(context, viewModel),
                 const Spacer(),
                 _checkOutWidget(),
-                Gap(20.h),
+                Gap(10.h),
               ],
             ),
           );
@@ -179,14 +181,14 @@ class _CartScreenState extends State<CartScreen> {
                 animation: animation,
                 getProduct: viewModel.productCartList[index],
                 deleteOnTap: () async {
+                  log('remove item $index');
                   removeItemInListAnimation(index);
-
+                  await viewModel.deleteItemCart(
+                    cartId: viewModel.productCartList[index].product?.id ?? "",
+                  );
                   await viewModel.deleteItemCartHive(
                     productId:
                         viewModel.productCartList[index].product?.id ?? "",
-                  );
-                  await viewModel.deleteItemCart(
-                    cartId: viewModel.productCartList[index].product?.id ?? "",
                   );
                 },
               ),
@@ -197,13 +199,12 @@ class _CartScreenState extends State<CartScreen> {
 
   void removeItemInListAnimation(int index) {
     final removedItem = viewModel.productCartList[index];
-    viewModel.productCartList.removeAt(index);
     listKey.currentState!.removeItem(
       index,
       (context, animation) => CartItem(
-        animation: animation,
         getProduct: removedItem,
-        deleteOnTap: () async {},
+        animation: animation,
+        deleteOnTap: () {},
       ),
       duration: const Duration(milliseconds: 400),
     );

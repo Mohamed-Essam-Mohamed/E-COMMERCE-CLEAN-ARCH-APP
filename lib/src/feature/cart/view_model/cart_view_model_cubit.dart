@@ -15,7 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CartViewModelCubit extends Cubit<CartStatesViewModel> {
   GetAllLoggedCartUseCase getAllLoggedCartUseCase;
   DeleteItemCartUseCase deleteItemCartUseCase;
-  UpdateCuntCartUsecase updateCuntCartUseCase;
+  UpdateCuntCartUseCase updateCuntCartUseCase;
   AddToCartUseCase addToCartUseCase;
 
   CartState cartState = CartState.noThing;
@@ -96,6 +96,7 @@ class CartViewModelCubit extends Cubit<CartStatesViewModel> {
 
   Future<void> deleteItemCartHive({required String productId}) async {
     await poxCart.delete(productId);
+    getAllCartHive();
     // getAllCartHive();
   }
 

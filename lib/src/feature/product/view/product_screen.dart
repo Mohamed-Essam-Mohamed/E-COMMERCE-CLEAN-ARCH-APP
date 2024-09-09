@@ -2,6 +2,7 @@ import 'package:e_commerce/src/animation/shimmer_producte_screen.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_all_catergories_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/home_usecase/get_specific_product.dart';
 import 'package:e_commerce/src/utils/app_colors.dart';
+import 'package:e_commerce/src/utils/app_text_style.dart';
 import 'package:e_commerce/src/widget/custom_text_form_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -132,34 +133,74 @@ class GridViewAllProduct extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.86,
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 13,
-          crossAxisSpacing: 13,
-          childAspectRatio: 0.76,
-        ),
-        itemBuilder: (context, index) => GestureDetector(
-          onTap: () async {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProductDetails(
-                  argsData: listProduct[index],
-                ),
+      child:
+          listProduct.isEmpty ? _emptyProductWidget() : _gridViewProductEmpty(),
+    );
+  }
+
+  GridView _gridViewProductEmpty() {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 13,
+        crossAxisSpacing: 13,
+        childAspectRatio: 0.76,
+      ),
+      itemBuilder: (context, index) => GestureDetector(
+        onTap: () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetailsScreen(
+                argsData: listProduct[index],
               ),
-            );
-          },
-          child: ProductItem(
-            idCart: listProduct[index].id ?? '',
-            descriptionImage: listProduct[index].title ?? '',
-            pathImage: listProduct[index].imageCover ?? '',
-            price: listProduct[index].price.toString(),
-            rating: listProduct[index].ratingsAverage ?? 0.0,
-            product: listProduct[index],
-          ),
+            ),
+          );
+        },
+        child: ProductItem(
+          idCart: listProduct[index].id ?? '',
+          descriptionImage: listProduct[index].title ?? '',
+          pathImage: listProduct[index].imageCover ?? '',
+          price: listProduct[index].price.toString(),
+          rating: listProduct[index].ratingsAverage ?? 0.0,
+          product: listProduct[index],
         ),
-        itemCount: listProduct.length,
+      ),
+      itemCount: listProduct.length,
+    );
+  }
+
+  SizedBox _emptyProductWidget() {
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            'assets/image_svg/soon-image.svg',
+            width: 300.w,
+            height: 300.h,
+            fit: BoxFit.cover,
+          ),
+          Text(
+            "Category is empty",
+            textAlign: TextAlign.center,
+            style: AppTextStyle.textStyle30.copyWith(
+              color: AppColors.primaryColor,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Gap(10.h),
+          Text(
+            "You don't have any product yet",
+            textAlign: TextAlign.center,
+            style: AppTextStyle.textStyle20.copyWith(
+              color: AppColors.grayColor,
+              fontWeight: FontWeight.w500,
+            ),
+          )
+        ],
       ),
     );
   }

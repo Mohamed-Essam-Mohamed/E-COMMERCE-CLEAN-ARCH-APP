@@ -136,7 +136,7 @@ class _FavoriteCartItemState extends State<FavoriteCartItem> {
                                   ),
                                 ),
                                 child: Text(
-                                  "it's your favorite",
+                                  "Your Favorite",
                                   style: TextStyle(
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.w500,

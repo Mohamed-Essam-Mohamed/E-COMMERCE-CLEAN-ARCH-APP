@@ -27,20 +27,22 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:readmore/readmore.dart';
 
-class ProductDetails extends StatefulWidget {
+class ProductDetailsScreen extends StatefulWidget {
   static String routeName = "ProductDetailsView";
   final ProductDataEntity argsData;
+  final String? imageTest;
 
-  const ProductDetails({
+  const ProductDetailsScreen({
     super.key,
     required this.argsData,
+    this.imageTest,
   });
 
   @override
-  State<ProductDetails> createState() => _ProductDetailsState();
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
-class _ProductDetailsState extends State<ProductDetails> {
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   late ProductViewModelCubit viewModel;
   bool isFavorite = false;
   bool isAddedToCart = false;
@@ -243,7 +245,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           indicatorColor: AppColors.primaryColor,
           indicatorBackgroundColor: AppColors.whiteColor,
           indicatorBottomPadding: 20.h,
-          autoPlayInterval: 3000,
+          autoPlayInterval: 5000,
           isLoop: true,
           children: args.images!
               .map(
@@ -261,9 +263,21 @@ class _ProductDetailsState extends State<ProductDetails> {
                       child: CachedNetworkImage(
                         imageUrl: url,
                         placeholder: (context, url) =>
-                            const ShimmerProcucteDetails(),
+                            const ShimmerProductDetails(),
                         errorWidget: (context, url, error) =>
-                            Image.asset("assets/image/item_2.png"),
+                            widget.imageTest == null
+                                ? Image.asset(
+                                    "assets/image/item_2.png",
+                                    height: double.infinity,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset(
+                                    widget.imageTest!,
+                                    height: double.infinity,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
                         height: double.infinity,
                         width: double.infinity,
                         fit: BoxFit.cover,
@@ -274,9 +288,21 @@ class _ProductDetailsState extends State<ProductDetails> {
                       child: CachedNetworkImage(
                         imageUrl: url,
                         placeholder: (context, url) =>
-                            const ShimmerProcucteDetails(),
+                            const ShimmerProductDetails(),
                         errorWidget: (context, url, error) =>
-                            Image.asset("assets/image/item_2.png"),
+                            widget.imageTest == null
+                                ? Image.asset(
+                                    "assets/image/item_2.png",
+                                    height: double.infinity,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset(
+                                    widget.imageTest!,
+                                    height: double.infinity,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
                       ),
                     ),
                   ],
@@ -288,7 +314,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  //?fucntion show image sider by AlertDialog
+  //? function show image slider by AlertDialog
   void _showImageAlert(String image) {
     showDialog(
       context: context,

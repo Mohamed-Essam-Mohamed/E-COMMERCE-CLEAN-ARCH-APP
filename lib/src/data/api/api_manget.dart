@@ -215,7 +215,7 @@ class ApiManger {
       });
 
       var getAllCartResponse =
-          GetLoggedCartResponseDto.fromJson(jsonDecode(response.body));
+          await GetLoggedCartResponseDto.fromJson(jsonDecode(response.body));
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
         //? success get data

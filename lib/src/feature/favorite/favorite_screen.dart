@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:e_commerce/src/domain/usecases/product_usecase/delete_item_cart_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/product_usecase/get_all_logged_cart_usecase.dart';
 import 'package:e_commerce/src/domain/usecases/product_usecase/update_count_cart_usecase.dart';
@@ -35,13 +37,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    viewModel.close();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder(
       bloc: viewModel..getAllFavoriteHive(),
@@ -61,20 +56,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           viewModel.productFavoriteHiveList[index],
                       onPressed: () async {
                         removeItemInListAnimation(index);
-                        await viewModel.processProductFavoriteHive(
-                          product: viewModel.productFavoriteHiveList[index],
+                        await viewModel.deleteItemFavoriteHive(
                           productId: viewModel.productFavoriteHiveList[index].id
                               .toString(),
                         );
-                        viewModel.favoriteState == FavoriteState.addedToFavorite
-                            ? DialogUtils.showSnackBar(
-                                context, 'Added to favorite')
-                            : null;
-                        viewModel.favoriteState ==
-                                FavoriteState.deletedToFavorite
-                            ? DialogUtils.showSnackBar(
-                                context, 'Removed to favorite')
-                            : null;
+                        DialogUtils.showSnackBar(
+                            context, 'Removed to favorite');
                       },
                     ),
                     initialItemCount: viewModel.productFavoriteHiveList.length,
@@ -87,7 +74,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   void removeItemInListAnimation(int index) {
     final removedItem = viewModel.productFavoriteHiveList[index];
-    viewModel.productFavoriteHiveList.removeAt(index);
     listKey.currentState!.removeItem(
       index,
       (context, animation) => FavoriteCartItem(

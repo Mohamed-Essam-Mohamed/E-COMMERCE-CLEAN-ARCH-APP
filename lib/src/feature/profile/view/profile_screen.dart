@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/src/feature/cart/view_model/cart_view_model_cubit.dart';
+import 'package:e_commerce/src/feature/notification/class_basic_notification_package/class_basic_notification_package.dart';
 import 'package:e_commerce/src/helper/user_data/user_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     var bloc = BlocProvider.of<CartViewModelCubit>(context);
+    bool valueSwitch = false;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.h),
       child: Column(
@@ -76,7 +80,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Icons.notifications_outlined,
                   '',
                   Colors.blue,
-                  onTab: () {},
+                  onTab: () {
+                    DialogUtils.showMessageProfile(
+                      context: context,
+                      message: "Are you sure cancel all notification?",
+                      onPressed: () async {
+                        ClassBasicNotificationPackage.cancelNotification();
+                        Navigator.of(context).pop();
+                        DialogUtils.showSnackBar(
+                          context,
+                          'Notification has been canceled',
+                        );
+                      },
+                    );
+                  },
                 ),
                 Gap(25.h),
                 _buildListTile(
@@ -132,8 +149,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildListTile(
-      String title, IconData icon, String trailing, Color color,
-      {onTab}) {
+    String title,
+    IconData icon,
+    String trailing,
+    Color color, {
+    onTab,
+  }) {
     return ListTile(
       contentPadding: EdgeInsets.all(0),
       leading: Container(
@@ -156,7 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           color: AppColors.blackColor,
         ),
       ),
-      trailing: Container(
+      trailing: SizedBox(
         width: 90,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -24,7 +24,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
   late NotificationViewModelCubit viewModel;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     viewModel = NotificationViewModelCubit();
     getNotificationHive();
@@ -36,9 +35,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
-    log("dispose notification screen");
   }
 
   @override
@@ -56,13 +53,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.h),
         child:
             BlocBuilder<NotificationViewModelCubit, NotificationViewModelState>(
           bloc: viewModel,
           builder: (context, state) {
             if (state is NotificationViewModelError) {
-              return Center(child: Text(state.message));
+              return Center(
+                  child: Text(
+                state.message,
+                style: AppTextStyle.textStyle30,
+              ));
             }
             if (state is NotificationViewModelSuccess) {
               return viewModel.appLocalNotificationHiveList.isEmpty
@@ -141,7 +142,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ProductDetails(
+            builder: (context) => ProductDetailsScreen(
               argsData: viewModel.productItem!,
             ),
           ),
