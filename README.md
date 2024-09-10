@@ -1,12 +1,6 @@
-![tokotoapp](https://github.com/user-attachments/assets/a4883540-4b3b-4d21-9f6a-af90b1960c19)# 🌐 E-Commerce App
-
-
-
+#TOKOTO APP
 
 ## 🚀 Getting Started
-
-
-
 
 - Developed a modern e-commerce app using clean architecture principles.
 - Cubit state management, and RESTful API integration.
