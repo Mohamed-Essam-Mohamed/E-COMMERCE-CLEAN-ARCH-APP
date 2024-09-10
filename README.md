@@ -45,23 +45,50 @@ https://github.com/Mohamed-Essam-Mohamed/E-COMMERCE-CLEAN-ARCH-APP/assets/152906
 ## 🛠 Dependencies
 
 ```pubspec.yaml
- cupertino_icons: ^1.0.2
+ dependencies:
   animated_text_kit: ^4.2.2
-  flutter_screenutil: ^5.9.0
-  flutter_bloc: ^8.1.3
-  flutter_svg: ^2.0.10+1
-  gap: ^3.0.1
-  http: ^1.2.1
-  
-  audiofileplayer: ^2.1.1
-  dartz: ^0.10.1
+  cached_network_image: ^3.3.1
+  cloud_firestore: ^4.14.0
   connectivity_plus: ^6.0.3
+  cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
+  device_info_plus: ^10.1.2
+  firebase_core: ^2.24.2
+  firebase_crashlytics: ^3.4.9
+  firebase_messaging: ^14.7.10
+  firebase_storage: ^11.6.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.3
   flutter_image_slideshow: ^0.1.6
+  flutter_local_notifications: ^17.2.2
+  flutter_screenutil: ^5.9.0
+  flutter_svg: ^2.0.10+1
+  flutter_timezone: ^3.0.1
   flutter_verification_code: ^1.1.7
+  gap: ^3.0.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  http: ^1.2.1
+  image_picker: ^1.1.2
+  lottie: ^3.1.2
+  permission_handler: ^11.3.1
+  provider: ^6.1.2
   readmore: ^3.0.0
   shared_preferences: ^2.2.3
   shimmer: ^3.0.0
-  cached_network_image: ^3.3.1
+  timeago: ^3.7.0
+  timezone: ^0.9.4
+  url_launcher: ^6.3.0
+  uuid: ^4.5.0
+  workmanager: ^0.5.2
+
+dev_dependencies:
+  build_runner: ^2.4.12
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+  hive_generator: ^2.0.1
 ```
 
 
