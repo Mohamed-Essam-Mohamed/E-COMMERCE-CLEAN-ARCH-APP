@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:e_commerce/src/data/firebase/app_firebase.dart';
 import 'package:e_commerce/src/data/models/firebase_model/app_user.dart';
+import 'package:e_commerce/src/feature/notification/class_basic_notification_package/class_basic_notification_package.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/request/auth_request/register_request.dart';
@@ -58,7 +59,14 @@ class RegisterViewModelCubit extends Cubit<RegisterViewModelState> {
           imageUrl: _imageUrl,
           token: _token,
         );
+
         await AppFirebase.addUser(_appUser);
+        await ClassBasicNotificationPackage().showBasicNotification(
+          title: 'Welcome TOKOTO',
+          body: 'TOKOTO APP Where All New With Us',
+          id: 0,
+          payload: 'Welcome TOKOTO',
+        );
         emit(RegisterViewModelSuccess(authResponseEntity: response));
       });
     }

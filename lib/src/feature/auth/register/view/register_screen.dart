@@ -45,12 +45,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     viewModel.nameController.dispose();
     viewModel.mobileController.dispose();
     viewModel.close();
-    await ClassBasicNotificationPackage().showBasicNotification(
-      title: 'Welcome TOKOTO',
-      body: 'TOKOTO APP Where All New With Us',
-      id: 0,
-      payload: 'Welcome TOKOTO',
-    );
   }
 
   @override
@@ -107,7 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: Colors.grey,
                     ),
                   ),
-                  Gap(10.h),
+                  Gap(5.h),
                   _selectedImageSectionWidget(),
                   const TitleTextField(title: fullName),
                   CustomTextFormApp(
@@ -124,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                   ),
-                  Gap(10.h),
+                  Gap(8.h),
                   const TitleTextField(title: mobileNumber),
                   CustomTextFormApp(
                     hintText: hintNumber,
@@ -139,7 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                   ),
-                  Gap(10.h),
+                  Gap(8.h),
                   const TitleTextField(title: email),
                   CustomTextFormApp(
                     hintText: hintEmail,
@@ -159,7 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                   ),
-                  Gap(10.h),
+                  Gap(8.h),
                   const TitleTextField(title: password),
                   CustomTextFormApp(
                     hintText: hintPassword,
@@ -178,7 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                     },
                   ),
-                  Gap(20.h),
+                  Gap(15.h),
                   CustomButtonApp(
                     text: signUp,
                     colorText: AppColors.whiteColor,
@@ -187,7 +181,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     backgroundColor: AppColors.primaryColor,
                   ),
-                  Gap(20.h),
+                  Gap(15.h),
                   LoginOrSignUp(
                     startTitle: dontHaveAccount,
                     endTitle: "Sign In",

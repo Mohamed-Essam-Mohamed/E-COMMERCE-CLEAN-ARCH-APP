@@ -6,7 +6,10 @@ import 'package:e_commerce/src/feature/notification/class_basic_notification_pac
 import 'package:e_commerce/src/feature/notification/local_notification/app_local_notification.dart';
 import 'package:e_commerce/src/feature/notification/push_notification/app_push_notification.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'src/feature/navigation_bar_screen/navigation_bar_screen.dart';
 import 'src/feature/splash/splash_screen.dart';
 import 'src/utils/shared_preference_utils.dart';
@@ -14,11 +17,21 @@ import 'package:hive_flutter/adapters.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  //   statusBarBrightness: Brightness.light,
+  //   statusBarIconBrightness: Brightness.dark,
+  //   statusBarColor: Colors.transparent,
+  // ));
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  FlutterError.onError = (details) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(details);
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack);
+    return true;
+  };
   await Hive.initFlutter();
   Hive.registerAdapter(ProductDataEntityAdapter());
   Hive.registerAdapter(AppLocalNotificationAdapter());

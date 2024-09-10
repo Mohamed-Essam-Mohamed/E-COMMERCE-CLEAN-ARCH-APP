@@ -35,12 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() async {
     // TODO: implement dispose
     super.dispose();
-    await ClassBasicNotificationPackage().showBasicNotification(
-      title: 'Welcome Again TOKOTO',
-      body: 'TOKOTO APP Where All New With Us',
-      id: 0,
-      payload: 'Welcome TOKOTO',
-    );
   }
 
   @override

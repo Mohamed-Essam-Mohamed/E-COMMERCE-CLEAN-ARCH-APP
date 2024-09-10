@@ -150,7 +150,7 @@ class ContainerFlagWidget extends StatelessWidget {
             ),
             Text(
               '+20',
-              style: TextStyle(fontSize: 20.sp),
+              style: TextStyle(fontSize: 18.sp),
             )
           ],
         ),

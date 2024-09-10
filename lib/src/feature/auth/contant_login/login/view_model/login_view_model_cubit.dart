@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:e_commerce/src/feature/notification/class_basic_notification_package/class_basic_notification_package.dart';
 import '../../../../../data/models/request/auth_request/login_request.dart';
 import '../../../../../domain/entities/auth_entities/auth_response_entities.dart';
 import '../../../../../domain/usecases/auth_usecases/login_usecase.dart';
@@ -21,8 +22,14 @@ class LoginViewModelCubit extends Cubit<LoginViewModelState> {
           email: emailController.text, password: passwordController.text));
       return either.fold((l) {
         emit(LoginViewModelError(errorMessage: l.errorMessage));
-      }, (Response) {
-        emit(LoginViewModelSuccess(authResponseEntity: Response));
+      }, (response) async {
+        await ClassBasicNotificationPackage().showBasicNotification(
+          title: 'Welcome Again TOKOTO',
+          body: 'TOKOTO APP Where All New With Us',
+          id: 0,
+          payload: 'Welcome TOKOTO',
+        );
+        emit(LoginViewModelSuccess(authResponseEntity: response));
       });
     }
   }

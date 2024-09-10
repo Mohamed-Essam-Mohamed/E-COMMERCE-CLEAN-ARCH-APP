@@ -52,7 +52,7 @@ class SliderItemWidget extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.only(top: 20.h, left: 40.w),
+        padding: EdgeInsets.only(top: 15.h, left: 40.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,7 +114,7 @@ class SliderItemWidget extends StatelessWidget {
                 height: 0,
               ),
             ),
-            Gap(2.h),
+            Gap(1.h),
             MaterialButton(
               onPressed: () {
                 Navigator.of(context).push(

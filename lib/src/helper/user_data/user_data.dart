@@ -12,8 +12,7 @@ class SaveUserProvider extends ChangeNotifier {
   }
   initUser() async {
     if (user == null) {
-      user = await AppFirebase.getUser(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzI0MDg4ZWQwZGMwMDE2YzlkMGUyOCIsIm5hbWUiOiJNb2hhbWVkIEVzYW0iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNDAwNjUzNiwiZXhwIjoxNzMxNzgyNTM2fQ.LngDKpOzBs9xSboj2VAEPUI04nEHHI03aiwflyzBeXA");
+      user = await AppFirebase.getUser(token);
       notifyListeners();
     }
   }
