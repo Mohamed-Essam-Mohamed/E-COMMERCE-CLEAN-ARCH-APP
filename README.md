@@ -40,7 +40,7 @@
 
 
 ## 📱 UI
-
+<img width="3577" alt="tokoto screens" src="https://github.com/user-attachments/assets/e4dda60e-28f2-4ba3-b8ef-bea8a7505136">
 
 
 ## 🎥 Video
