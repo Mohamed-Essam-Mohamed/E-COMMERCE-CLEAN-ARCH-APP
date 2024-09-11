@@ -2,18 +2,19 @@
 
 ## 🚀 Getting Started
 
-- Developed a modern e-commerce app using clean architecture principles.
-- Cubit state management, and RESTful API integration.
-- Built a highly scalable and maintainable codebase.
-- ensuring efficient data flow and a seamless shopping experience.
+- Developed a modern e-commerce app using Clean Architecture principles(Presentation-Domain-Data).
+- Cubit state management(Presentaion lyer).
+- RESTful API integration(Sign up, Sign in, reset the password, forgot password, verify reset code, get all categories, get all Brands, get all products, get specific Products, add to carts, remove in cart.
+- Firebase (Authentication - Cloud Firestore - Cloud Messaging - Cloud Storage - Crashlytics - Analytics )
+- Push notification topic by API postman and local notification schedule. 
 - I use shared preference to save, get, and remove the token
-- Ease of use for the user and easy access to products
+- I use the Hive package to save my favorite Products Reduce the loading process, make the application more flexible and notifications.
   
 
   
 ## 🤳 Screens
 
-- **Splash Screen:** Adding a splash screen by timer. 
+- **Onboarding Screen:** welcome app to user. 
 - **Login screen:** The user can log in directly if he already has an account.
 - **ForGet password:** If the user already has an account, he can write his own email and a confirmation code will be sent to this email, and if he already has this email, the old account will be removed and the password renewed.
 - **Register Screen:** If the user does not have an account, he can create his own email account and log in to the Login screen.
@@ -21,7 +22,7 @@
 - **Product Screen:** It displays all the products available in the API and the user can search for his product when clicking on the product, the data of this product is displayed and his favorite products can be selected and also added to his purchases for later purchase.
 - **Wishlist screen:** Displays all the products that have been placed in it and the number of the product can be increased and cleared.
 - **Favorite Screen:** View the products you Favorite.
-- **Profile Screen:** The user can log out of the application and also can change his password.
+- **Profile Screen:** The user can log out of the application change his password and data user image email name and close notifications.
   
 
 
@@ -32,13 +33,13 @@
 ![ecommerce-structure](https://github.com/Mohamed-Essam-Mohamed/E-COMMERCE-CLEAN-ARCH-APP/assets/152906492/65d57185-4200-45eb-9290-7f0d3af4066c)
 
 
-
+## 🎥 Video
 ## 📱 UI
 <img width="3577" alt="tokoto screens" src="https://github.com/user-attachments/assets/e4dda60e-28f2-4ba3-b8ef-bea8a7505136">
 
 
-## 🎥 Video
-https://github.com/Mohamed-Essam-Mohamed/E-COMMERCE-CLEAN-ARCH-APP/assets/152906492/ab9d64d7-5fd2-46d2-b9cf-937ed0bcf2d1
+
+
 
 
 
