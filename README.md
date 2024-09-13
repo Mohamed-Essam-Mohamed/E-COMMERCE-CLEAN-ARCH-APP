@@ -1,4 +1,4 @@
-#TOKOTO APP
+# TOKOTO APP
 
 ## 🚀 Getting Started
 
@@ -27,13 +27,16 @@
 
 
 
-
-
 ## 📁 Files Structure
-![ecommerce-structure](https://github.com/Mohamed-Essam-Mohamed/E-COMMERCE-CLEAN-ARCH-APP/assets/152906492/65d57185-4200-45eb-9290-7f0d3af4066c)
-
+![20240913_191729](https://github.com/user-attachments/assets/b1bfc5c0-3ab2-4f12-b1ef-573ed3580a83)
 
 ## 🎥 Video
+
+## app demo 
+https://github.com/user-attachments/assets/545a56ad-2706-4c46-b05c-8f6f58953d33
+## push notification topic
+https://github.com/user-attachments/assets/88afdff9-9cda-43b8-a511-2995be07983f
+
 ## 📱 UI
 <img width="3577" alt="tokoto screens" src="https://github.com/user-attachments/assets/e4dda60e-28f2-4ba3-b8ef-bea8a7505136">
 
